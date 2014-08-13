@@ -1,0 +1,43 @@
+<tr {{bind-attr class="view.color"}}>
+  <td>{{input type="checkbox" checked=selected}}</td>
+  <td>{{id}}</td>
+  <td>{{title}}</td>
+  <td>{{fullName}}</td>
+  <td>{{email}}</td>
+  <td>{{phone}}</td>
+  <td>{{section}}</td>
+  <td>{{coverageType}}</td>
+  <td>{{toDate dueDate}}</td>
+  <td>{{dueTime}}</td>
+  <td>
+    <a style="text-decoration:none" class="glyphicon glyphicon-list" data-toggle="collapse" data-parent="#accordion" {{bind-attr href="view.href"}}></a>
+  </td>
+</tr>
+<tr>
+  <td colspan="11" style="padding: 0; text-align: left">
+    <div {{bind-attr id="view.id"}} class="panel-collapse collapse">
+      <div class="panel-body">
+        <dl class="dl-horizontal">
+          <dt>Contact Information</dt>
+          <dd>{{contact}}</dd>
+          <dt>Details</dt>
+          <dd>{{details}}</dd>
+          {{#if view.eventLoc}}
+          <dt>Event Location</dt>
+          <dd>{{view.eventLoc}}<dd>
+          {{/if}}
+          {{#if view.eventDate}}
+          <dt>Date</dt>
+          <dd>{{view.eventDate}}<dd>
+          {{/if}}
+          {{#if view.eventTime}}
+          <dt>Time</dt>
+          <dd>{{view.eventTime}}<dd>
+          {{/if}}
+        </dl>
+
+        <em style="padding-left:30px;" class="text-muted">Assigned on {{toDate timestamp}}</em>
+      </div>
+    </div>
+  </td>
+</tr>

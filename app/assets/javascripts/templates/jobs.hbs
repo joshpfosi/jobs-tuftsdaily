@@ -1,0 +1,35 @@
+<div id="jobs">
+  <span class="pull-left">
+    <h4>Current Jobs</h4>
+    {{view Ember.Select class="form-control" content=filters optionLabelPath="content.name" optionValuePath="content.state" value=filter}}
+  </span>
+  <span class="pull-right">
+    <span id="daily-select">
+    {{view Ember.Select class="form-control" content=daily_members optionLabelPath="content.name" value=selectedDailyEmail optionValuePath="content.email" prompt="Select a Daily member to assign"}}
+    </span>
+    <button {{bind-attr class=":btn :btn-info :glyphicon :glyphicon-envelope isMailable:disabled"}}></button>
+    <button {{bind-attr class=":btn :btn-warning :glyphicon :glyphicon-pencil isSelectedJobs:disabled"}}></button>
+    <button {{action "markRejected"}} {{bind-attr class=":btn :btn-danger :glyphicon :glyphicon-trash isSelectedJobs:disabled"}}></button>
+    <button {{action "markCompleted"}} {{bind-attr class=":btn :btn-success :glyphicon :glyphicon-ok isSelectedJobs:disabled"}}></button>
+  </span>
+  <div class="table-responsive">
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th></th>
+        <th>#</th>
+        <th>Title</th>
+        <th>Full Name</th>
+        <th>Email</th>
+        <th>Phone</th>
+        <th>Section</th>
+        <th>Coverage</th>
+        <th>Due Date</th>
+        <th>Due Time</th>
+        <th>Details</th>
+      </tr>
+    </thead>
+      {{collection App.JobsCollection}}
+  </table>
+  </div>
+</div>

@@ -1,0 +1,2 @@
+module DailyMemberHelper
+end

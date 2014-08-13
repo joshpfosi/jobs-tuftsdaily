@@ -1,0 +1,14 @@
+<div class="page-wrap">
+  <div class="container">
+    <div class="nav">
+      {{#link-to "index"}}<img class="pull-left" src="/assets/logo.png" alt="Tufts Daily Header Image"/>{{/link-to}}
+      {{#link-to "jobs"}}<button style="color: white" class="pull-right btn btn-success">Sign In</button>{{/link-to}}
+      <!--<button {{action "signIn"}} class="pull-right btn btn-success">Sign In</button>-->
+    </div>
+    {{outlet}}
+  </div>
+</div>
+
+<footer class="site-footer">
+  <p class="text-muted credit">Designed and Developed by Joshua Pfosi</p>
+</footer>
