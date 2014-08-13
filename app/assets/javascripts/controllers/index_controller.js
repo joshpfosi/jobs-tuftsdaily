@@ -5,8 +5,10 @@ App.IndexController = Em.ObjectController.extend({
       var that = this;
       var isValid = validate(this, this.get('validations'));
       if (isValid) {
-        model.save();
-        that.set('model', that.store.createRecord('job'));
+        model.save().then(function() {
+          console.log('successfully saved');
+          that.set('model', that.store.createRecord('job'));
+        });
       }
     }
   },
