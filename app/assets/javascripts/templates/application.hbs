@@ -4,10 +4,13 @@
       {{#link-to "index"}}<img class="pull-left" src="/assets/logo.png" alt="Tufts Daily Header Image"/>{{/link-to}}
       {{#link-to "jobs"}}<button style="color: white" class="pull-right btn btn-success">Sign In</button>{{/link-to}}
       <!--<button {{action "signIn"}} class="pull-right btn btn-success">Sign In</button>-->
+      <!-- throw in some notifications for different things -->
+      {{bs-notifications style="z-index: 1000; position: fixed; width: 50%; left: 0; right: 0; margin-left: auto; margin-right: auto; margin-top: 50px;"}}
     </div>
     {{outlet}}
   </div>
 </div>
+
 
 <footer class="site-footer">
   <p class="text-muted credit">Designed and Developed by Joshua Pfosi</p>

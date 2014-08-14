@@ -1,7 +1,7 @@
 App.JobsController = Em.ObjectController.extend({
   newDailyMemberModalButtons: [
     Ember.Object.create({title: 'Create', clicked: 'createDailyMember'}),
-    Ember.Object.create({title: 'Cancel', clicked: 'cancel', dismiss: 'modal'})
+    Ember.Object.create({title: 'Cancel', clicked: 'closeDailyMemberModal', dismiss: 'modal'})
   ],
   mailButtons: [
       Ember.Object.create({title: 'Submit', clicked:"mailJob"}),
@@ -10,8 +10,6 @@ App.JobsController = Em.ObjectController.extend({
   selectedJobs: Em.computed.filterBy('jobs', 'selected'),
   selectedDailyMember: null,
   isSelectedJobs: Em.computed.empty('selectedJobs'),
-  isDailyEmail: Em.computed.empty('selectedDailyMember'),
-  isMailable: Em.computed.or('isSelectedJobs', 'isDailyEmail'),
   filteredJobs: function() {
     var jobs = this.get('jobs'), filter = this.get('filter');
     return (filter !== null) ? jobs.filterBy('state', filter) : jobs;
@@ -26,7 +24,7 @@ App.JobsController = Em.ObjectController.extend({
 
   actions: {
     showNewDailyMember: function() { return Bootstrap.ModalManager.show('newDailyMember'); },
-    cancel: function() {
+    closeDailyMemberModal: function() {
       this.set('name', '');
       this.set('email', '');
       this.set('phone', '');
@@ -53,30 +51,25 @@ App.JobsController = Em.ObjectController.extend({
       //}
     },
     markRejected: function() {
-      console.log(this.get('selectedJobs'));
-      this.get('selectedJobs').map(function(job) {
-        console.log(job);
-        job.set('selected', false);
-        job.set('state', 2);
+      this.get('selectedJobs').slice().map(function(job) {
+        job.set('selected', false); job.set('state', 2);
       });
     },
     markCompleted: function() {
-      this.get('selectedJobs').map(function(job) {
-        job.set('selected', false);
-        job.set('state', 3);
+      this.get('selectedJobs').slice().map(function(job) {
+        job.set('selected', false); job.set('state', 3);
       });
     },
     mailJob: function() {
       // TODO needs validation
-      var that = this;
-      var job = this.get('selectedJobs').slice(-1)[0],
+      var that = this,
+          job = this.get('selectedJobs').slice(-1)[0], // close the last opened modal
           member = this.get('selectedDailyMember'),
-          email = (member === null) ? this.get('email') : member.email;
-      console.log(email);
-      var data = { email:   email,
+          email = (member === null) ? this.get('email') : member.email,
+          data = { email:   email,
                    subject: this.get('subject'),
-                   body:    this.get('body')
-      };
+                   body:    this.get('body') };
+
       $.ajax({
         type: "POST",
         url: '/mail_job',
@@ -88,31 +81,29 @@ App.JobsController = Em.ObjectController.extend({
           job.set('state', 1); // assign it
           //member.get('jobs').pushObject(job);
           //member.save();
-          return Bootstrap.ModalManager.close('mailModal' + job.get('id'));
+          return Bootstrap.NM.push('Successfully sent email to ' + email + ' regarding job ' + job.get('title') + '.', 'success');
         },
         error: function(response) {
-          console.log('mailer failed');
-          console.log(response);
+          return Bootstrap.NM.push('Failed to send email to ' + email + ' regarding job ' + job.get('title') + '.', 'danger');
         },
         dataType: 'json'
       });
+      return Bootstrap.ModalManager.close('mailModal' + job.get('id'));
       // TODO disable submit button when sending mail
     },
     createMailModal: function() {
-      //@property {string} The name of the modal, required later to close the modal (see submitManual function above)
-      //@property {string} The title of the modal.
-      //@property {string} The template name to render within the modal body, a View class may also be specified.
-      //@property {array} Array of Button meta data
-      //@property {object} The controller instance that instantiate the modal.
+      // if daily member selected, populate email field w/ their email
+      if (this.get('selectedDailyMember') !== null)
+        this.set('email', this.get('selectedDailyMember.email'));
+
       // for each selected job open a modal
       var that = this;
       this.get('selectedJobs').forEach(function(job) {
-        // note unique modal name, so closing multiple is possible
-        Bootstrap.ModalManager.open('mailModal' + job.get('id'), 'Send Mail for Job #' + job.get('id'), 'mail_job', that.mailButtons, that);
+        // note unique modal name, so closing multiple modals is possible
+        Bootstrap.ModalManager.open('mailModal' + job.get('id'), 'Send Mail for Job #' + job.get('title'), 'mail_job', that.mailButtons, that);
       });
     },
     closeMailModal: function() {
-      this.set('email', null);
       this.set('subject', '');
       this.set('body', '');
     }
