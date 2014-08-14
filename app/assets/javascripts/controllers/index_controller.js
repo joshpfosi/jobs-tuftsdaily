@@ -1,8 +1,13 @@
 App.IndexController = Em.ObjectController.extend({
   sections: ['Sports', 'Features', 'News'],
+  coverageTypes: ['Head Shot', 'Other'],
+  isOther: Em.computed.equal('coverageType', 'Other'),
+  
   actions: {
     save: function(model) {
       var that = this;
+      if (this.get('isOther'))
+        this.set('coverageType', this.get('coverageTypeOther'));
       if (validate(this, this.get('validations'))) {
         model.save().then(function() {
           console.log('successfully saved');

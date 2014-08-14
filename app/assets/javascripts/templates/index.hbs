@@ -28,13 +28,6 @@
         <span class="help-block">{{errors.phone}}</span>
       {{/if}}
     </div>
-    <div {{bind-attr class=":form-group errors.contact:has-error"}}>
-      <label class="control-label" for="contact">Contact Information*</label>
-      {{view Ember.TextArea classNames="form-control" value=contact placeholder="Enter your contact information..." rows="2"}}
-      {{#if errors.contact}}
-        <span class="help-block">{{errors.contact}}</span>
-      {{/if}}
-    </div>
     <div {{bind-attr class=":form-group errors.section:has-error"}}>
       <label class="control-label" for="section">Section*</label>
       {{view Ember.Select classNames="form-control" content=sections value=section prompt="Select a Daily section"}}
@@ -44,9 +37,20 @@
     </div>
     <div {{bind-attr class=":form-group errors.coverageType:has-error"}}>
       <label class="control-label" for="coverageType">Coverage Type*</label>
-      {{view Ember.TextField classNames="form-control" value=coverageType placeholder="Enter the kind of coverage..."}}
+      {{#if isOther}}
+        {{view Ember.TextField classNames="form-control" value=coverageTypeOther placeholder="Enter the kind of coverage..."}}
+      {{else}}
+        {{view Ember.Select classNames="form-control" content=coverageTypes value=coverageType placeholder="Select a coverage type"}}
+      {{/if}}
       {{#if errors.coverageType}}
         <span class="help-block">{{errors.coverageType}}</span>
+      {{/if}}
+    </div>
+    <div {{bind-attr class=":form-group errors.contact:has-error"}}>
+      <label class="control-label" for="contact">Contact Information for Subject*</label>
+      {{view Ember.TextArea classNames="form-control" value=contact placeholder="Enter the subject's contact information..." rows="2"}}
+      {{#if errors.contact}}
+        <span class="help-block">{{errors.contact}}</span>
       {{/if}}
     </div>
     <div {{bind-attr class=":form-group errors.dueDate:has-error"}}>

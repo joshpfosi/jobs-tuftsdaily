@@ -8,7 +8,7 @@
   </span>
   <span class="pull-right">
     <span id="daily-select">
-    {{view Ember.Select class="form-control" content=daily_members optionLabelPath="content.name" value=selectedDailyMember optionValuePath="content.email" prompt="Select a Daily member to assign"}}
+    {{view Ember.Select class="form-control" content=daily_members optionLabelPath="content.name" value=selectedDailyMember prompt="Select a Daily member to assign"}}
     </span>
     <button {{action "createMailModal"}} {{bind-attr class=":btn :btn-info :glyphicon :glyphicon-envelope isSelectedJobs:disabled"}}></button>
     <button {{action "markRejected"}} {{bind-attr class=":btn :btn-danger :glyphicon :glyphicon-trash isSelectedJobs:disabled"}}></button>

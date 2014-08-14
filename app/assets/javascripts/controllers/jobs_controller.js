@@ -75,7 +75,6 @@ App.JobsController = Em.ObjectController.extend({
         url: '/mail_job',
         data: data,
         success: function(response) {
-          console.log('mailer succeeded');
           that.send('closeMailModal'); // clear the input fields
           job.set('selected', false); // uncheck the check box
           job.set('state', 1); // assign it
@@ -95,6 +94,8 @@ App.JobsController = Em.ObjectController.extend({
       // if daily member selected, populate email field w/ their email
       if (this.get('selectedDailyMember') !== null)
         this.set('email', this.get('selectedDailyMember.email'));
+      else
+        this.set('email', '');
 
       // for each selected job open a modal
       var that = this;
