@@ -1,3 +1,5 @@
+// TODO if its a reject, use the same createMailModal, but different mailButtons - such that the Submit mail button triggers mailJobReject instead of mailJobAssign
+// and the templates are right (use a flag sent to openMailModal to choose which to use in each instance
 App.JobsController = Em.ObjectController.extend({
   newDailyMemberModalButtons: [
     Ember.Object.create({title: 'Create', clicked: 'createDailyMember'}),
@@ -43,11 +45,15 @@ App.JobsController = Em.ObjectController.extend({
 
         var that = this;
         newMember.save().then(function() {
+          Bootstrap.NM.push('Succesfully added ' + this.get('name') + '.', 'success');
           that.set('name', '');
           that.set('email', '');
           that.set('phone', '');
           that.set('position', '');
+        }, function() {
+          return Bootstrap.NM.push('Failed to add ' + this.get('name') + '.', 'danger');
         });
+        return Bootstrap.ModalManager.close('mailModal' + job.get('id'));
       //}
     },
     markRejected: function() {
@@ -63,16 +69,17 @@ App.JobsController = Em.ObjectController.extend({
     mailJob: function() {
       // TODO needs validation
       var that = this,
-          job = this.get('selectedJobs').slice(-1)[0], // close the last opened modal
+          job = this.get('selectedJobs')[0],
           member = this.get('selectedDailyMember'),
-          email = (member === null) ? this.get('email') : member.email,
+          email = this.get('email'),
           data = { email:   email,
                    subject: this.get('subject'),
                    body:    this.get('body') };
+      console.log(email); // debugging
 
       $.ajax({
         type: "POST",
-        url: '/mail_job',
+        url: '/mail_job?type=assigned',
         data: data,
         success: function(response) {
           that.send('closeMailModal'); // clear the input fields
@@ -92,17 +99,20 @@ App.JobsController = Em.ObjectController.extend({
     },
     createMailModal: function() {
       // if daily member selected, populate email field w/ their email
-      if (this.get('selectedDailyMember') !== null)
-        this.set('email', this.get('selectedDailyMember.email'));
+      var job = this.get('selectedJobs')[0].get('data'), member = this.get('selectedDailyMember.data'),
+          name = "Enter a name";
+      if (member !== null) {
+        this.set('email', member.email);
+        name = member.name;
+      }
       else
         this.set('email', '');
 
-      // for each selected job open a modal
-      var that = this;
-      this.get('selectedJobs').forEach(function(job) {
-        // note unique modal name, so closing multiple modals is possible
-        Bootstrap.ModalManager.open('mailModal' + job.get('id'), 'Send Mail for Job #' + job.get('title'), 'mail_job', that.mailButtons, that);
-      });
+      var deadline = job.dueDate + " " + job.dueTime;
+      this.set('subject', generateSubject(job.coverageType, deadline));
+      this.set('body', generateBody(name, job.coverageType, job.contact, deadline, job.loc, job.time, job.details));
+
+      Bootstrap.ModalManager.open('mailModal' + job.id, 'Send Mail for Job #' + job.title, 'mail_job', this.mailButtons, this);
     },
     closeMailModal: function() {
       this.set('subject', '');
