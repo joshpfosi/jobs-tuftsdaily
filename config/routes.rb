@@ -8,4 +8,5 @@ Rails.application.routes.draw do
 
   post '/jobs'             => 'jobs#create'
   post '/daily_members'    => 'daily_members#create'
+  post 'mail_job'          => 'mail_job#create'
 end

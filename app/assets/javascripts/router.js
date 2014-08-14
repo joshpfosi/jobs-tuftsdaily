@@ -2,4 +2,5 @@
 
 App.Router.map(function() {
   this.route('jobs');
+  this.resource('mail_job');
 });

@@ -1,0 +1,17 @@
+<form role="form">
+  <div {{bind-attr class=":form-group errors.email:has-error"}}>
+    <label for="email">To:</label>
+    {{view Ember.TextField classNames="form-control" value=email placeholder="Enter an email..."}}
+    {{#if errors.toEmail}}
+      <span class="help-block">{{errors.toEmail}}</span>
+    {{/if}}
+  </div>
+  <div class="form-group">
+    <label for="subject">Subject:</label>
+    {{view Ember.TextField classNames="form-control" value=subject placeholder="Enter a subject line..."}}
+  </div>
+  <div class="form-group">
+    <label for="body">Body:</label>
+    {{view Ember.TextArea classNames="form-control" value=body placeholder="Enter a body message (HTML or text)..." row=8}}
+  </div>
+</form>
