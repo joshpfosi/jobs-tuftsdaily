@@ -3,8 +3,7 @@ App.IndexController = Em.ObjectController.extend({
   actions: {
     save: function(model) {
       var that = this;
-      var isValid = validate(this, this.get('validations'));
-      if (isValid) {
+      if (validate(this, this.get('validations'))) {
         model.save().then(function() {
           console.log('successfully saved');
           that.set('model', that.store.createRecord('job'));

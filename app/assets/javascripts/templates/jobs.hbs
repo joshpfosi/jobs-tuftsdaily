@@ -1,7 +1,10 @@
 <div id="jobs">
   <span class="pull-left">
-    <h4>Current Jobs</h4>
-    {{view Ember.Select class="form-control" content=filters optionLabelPath="content.name" optionValuePath="content.state" value=filter}}
+    <ul class="list-inline">
+      <li><h4 style="margin: 0">Current Jobs</h4></li>
+      <li>{{view Ember.Select class="form-control" content=filters optionLabelPath="content.name" optionValuePath="content.state" value=filter}}</li>
+      <li><button class="btn btn-success" {{action "showNewDailyMember"}}>Add Daily Member</button></li>
+    </ul>
   </span>
   <span class="pull-right">
     <span id="daily-select">
@@ -33,3 +36,36 @@
   </table>
   </div>
 </div>
+
+{{#bs-modal name="newDailyMember" fade=true footerButtonsBinding="newDailyMemberModalButtons" title="Add a new daily member"}}
+  <form role="form">
+    <div {{bind-attr class=":form-group errors.name:has-error"}}>
+      <label for="name">Name</label>
+      {{view Ember.TextField classNames="form-control" value=name placeholder="Enter his / her name..."}}
+      {{#if errors.name}}
+        <span class="help-block">{{errors.name}}</span>
+      {{/if}}
+    </div>
+    <div {{bind-attr class=":form-group errors.position:has-error"}}>
+      <label for="position">Position</label>
+      {{view Ember.TextField classNames="form-control" value=position placeholder="Enter his / her position on the Daily..."}}
+      {{#if errors.position}}
+        <span class="help-block">{{errors.position}}</span>
+      {{/if}}
+    </div>
+    <div {{bind-attr class=":form-group errors.email:has-error"}}>
+      <label for="email">Email</label>
+      {{view Ember.TextField classNames="form-control" value=email placeholder="Enter his / her email..."}}
+      {{#if errors.email}}
+        <span class="help-block">{{errors.email}}</span>
+      {{/if}}
+    </div>
+    <div {{bind-attr class=":form-group errors.phone:has-error"}}>
+      <label for="phone">Phone</label>
+      {{view Ember.TextField classNames="form-control" value=phone placeholder="### ### ####"}}
+      {{#if errors.phone}}
+        <span class="help-block">{{errors.phone}}</span>
+      {{/if}}
+    </div>
+  </form>
+{{/bs-modal}}
