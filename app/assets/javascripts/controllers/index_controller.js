@@ -9,6 +9,7 @@ App.IndexController = Em.ObjectController.extend({
       if (this.get('isOther'))
         this.set('coverageType', this.get('coverageTypeOther'));
       if (validate(this, this.get('validations'))) {
+        model.set('state', 0); // set as unassigned
         model.save().then(function() {
           console.log('successfully saved');
           that.set('model', that.store.createRecord('job'));

@@ -10,7 +10,7 @@
     <span id="daily-select">
     {{view Ember.Select class="form-control" content=daily_members optionLabelPath="content.name" value=selectedDailyMember prompt="Select a Daily member to assign"}}
     </span>
-    <button {{action "createMailModal"}} {{bind-attr class=":btn :btn-info :glyphicon :glyphicon-envelope isSelectedJobs:disabled"}}></button>
+    <button {{action "showMailModal"}} {{bind-attr class=":btn :btn-info :glyphicon :glyphicon-envelope isSelectedJobs:disabled"}}></button>
     <button {{action "markRejected"}} {{bind-attr class=":btn :btn-danger :glyphicon :glyphicon-trash isSelectedJobs:disabled"}}></button>
     <button {{action "markCompleted"}} {{bind-attr class=":btn :btn-success :glyphicon :glyphicon-ok isSelectedJobs:disabled"}}></button>
   </span>
@@ -18,17 +18,18 @@
   <table class="table table-hover">
     <thead>
       <tr>
-        <th></th>
-        <th>#</th>
-        <th>Title</th>
-        <th>Full Name</th>
-        <th>Email</th>
-        <th>Phone</th>
-        <th>Section</th>
-        <th>Coverage</th>
-        <th>Due Date</th>
-        <th>Due Time</th>
-        <th>Details</th>
+        {{#each columns itemController="columnItem"}}
+        <th {{action toggleSort value}}>
+          {{name}}
+          {{#if sortedAsc}}
+            <i class="glyphicon glyphicon-chevron-up"></i>
+          {{/if}}
+          
+          {{#if sortedDesc}}
+            <i class="glyphicon glyphicon-chevron-down"></i>
+          {{/if}}
+        </th>
+        {{/each}}
       </tr>
     </thead>
       {{collection App.JobsCollection}}
