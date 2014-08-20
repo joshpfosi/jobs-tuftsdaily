@@ -57,6 +57,8 @@ App.JobsController = Em.ArrayController.extend({
   selectedJobs: Em.computed.filterBy('content', 'selected'),
   selectedDailyMember: null,
   isSelectedJobs: Em.computed.empty('selectedJobs'),
+  isSelectedDailyMember: Em.computed.empty('selectedDailyMember'),
+  isAssignable: Em.computed.or('isSelectedDailyMember', 'isSelectedJobs'),
 
   actions: {
     toggleSort: function(column) {
@@ -82,20 +84,13 @@ App.JobsController = Em.ArrayController.extend({
     },
 
     showMailModal: function(type) {
-      if (type === "1") {
-        // if daily member selected, populate email field w/ their email
-        var job = this.get('selectedJobs')[0].get('data'), 
-            member = this.get('selectedDailyMember.data'),
-            name = "Enter a name";
+      var job = this.get('selectedJobs')[0].get('data'), 
+          deadline = job.dueDate + " " + job.dueTime;
+      if (type === "assign") {
+        var member = this.get('selectedDailyMember.data'),
+            name = member.name;
+        this.set('email', member.email);
 
-        if (member !== null) {
-          this.set('email', member.email);
-          name = member.name;
-        }
-        else
-          this.set('email', '');
-
-        var deadline = job.dueDate + " " + job.dueTime;
         this.set('subject', generateSubjectAssign(job.coverageType, deadline));
         this.set('body', generateBodyAssign(name, job.coverageType, job.contact, 
                                       deadline, job.loc, job.time, job.details));
@@ -104,9 +99,6 @@ App.JobsController = Em.ArrayController.extend({
                                     job.title, 'mail_assign', this.mailJobAssign, this);
       }
       else {
-        var job = this.get('selectedJobs')[0].get('data'),
-            deadline = job.dueDate + " " + job.dueTime;
-
         this.set('email', job.email);
         this.set('subject', generateSubjectReject(job.coverageType));
         this.set('body', generateBodyReject(job.fullName, job.coverageType, job.details, 
@@ -126,7 +118,6 @@ App.JobsController = Em.ArrayController.extend({
       this.set('email', '');
       this.set('phone', '');
       this.set('position', '');
-      this.set('errors', null);
     },
     closeMailModal: function() {
       this.set('subject', '');
@@ -138,8 +129,8 @@ App.JobsController = Em.ArrayController.extend({
     // ----- SUBMIT BUTTONS ----- //
 
     createDailyMember: function() {
-      // TODO make validation work
-      //if (validate(this, this.get('validations'))) {
+      this.set('errors', {}); // move validation into the controller
+      if (validate(this, this.get('validations'))) {
         var newMember = this.store.createRecord('daily_member', {
           name: this.get('name'),
           position: this.get('position'),
@@ -158,23 +149,25 @@ App.JobsController = Em.ArrayController.extend({
           return Bootstrap.NM.push('Failed to add ' + that.get('name') + '.', 'danger');
         });
         return Bootstrap.ModalManager.close('newDailyMember');
-      //}
+      }
     },
     mailJobAssign: function() {
-      // TODO needs validation
       var that = this,
           job = this.get('selectedJobs')[0],
           member = this.get('selectedDailyMember'),
-          email = this.get('email'), deadline = job.get('dueDate') + " " + job.get('dueTime'),
-          data = { email:   email,
-                   subject: this.get('subject'),
-                   name: member.get('name'),
-                   coverageType: job.get('coverageType'),
-                   contact: job.get('contact'),
-                   deadline: deadline,
-                   loc: job.get('loc'),
-                   time: job.get('time'),
-                   details: job.get('details') };
+          email = this.get('email'), 
+          deadline = job.get('dueDate') + " " + job.get('dueTime'),
+          data = { 
+            email:        email,
+            subject:      this.get('subject'),
+            name:         member.get('name'),
+            coverageType: job.get('coverageType'),
+            contact:      job.get('contact'),
+            deadline:     deadline,
+            loc:          job.get('loc'),
+            time:         job.get('time'),
+            details:      job.get('details')
+          };
 
       $.ajax({
         type: "POST",
@@ -184,9 +177,15 @@ App.JobsController = Em.ArrayController.extend({
           that.send('closeMailModal'); // clear the input fields
           job.set('selected', false); // uncheck the check box
           job.set('state', 1); // assign it
+
+          // establish associations
+          job.get('daily_member.jobs').removeObject(job); // unassign old member
+          job.set('daily_member', member);                // assign new one
           job.save();
+
           member.get('jobs').pushObject(job);
           member.save();
+
           return Bootstrap.NM.push('Successfully sent email to ' + email + ' regarding job ' + job.get('title') + '.', 'success');
         },
         error: function(response) {
@@ -197,17 +196,20 @@ App.JobsController = Em.ArrayController.extend({
       return Bootstrap.ModalManager.close('mailModal');
     },
     mailJobReject: function() {
-      // TODO needs validation
       var that = this,
-          job = this.get('selectedJobs')[0], deadline = job.get('dueDate') + " " + job.get('dueTime'),
-          data = { //email:   job.get('email'),
-                  email: "joshpfosi@gmail.com", // debugging
-                   subject: this.get('subject'),
-                   name: job.get('fullName'),
-                   coverageType: job.get('coverageType'),
-                   deadline: deadline,
-                   timestamp: new Date(job.get('timestamp')),
-                   details: job.get('details') };
+          job = this.get('selectedJobs')[0], 
+          deadline = job.get('dueDate') + " " + job.get('dueTime'),
+          data = {
+            //email:        job.get('email'),
+            email:        "joshpfosi@gmail.com", // debugging
+            subject:      this.get('subject'),
+            name:         job.get('fullName'),
+            coverageType: job.get('coverageType'),
+            deadline:     deadline,
+            timestamp:    new Date(job.get('timestamp')),
+            details:      job.get('details'),
+            reason:       this.get('reason')
+          };
 
       $.ajax({
         type: "POST",
@@ -222,12 +224,12 @@ App.JobsController = Em.ArrayController.extend({
           var member = job.get('daily_member');
           // if assigned, remove job from daily_member and daily_member from job
           if (member !== null) { 
-            console.log('clearing associations')
             member.get('jobs').removeObject(job);
             member.save();
             job.set('daily_member', null);
           }
           job.save();
+
           return Bootstrap.NM.push('Successfully sent email to ' + job.get('email') + ' regarding job ' + job.get('title') + '.', 'success');
         },
         error: function(response) {

@@ -1,7 +1,7 @@
 <form role="form">
   <div {{bind-attr class=":form-group errors.email:has-error"}}>
     <label for="email">To:</label>
-    {{view Ember.TextField classNames="form-control" value=email placeholder="Enter an email..."}}
+    {{view Ember.TextField classNames="form-control" value=email placeholder="Enter an email..." readonly=true}}
     {{#if errors.toEmail}}
       <span class="help-block">{{errors.toEmail}}</span>
     {{/if}}
@@ -9,6 +9,10 @@
   <div class="form-group">
     <label for="subject">Subject:</label>
     {{view Ember.TextField classNames="form-control" value=subject placeholder="Enter a subject line..."}}
+  </div>
+  <div class="form-group">
+    <label for="subject">Reason for Rejection:</label>
+    {{view Ember.TextField classNames="form-control" value=reason placeholder="We feel that..."}}
   </div>
   <div class="form-group">
     <label for="body">Body:</label>

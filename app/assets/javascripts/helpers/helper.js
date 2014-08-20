@@ -23,16 +23,16 @@ function sortColumns(column, array) {
 // given a controller and a set of validations with a regex to validate against,
 // validates that the controller's field adheres to the regex, setting context.errors
 // if not
-function validate(context, validations) {
+function validate(controller, validations) {
   var isValid = true;
   for (field in validations) {
     // if field is blank and it passes the regex
-    var data = context.get(field);
+    var data = controller.get(field);
     if (data && data.match(validations[field].regex)) {
-      context.set("errors." + field, null);
+      controller.set("errors." + field, null);
     }
     else { // it failed
-      context.set("errors." + field, validations[field].message);
+      controller.set("errors." + field, validations[field].message);
       isValid = false;
     }
   }
@@ -44,7 +44,7 @@ function generateSubjectAssign(coverageType, deadline) {
 };
 
 function generateBodyAssign(name, coverageType, contact, deadline, loc, time, details) {
-  return "Dear " + name + ",\n\nThank you for working on this assignment. If you have any questions please call Nick at 603-686-3733 or reply to this email. Please deliver all images onto the Photoshelter server via FTP by the specified deadline with captions, keywords, and proper toning. Full sized JPGs will suffice.\n\nHave fun :)\n\nEvent Details:\n\nCoverage type: " + coverageType + "\n\n Contact information for the subject: " + contact + "\n Due on the Photoshelter server by: " + deadline + "\n\n Where: " + loc + "\n When: " + time + "\n\n Details: " + details + "\n\n Thank you,\n\n The Tufts Daily Photo Team\n\n -----------------"
+  return "Dear " + name + ",\n\nThank you for working on this assignment. If you have any questions please call Nick at 603-686-3733 or reply to this email. Please deliver all images onto the Photoshelter server via FTP by the specified deadline with captions, keywords, and proper toning. Full sized JPGs will suffice.\n\nHave fun :)\n\nEvent Details:\n\nCoverage type: " + coverageType + "\n\n Contact information for the subject: " + contact + "\n Due on the Photoshelter server by: " + deadline + "\n\n Where: " + loc + "\n When: " + time + "\n\n Details: " + details + "\n\nThank you,\n\n The Tufts Daily Photo Team\n\n -----------------"
 };
 
 function generateSubjectReject(coverageType) {
@@ -52,5 +52,5 @@ function generateSubjectReject(coverageType) {
 };
 
 function generateBodyReject(name, coverageType, details, deadline, timestamp) {
-  return "Dear " + name + ",\n\nYou have submitted a request:\n\n" + coverageType + "\nDescription: " + details + "\nDeadline: " + deadline + "\n\nSubmitted on: " + timestamp + "\n\n  Thank you for taking the time to do this. Unfortunately, we are unable to cover your request.\n\nWe feel that [insert rationale here].\n\nPlease reply with any modification or additional ideas you may have.\n\nThank you,\n\nThe Tufts Daily Photo Team";
+  return "Dear " + name + ",\n\nYou have submitted a request:\n\n" + coverageType + "\nDescription: " + details + "\nDeadline: " + deadline + "\n\nSubmitted on: " + timestamp + "\n\nThank you for taking the time to do this. Unfortunately, we are unable to cover your request.\n\nWe feel that [reason for rejection].\n\nPlease reply with any modification or additional ideas you may have.\n\nThank you,\n\nThe Tufts Daily Photo Team";
 };
