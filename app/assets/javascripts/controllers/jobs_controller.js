@@ -1,5 +1,3 @@
-// TODO if its a reject, use the same showMailModal, but different mailButtons - such that the Submit mail button triggers mailJobReject instead of mailJobAssign
-// and the templates are right (use a flag sent to openMailModal to choose which to use in each instance
 App.JobsController = Em.ArrayController.extend({
   daily_members: function() {
     return this.store.find('daily_member');
@@ -47,10 +45,15 @@ App.JobsController = Em.ArrayController.extend({
     Ember.Object.create({title: 'Create', clicked: 'createDailyMember'}),
     Ember.Object.create({title: 'Cancel', clicked: 'closeDailyMemberModal', dismiss: 'modal'})
   ],
-  mailButtons: [
-      Ember.Object.create({title: 'Submit', clicked:"mailJob"}),
+  mailJobAssign: [
+      Ember.Object.create({title: 'Submit', clicked:"mailJobAssign"}),
       Ember.Object.create({title: 'Cancel', clicked: 'closeMailModal', dismiss: 'modal'})
   ],
+  mailJobReject: [
+      Ember.Object.create({title: 'Submit', clicked:"mailJobReject"}),
+      Ember.Object.create({title: 'Cancel', clicked: 'closeMailModal', dismiss: 'modal'})
+  ],
+
   selectedJobs: Em.computed.filterBy('content', 'selected'),
   selectedDailyMember: null,
   isSelectedJobs: Em.computed.empty('selectedJobs'),
@@ -64,14 +67,11 @@ App.JobsController = Em.ArrayController.extend({
         this.set('sortDirection', true);
       }
     },
-    markRejected: function() {
-      this.get('selectedJobs').slice().map(function(job) {
-        job.set('selected', false); job.set('state', 2);
-      });
-    },
     markCompleted: function() {
       this.get('selectedJobs').slice().map(function(job) {
-        job.set('selected', false); job.set('state', 3);
+        job.set('selected', false);
+        job.set('state', 3);
+        job.save();
       });
     },
 
@@ -81,26 +81,40 @@ App.JobsController = Em.ArrayController.extend({
       return Bootstrap.ModalManager.show('newDailyMember');
     },
 
-    showMailModal: function() {
-      // if daily member selected, populate email field w/ their email
-      var job = this.get('selectedJobs')[0].get('data'), 
-          member = this.get('selectedDailyMember.data'),
-          name = "Enter a name";
+    showMailModal: function(type) {
+      if (type === "1") {
+        // if daily member selected, populate email field w/ their email
+        var job = this.get('selectedJobs')[0].get('data'), 
+            member = this.get('selectedDailyMember.data'),
+            name = "Enter a name";
 
-      if (member !== null) {
-        this.set('email', member.email);
-        name = member.name;
+        if (member !== null) {
+          this.set('email', member.email);
+          name = member.name;
+        }
+        else
+          this.set('email', '');
+
+        var deadline = job.dueDate + " " + job.dueTime;
+        this.set('subject', generateSubjectAssign(job.coverageType, deadline));
+        this.set('body', generateBodyAssign(name, job.coverageType, job.contact, 
+                                      deadline, job.loc, job.time, job.details));
+
+        Bootstrap.ModalManager.open('mailModal', 'Assign Job: ' +
+                                    job.title, 'mail_assign', this.mailJobAssign, this);
       }
-      else
-        this.set('email', '');
+      else {
+        var job = this.get('selectedJobs')[0].get('data'),
+            deadline = job.dueDate + " " + job.dueTime;
 
-      var deadline = job.dueDate + " " + job.dueTime;
-      this.set('subject', generateSubject(job.coverageType, deadline));
-      this.set('body', generateBody(name, job.coverageType, job.contact, 
-                                    deadline, job.loc, job.time, job.details));
+        this.set('email', job.email);
+        this.set('subject', generateSubjectReject(job.coverageType));
+        this.set('body', generateBodyReject(job.fullName, job.coverageType, job.details, 
+                                      deadline, new Date(job.timestamp)));
 
-      Bootstrap.ModalManager.open('mailModal' + job.id, 'Send Mail for Job #' +
-                                  job.title, 'mail_job', this.mailButtons, this);
+        Bootstrap.ModalManager.open('mailModal', 'Reject Job: ' + job.title, 
+            'mail_reject', this.mailJobReject, this);
+      }
     },
 
     // ----- END of OPENING MODALS ----- //
@@ -146,7 +160,7 @@ App.JobsController = Em.ArrayController.extend({
         return Bootstrap.ModalManager.close('newDailyMember');
       //}
     },
-    mailJob: function() {
+    mailJobAssign: function() {
       // TODO needs validation
       var that = this,
           job = this.get('selectedJobs')[0],
@@ -154,7 +168,7 @@ App.JobsController = Em.ArrayController.extend({
           email = this.get('email'), deadline = job.get('dueDate') + " " + job.get('dueTime'),
           data = { email:   email,
                    subject: this.get('subject'),
-                   name: member.name,
+                   name: member.get('name'),
                    coverageType: job.get('coverageType'),
                    contact: job.get('contact'),
                    deadline: deadline,
@@ -164,14 +178,15 @@ App.JobsController = Em.ArrayController.extend({
 
       $.ajax({
         type: "POST",
-        url: '/mail_job?type=assigned',
+        url: '/mail_job?type=assign',
         data: data,
         success: function(response) {
           that.send('closeMailModal'); // clear the input fields
           job.set('selected', false); // uncheck the check box
           job.set('state', 1); // assign it
-          //member.get('jobs').pushObject(job);
-          //member.save();
+          job.save();
+          member.get('jobs').pushObject(job);
+          member.save();
           return Bootstrap.NM.push('Successfully sent email to ' + email + ' regarding job ' + job.get('title') + '.', 'success');
         },
         error: function(response) {
@@ -179,8 +194,48 @@ App.JobsController = Em.ArrayController.extend({
         },
         dataType: 'json'
       });
-      return Bootstrap.ModalManager.close('mailModal' + job.get('id'));
-      // TODO disable submit button when sending mail
+      return Bootstrap.ModalManager.close('mailModal');
+    },
+    mailJobReject: function() {
+      // TODO needs validation
+      var that = this,
+          job = this.get('selectedJobs')[0], deadline = job.get('dueDate') + " " + job.get('dueTime'),
+          data = { //email:   job.get('email'),
+                  email: "joshpfosi@gmail.com", // debugging
+                   subject: this.get('subject'),
+                   name: job.get('fullName'),
+                   coverageType: job.get('coverageType'),
+                   deadline: deadline,
+                   timestamp: new Date(job.get('timestamp')),
+                   details: job.get('details') };
+
+      $.ajax({
+        type: "POST",
+        url: '/mail_job?type=reject',
+        data: data,
+        success: function(response) {
+          that.send('closeMailModal'); // clear the input fields
+          job.set('selected', false); // uncheck the check box
+          job.set('state', 2); // reject it
+          
+          // clear associations
+          var member = job.get('daily_member');
+          // if assigned, remove job from daily_member and daily_member from job
+          if (member !== null) { 
+            console.log('clearing associations')
+            member.get('jobs').removeObject(job);
+            member.save();
+            job.set('daily_member', null);
+          }
+          job.save();
+          return Bootstrap.NM.push('Successfully sent email to ' + job.get('email') + ' regarding job ' + job.get('title') + '.', 'success');
+        },
+        error: function(response) {
+          return Bootstrap.NM.push('Failed to send email to ' + email + ' regarding job ' + job.get('title') + '.', 'danger');
+        },
+        dataType: 'json'
+      });
+      return Bootstrap.ModalManager.close('mailModal');
     },
   },
   

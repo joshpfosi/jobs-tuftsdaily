@@ -30,6 +30,19 @@ class DailyMembersController < ApplicationController
     end
   end
 
+  # PUT /daily_members/:id
+  def update
+    @daily_member = DailyMember.find(params[:id])
+
+    respond_to do |format|
+      if @daily_member.update(daily_member_params)
+        format.json { render json: nil, status: :ok }
+      else
+        format.json { render json: @daily_member.errors, status: :unprocessable_entity}
+      end
+    end
+  end
+
   def daily_member_params
     params.require(:daily_member).permit(:id, :name, :position, :email, :phone)
   end

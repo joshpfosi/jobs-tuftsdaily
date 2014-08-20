@@ -24,15 +24,22 @@
           <dd>{{details}}</dd>
           {{#if view.eventLoc}}
           <dt>Event Location</dt>
-          <dd>{{view.eventLoc}}<dd>
+          <dd>{{view.eventLoc}}</dd>
           {{/if}}
-          {{#if view.eventDate}}
+          {{#if date}}
           <dt>Date</dt>
-          <dd>{{view.eventDate}}<dd>
+          <dd>{{date}}</dd>
           {{/if}}
-          {{#if view.eventTime}}
+          {{#if time}}
           <dt>Time</dt>
-          <dd>{{view.eventTime}}<dd>
+          <dd>{{time}}<idd>
+          {{/if}}
+          <br>
+          {{#if daily_member}}
+          <dt>Assignee</dt>
+          <dd>{{daily_member.name}}</dd>
+          <dt>Contact Information</dt>
+          <dd>{{daily_member.email}} | <em>{{daily_member.phone}}</em></dd>
           {{/if}}
         </dl>
 
