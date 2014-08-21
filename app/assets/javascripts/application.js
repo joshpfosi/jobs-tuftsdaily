@@ -16,6 +16,7 @@
 //= require handlebars
 //= require ember
 //= require ember-data
+//= require spin.min
 //= require_self
 //= require ./app
 

@@ -43,6 +43,16 @@ class DailyMembersController < ApplicationController
     end
   end
 
+  # DELETE /daily_members/:id.json
+  def destroy
+    @daily_member = DailyMember.find(params[:id])
+    @daily_member.destroy
+
+    respond_to do |format|
+      format.json { render json: nil, status: :ok }
+    end
+  end
+
   def daily_member_params
     params.require(:daily_member).permit(:id, :name, :position, :email, :phone)
   end

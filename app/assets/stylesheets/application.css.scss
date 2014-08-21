@@ -14,27 +14,17 @@
  *= require_self
  */
 
-* {
-  margin: 0;
+.wrapper {
+  min-height: 500px;
 }
-html, body {
-  height: 100%;
-}
-.page-wrap {
-  min-height: 100%;
-  /* equal to footer height */
-  margin-bottom: -50px; 
-}
-.page-wrap:after {
-  content: "";
-  display: block;
-}
-.site-footer, .page-wrap:after {
-  /* .push must be the same height as footer */
-  height: 50px;; 
-}
-.site-footer {
+.footer {
+  height: 40px;
   text-align: center;
+  width: 100%;
+}
+
+.container {
+  margin-bottom: 20px;
 }
 
 .nav {
