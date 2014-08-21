@@ -5,14 +5,48 @@ App.IndexController = Em.ObjectController.extend({
   
   actions: {
     save: function(model) {
-      var that = this;
-      if (this.get('isOther'))
-        this.set('coverageType', this.get('coverageTypeOther'));
+      if (this.get('isOther')) this.set('coverageType', this.get('coverageTypeOther'));
+
+      this.set('errors', {});
       if (validate(this, this.get('validations'))) {
-        model.set('state', 0); // set as unassigned
-        model.save().then(function() {
+        var that = this, model = this.get('model');
+        job = this.store.createRecord('job', {
+          timestamp:    new Date().getTime(),
+          title:        model.title,
+          fullName:     model.fullName,
+          email:        model.email,
+          phone:        model.phone,
+          contact:      model.contact,
+          section:      model.section,
+          coverageType: model.coverageType,
+          dueDate:      model.dueDate,
+          dueTime:      model.dueTime,
+          details:      model.details,
+          state:        0,
+          loc:          model.loc,
+          date:         model.date,
+          time:         model.time
+        });
+
+        job.save().then(function() {
           console.log('successfully saved');
-          that.set('model', that.store.createRecord('job'));
+          that.set('model', {
+            timestamp: null,
+            title: '',
+            fullName: '',
+            email: '',
+            phone: '',
+            contact: '',
+            section: '',
+            coverageType: '',
+            dueDate: '',
+            dueTime: '',
+            details: '',
+            state: 0,
+            loc: '',
+            date: '',
+            time: '',
+          });
         });
       }
     }
