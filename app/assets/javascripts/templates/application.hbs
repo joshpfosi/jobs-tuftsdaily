@@ -1,17 +1,22 @@
 <div class="wrapper">
+  <div class="nav navbar-static-top navbar navbar-default">
+    {{#link-to "index"}}<img class="pull-left logo" src="/assets/logo.png" alt="Tufts Daily Header Image"/>{{/link-to}}
+    <span class="pull-right">
+      {{#link-to "jobs"}}<button style="color: white" class="btn btn-brown">Sign In</button>{{/link-to}}
+      {{#link-to "settings"}}<button style="color: white" class="btn btn-brown"><span class="glyphicon glyphicon-user"></span></button>{{/link-to}}
+    </span>
+    <!--<button {{action "signIn"}} class="pull-right btn btn-brown">Sign In</button>-->
+    <!-- throw in some notifications for different things -->
+    {{bs-notifications style="z-index: 1000; position: fixed; width: 50%; left: 0; right: 0; margin-left: auto; margin-right: auto; margin-top: 50px;"}}
+  </div>
+
   <div class="container">
-    <div class="nav">
-      {{#link-to "index"}}<img class="pull-left logo" src="/assets/logo.png" alt="Tufts Daily Header Image"/>{{/link-to}}
-      {{#link-to "jobs"}}<button style="color: white" class="pull-right btn btn-success">Sign In</button>{{/link-to}}
-      {{#link-to "settings"}}<button style="color: white" class="pull-right btn btn-success glyphicon glyphicon-user"></button>{{/link-to}}
-      <!--<button {{action "signIn"}} class="pull-right btn btn-success">Sign In</button>-->
-      <!-- throw in some notifications for different things -->
-      {{bs-notifications style="z-index: 1000; position: fixed; width: 50%; left: 0; right: 0; margin-left: auto; margin-right: auto; margin-top: 50px;"}}
-    </div>
     {{outlet}}
   </div>
 </div>
 
 <div class="footer">
-  <p class="text-muted credit">Designed and Developed by Joshua Pfosi</p>
+  <hr>
+  <p class="text-muted credit">Developed and designed by Joshua Pfosi</p>
+  <p class="text-muted credit"> Copyright © 2014 Joshua Pfosi </p>
 </div>

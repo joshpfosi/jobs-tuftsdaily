@@ -14,13 +14,30 @@
  *= require_self
  */
 
+body {
+  background-color: #f3f3f3 !important;
+}
+
+.content {
+  padding: 10px;
+  border: 1px solid #e5e5e5;
+  border-radius: 2px;
+  background-color: #FDFDFD;
+}
+
+.col-padding {
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
 .wrapper {
   min-height: 500px;
 }
 .footer {
-  height: 40px;
+  height: 50px;
   text-align: center;
   width: 100%;
+  padding-bottom: 10px;
 }
 
 .container {
@@ -28,13 +45,32 @@
 }
 
 .nav {
-  margin-top: 10px;
-  margin-bottom: 10px;
-}
-
-.nav a {
-  color: white;
-  .logo {
-    height: 32px;
+  padding: 8px;
+  background-color: #92ABCE;
+  background-image: none;
+  border-bottom: 1px solid rgb(137, 158, 189);
+  box-shadow: none;
+  a {
+    color: white;
+    .logo {
+      height: 32px;
+    }
   }
 }
+
+.btn {
+  border-radius: 2px !important;
+}
+
+.btn-brown {
+  color: white;
+  background-color: #867A6E;
+  border-color: #696055;
+  text-shadow: 0 -1px rgb(78, 69, 56);
+  border-radius: 2px;
+  &:hover {
+    color: white;
+    background-color: #69625B;
+  }
+}
+

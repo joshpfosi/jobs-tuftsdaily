@@ -1,19 +1,21 @@
-<div id="jobs">
-  <span class="pull-left">
-    <ul class="list-inline">
-      <li><h4 style="margin: 0">Current Jobs</h4></li>
-      <li>{{view Ember.Select class="form-control" content=filters optionLabelPath="content.name" optionValuePath="content.state" value=filter}}</li>
-      <li><button class="btn btn-success" {{action "showNewDailyMember"}}>Add Daily Member</button></li>
-    </ul>
-  </span>
-  <span class="pull-right">
-    <span id="daily-select">
-    {{view Ember.Select class="form-control" content=daily_members optionLabelPath="content.name" value=selectedDailyMember prompt="Select a Daily member to assign"}}
+<div id="jobs" class="content">
+  <div style="margin-bottom:10px;">
+    <span class="col-md-2 text-center col-sm-12 col-xs-12 col-padding"><h4 style="margin:0;line-height:34px;">Current Jobs</h4></span>
+    <span class="col-md-2 col-sm-12 col-xs-12 col-padding">
+      {{view Ember.Select class="form-control" content=filters optionLabelPath="content.name" optionValuePath="content.state" value=filter}}
     </span>
-    <button {{action "showMailModal" "assign"}} {{bind-attr class=":btn :btn-info :glyphicon :glyphicon-envelope isAssignable:disabled"}}></button>
-    <button {{action "showMailModal" "reject"}} {{bind-attr class=":btn :btn-danger :glyphicon :glyphicon-trash isSelectedJobs:disabled"}}></button>
-    <button {{action "markCompleted"}} {{bind-attr class=":btn :btn-success :glyphicon :glyphicon-ok isSelectedJobs:disabled"}}></button>
-  </span>
+    <span id="daily-select" class="col-md-4 col-md-offset-1 col-sm-12 col-xs-12 col-padding">
+      {{view Ember.Select class="form-control" content=daily_members optionLabelPath="content.name" value=selectedDailyMember prompt="Select a Daily member to assign"}}
+    </span>
+    <div class="col-md-3 col-sm-12 col-xs-12 col-padding">
+      <div style="margin: auto; max-width: 130px;">
+        <button {{action "showMailModal" "assign"}} {{bind-attr class=":btn :btn-info isAssignable:disabled"}}><span class="glyphicon glyphicon-envelope"></span></button>
+        <button {{action "showMailModal" "reject"}} {{bind-attr class=":btn :btn-danger isSelectedJobs:disabled"}}><span class="glyphicon glyphicon-trash"></span></button>
+        <button {{action "markCompleted"}} {{bind-attr class=":btn :btn-success isSelectedJobs:disabled"}}><span class="glyphicon glyphicon-ok"></span></button>
+      </div>
+    </div>
+  </div>
+
   <div class="table-responsive">
   <table class="table table-hover">
     <thead>
@@ -36,36 +38,3 @@
   </table>
   </div>
 </div>
-
-{{#bs-modal name="newDailyMember" fade=true footerButtonsBinding="newDailyMemberModalButtons" title="Add a new daily member"}}
-  <form role="form">
-    <div {{bind-attr class=":form-group errors.name:has-error"}}>
-      <label for="name">Name</label>
-      {{view Ember.TextField classNames="form-control" value=name placeholder="Enter his / her name..."}}
-      {{#if errors.name}}
-        <span class="help-block">{{errors.name}}</span>
-      {{/if}}
-    </div>
-    <div {{bind-attr class=":form-group errors.position:has-error"}}>
-      <label for="position">Position</label>
-      {{view Ember.TextField classNames="form-control" value=position placeholder="Enter his / her position on the Daily..."}}
-      {{#if errors.position}}
-        <span class="help-block">{{errors.position}}</span>
-      {{/if}}
-    </div>
-    <div {{bind-attr class=":form-group errors.email:has-error"}}>
-      <label for="email">Email</label>
-      {{view Ember.TextField classNames="form-control" value=email placeholder="Enter his / her email..."}}
-      {{#if errors.email}}
-        <span class="help-block">{{errors.email}}</span>
-      {{/if}}
-    </div>
-    <div {{bind-attr class=":form-group errors.phone:has-error"}}>
-      <label for="phone">Phone</label>
-      {{view Ember.TextField classNames="form-control" value=phone placeholder="### ### ####"}}
-      {{#if errors.phone}}
-        <span class="help-block">{{errors.phone}}</span>
-      {{/if}}
-    </div>
-  </form>
-{{/bs-modal}}

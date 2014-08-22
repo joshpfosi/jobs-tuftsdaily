@@ -1,8 +1,8 @@
-<div id="job-form">
+<div id="job-form" class="content">
   <form role="form">
     <div {{bind-attr class=":form-group errors.title:has-error"}}>
-      <label class="control-label" for="title">Title*</label>
-      {{view Ember.TextField classNames="form-control" value=title placeholder="Enter a title for the job..."}}
+      <label class="control-label" for="title">Slug*</label>
+      {{view Ember.TextField classNames="form-control" value=title placeholder="Enter a slug for the job..."}}
       {{#if errors.title}}
         <span class="help-block">{{errors.title}}</span>
       {{/if}}
@@ -47,7 +47,7 @@
       {{/if}}
     </div>
     <div {{bind-attr class=":form-group errors.contact:has-error"}}>
-      <label class="control-label" for="contact">Contact Information for Subject*</label>
+      <label class="control-label" for="contact">Contact Information for Subject / Event Coordinator*</label>
       {{view Ember.TextArea classNames="form-control" value=contact placeholder="Enter the subject's contact information..." rows="2"}}
       {{#if errors.contact}}
         <span class="help-block">{{errors.contact}}</span>

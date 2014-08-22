@@ -1,5 +1,10 @@
-<h4>Settings Page</h4>
-<div class="table-responsive">
+<div id="daily_members" class="table-responsive content">
+  <span class="col-md-2 text-center col-sm-12 col-xs-12 col-padding"><h4 style="margin:0;line-height:34px;">Settings</h4></span>
+    <div class="col-md-2 col-sm-12 col-xs-12 col-md-offset-8 col-padding">
+      <div style="margin: auto; max-width: 130px;">
+        <button class="btn btn-brown" {{action "showNewDailyMember"}}>Add Daily Member</button>
+      </div>
+    </div>
   <table class="table table-hover">
     <thead>
       <tr>
@@ -7,6 +12,7 @@
         <th>Position</th>
         <th>Email</th>
         <th>Phone</th>
+        <th># Assigned</th>
         <th></th>
       </tr>
     </thead>
@@ -17,9 +23,43 @@
         <td>{{position}}</td>
         <td>{{email}}</td>
         <td>{{phone}}</td>
-        <td><a {{action "deleteDailyMember" this}} style="text-decoration:none" class="glyphicon glyphicon-remove"</a></td>
+        <td>{{jobs.length}}</td>
+        <td><a {{action "deleteDailyMember" this}} style="text-decoration:none"><span class="glyphicon glyphicon-remove"></span></a></td>
       </tr>
       {{/each}}
     </tbody>
   </table>
 </div>
+
+{{#bs-modal name="newDailyMember" fade=true footerButtonsBinding="newDailyMemberModalButtons" title="Add a new daily member"}}
+  <form role="form">
+    <div {{bind-attr class=":form-group errors.name:has-error"}}>
+      <label for="name">Name</label>
+      {{view Ember.TextField classNames="form-control" value=name placeholder="Enter his / her name..."}}
+      {{#if errors.name}}
+        <span class="help-block">{{errors.name}}</span>
+      {{/if}}
+    </div>
+    <div {{bind-attr class=":form-group errors.position:has-error"}}>
+      <label for="position">Position</label>
+      {{view Ember.TextField classNames="form-control" value=position placeholder="Enter his / her position on the Daily..."}}
+      {{#if errors.position}}
+        <span class="help-block">{{errors.position}}</span>
+      {{/if}}
+    </div>
+    <div {{bind-attr class=":form-group errors.email:has-error"}}>
+      <label for="email">Email</label>
+      {{view Ember.TextField classNames="form-control" value=email placeholder="Enter his / her email..."}}
+      {{#if errors.email}}
+        <span class="help-block">{{errors.email}}</span>
+      {{/if}}
+    </div>
+    <div {{bind-attr class=":form-group errors.phone:has-error"}}>
+      <label for="phone">Phone</label>
+      {{view Ember.TextField classNames="form-control" value=phone placeholder="### ### ####"}}
+      {{#if errors.phone}}
+        <span class="help-block">{{errors.phone}}</span>
+      {{/if}}
+    </div>
+  </form>
+{{/bs-modal}}

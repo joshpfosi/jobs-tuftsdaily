@@ -27,7 +27,7 @@ App.JobsController = Em.ArrayController.extend({
 
     // if filter selected, apply filterBy, otherwise don't
     jobs = (filter !== null) ? sortColumns(sortProperty, jobs.filterBy('state', filter)) : sortColumns(sortProperty, jobs.get('content'));
-
+    
     // if descending, reverse array
     return (sortDirection) ? jobs : jobs.reverse();
   }.property('content', 'content.@each.state', 'filter', 'sortProperty', 'sortDirection'),
@@ -41,10 +41,6 @@ App.JobsController = Em.ArrayController.extend({
 
   // ----- END of SORTING and FILTERING ----- //
 
-  newDailyMemberModalButtons: [
-    Ember.Object.create({title: 'Create', clicked: 'createDailyMember'}),
-    Ember.Object.create({title: 'Cancel', clicked: 'closeDailyMemberModal', dismiss: 'modal'})
-  ],
   mailJobAssign: [
       Ember.Object.create({title: 'Submit', clicked:"mailJobAssign"}),
       Ember.Object.create({title: 'Cancel', clicked: 'closeMailModal', dismiss: 'modal'})
@@ -77,12 +73,6 @@ App.JobsController = Em.ArrayController.extend({
       });
     },
 
-    // ----- OPENING MODALS ----- //
-
-    showNewDailyMember: function() {
-      return Bootstrap.ModalManager.show('newDailyMember');
-    },
-
     showMailModal: function(type) {
       var job = this.get('selectedJobs')[0].get('data'), 
           deadline = job.dueDate + " " + job.dueTime;
@@ -109,48 +99,11 @@ App.JobsController = Em.ArrayController.extend({
       }
     },
 
-    // ----- END of OPENING MODALS ----- //
-
-    // ----- CLOSING MODALS ----- //
-
-    closeDailyMemberModal: function() {
-      this.set('name', '');
-      this.set('email', '');
-      this.set('phone', '');
-      this.set('position', '');
-    },
     closeMailModal: function() {
       this.set('subject', '');
       this.set('body', '');
     },
 
-    // ----- END of CLOSING MODALS ----- //
-
-    // ----- SUBMIT BUTTONS ----- //
-
-    createDailyMember: function() {
-      this.set('errors', {}); // move validation into the controller
-      if (validate(this, this.get('validations'))) {
-        var newMember = this.store.createRecord('daily_member', {
-          name: this.get('name'),
-          position: this.get('position'),
-          email: this.get('email'),
-          phone: this.get('phone')
-        });
-
-        var that = this;
-        newMember.save().then(function() {
-          Bootstrap.NM.push('Succesfully added ' + that.get('name') + '.', 'success');
-          that.set('name', '');
-          that.set('email', '');
-          that.set('phone', '');
-          that.set('position', '');
-        }, function() {
-          return Bootstrap.NM.push('Failed to add ' + that.get('name') + '.', 'danger');
-        });
-        return Bootstrap.ModalManager.close('newDailyMember');
-      }
-    },
     mailJobAssign: function() {
       var that = this,
           job = this.get('selectedJobs')[0],
@@ -179,7 +132,8 @@ App.JobsController = Em.ArrayController.extend({
           job.set('state', 1); // assign it
 
           // establish associations
-          job.get('daily_member.jobs').removeObject(job); // unassign old member
+          currentMem = job.get('daily_member'); // unassign old member
+          if (currentMem !== null) currentMem.get('jobs').removeObject(job); 
           job.set('daily_member', member);                // assign new one
           job.save();
 
@@ -200,8 +154,7 @@ App.JobsController = Em.ArrayController.extend({
           job = this.get('selectedJobs')[0], 
           deadline = job.get('dueDate') + " " + job.get('dueTime'),
           data = {
-            //email:        job.get('email'),
-            email:        "joshpfosi@gmail.com", // debugging
+            email:        job.get('email'),
             subject:      this.get('subject'),
             name:         job.get('fullName'),
             coverageType: job.get('coverageType'),
@@ -240,23 +193,4 @@ App.JobsController = Em.ArrayController.extend({
       return Bootstrap.ModalManager.close('mailModal');
     },
   },
-  
-  validations: {
-    name: {
-      regex: /^[A-Za-z0-9 ]{3,20}$/, 
-      message: "Enter a name (min of 3 characters, max of 20)"
-    },
-    email: {
-      regex: /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i,
-      message: "Enter a valid email"
-    },
-    phone: {
-      regex: /\d\d\d \d\d\d \d\d\d\d/,
-      message: "Follow the placeholder exactly!"
-    },
-    position: {
-      regex: /.*/,
-      message: "Enter a position for this person"
-    },
-  }
 });
