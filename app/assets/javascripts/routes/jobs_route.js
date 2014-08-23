@@ -6,7 +6,6 @@ App.JobsRoute = Em.Route.extend({
     // if signedIn, go to jobs, otherwise go to index
     route.transitionTo('loading');
     Ember.$.post('/users/sign_in', function() {
-      route.transitionTo('jobs');
       route.controllerFor('application').set('signedIn', true);
     }).fail(function() {
       route.transitionTo('index');
