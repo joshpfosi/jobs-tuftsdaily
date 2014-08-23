@@ -7,6 +7,7 @@ App.ApplicationController = Em.ObjectController.extend({
   actions : {
     signIn: function() {
       var controller = this;
+      console.log('username == ' + this.get('username'));
       return Ember.$.post('/users/sign_in.json', {
           user: {
             email: this.get('username'),
