@@ -1,6 +1,6 @@
 App.IndexController = Em.ObjectController.extend({
-  sections: ['Sports', 'Features', 'News'],
-  coverageTypes: ['Head Shot', 'Other'],
+  sections: ['News', 'Features', 'Sports', 'Arts', 'Multimedia', 'Op-Ed'],
+  coverageTypes: ['Portrait/Headshot', 'Event', 'Lecture', 'Feature Story', 'Other'],
   isOther: Em.computed.equal('coverageType', 'Other'),
   
   actions: {

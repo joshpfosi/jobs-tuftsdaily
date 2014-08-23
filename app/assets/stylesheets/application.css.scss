@@ -14,6 +14,10 @@
  *= require_self
  */
 
+$tufts-blue: #92ABCE;
+$tufts-brown: #867A6E;
+$tufts-brown-hover: #69625B;
+
 body {
   background-color: #f3f3f3 !important;
 }
@@ -33,8 +37,9 @@ body {
 .wrapper {
   min-height: 500px;
 }
+
 .footer {
-  height: 50px;
+  height: 90px;
   text-align: center;
   width: 100%;
   padding-bottom: 10px;
@@ -45,32 +50,45 @@ body {
 }
 
 .nav {
-  padding: 8px;
-  background-color: #92ABCE;
+  // kill bootstrap nav styles
   background-image: none;
-  border-bottom: 1px solid rgb(137, 158, 189);
+  border: none;
+  border-radius: 0;
   box-shadow: none;
+
+  // add my own
+  padding: 8px;
+  background-color: $tufts-blue;
+  border-bottom: 1px solid #0E428F;
   a {
     color: white;
+    float: left;
+    padding-right: 5px; // so navbar-btn plays nice with navbar-link
     .logo {
       height: 32px;
     }
   }
+  // override white border color with subtle blue
+  .navbar-form, .navbar-collapse {
+    border-color: transparent;
+  }
 }
+
+// override bootstrap navbar collapse button color
+.tufts-brown { background-color: $tufts-brown !important; }
 
 .btn {
   border-radius: 2px !important;
 }
 
 .btn-brown {
-  color: white;
-  background-color: #867A6E;
+  color: white !important;
+  background-color: $tufts-brown;
   border-color: #696055;
   text-shadow: 0 -1px rgb(78, 69, 56);
   border-radius: 2px;
   &:hover {
-    color: white;
-    background-color: #69625B;
+    background-color: $tufts-brown-hover;
   }
 }
 

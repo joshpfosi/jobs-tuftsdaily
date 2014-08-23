@@ -1,4 +1,6 @@
 class DailyMembersController < ApplicationController
+  before_filter :authenticate_user!
+
   # GET /daily_members/:id
   def show
     @daily_member = DailyMember.find(params[:id])

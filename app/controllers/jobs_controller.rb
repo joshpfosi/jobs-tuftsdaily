@@ -1,4 +1,6 @@
 class JobsController < ApplicationController
+  before_filter :authenticate_user!, except: [:create]
+
   # GET /jobs/:id
   def show
     @job = Job.find(params[:id])
