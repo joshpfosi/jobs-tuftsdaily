@@ -13,7 +13,16 @@ App.SettingsController = Em.ArrayController.extend({
 
       member.destroyRecord();
     },
-    showNewDailyMember: function() {
+    showNewDailyMember: function(member) {
+      console.log(member);
+      if (member) {
+        this.set('editMember', member);
+        this.set('name',     member.get('name'));
+        this.set('email',    member.get('email'));
+        this.set('phone',    member.get('phone'));
+        this.set('position', member.get('position'));
+        this.set('day',      member.get('day'));
+      }
       return Bootstrap.ModalManager.show('newDailyMember');
     },
     cancel: function() {
@@ -24,16 +33,26 @@ App.SettingsController = Em.ArrayController.extend({
       this.set('day', null);
     },
     createDailyMember: function() {
-      console.log(this.get('day'));
+      newMember = this.get('editMember');
       this.set('errors', {}); // move validation into the controller
       if (validate(this, this.get('validations'))) {
-        var newMember = this.store.createRecord('daily_member', {
-          name:     this.get('name'),
-          position: this.get('position'),
-          email:    this.get('email'),
-          phone:    this.get('phone'),
-          day:      this.get('day')
-        });
+        if (!newMember) { // if newMember is undefined
+          newMember = this.store.createRecord('daily_member', {
+            name:     this.get('name'),
+            position: this.get('position'),
+            email:    this.get('email'),
+            phone:    this.get('phone'),
+            day:      this.get('day')
+          });
+        }
+        // if defined, then editing an existing member so update all fields
+        else { 
+          newMember.set('name', this.get('name'));
+          newMember.set('position', this.get('position'));
+          newMember.set('email', this.get('email'));
+          newMember.set('phone', this.get('phone'));
+          newMember.set('day', this.get('day'));
+        }
 
         var controller = this;
         newMember.save().then(function() {
