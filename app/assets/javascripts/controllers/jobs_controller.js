@@ -1,26 +1,36 @@
 App.JobsController = Em.ArrayController.extend({
-  daily_members: function() {
-    return this.store.find('daily_member');
-  }.property(),
-
-  // ----- SORTING and FILTERING TABLE COLUMNS ----- //
-  columns: function() {
-   return [
-     Ember.Object.create({value: '',             name: ''}),
-     Ember.Object.create({value: 'id',           name: '#'}),
-     Ember.Object.create({value: 'title',        name: 'Title'}),
-     Ember.Object.create({value: 'fullName',     name: 'Full Name'}),
-     Ember.Object.create({value: 'email',        name: 'Email'}),
-     Ember.Object.create({value: 'phone',        name: 'Phone'}),
-     Ember.Object.create({value: 'section',      name: 'Section'}),
-     Ember.Object.create({value: 'coverageType', name: 'Coverage'}),
-     Ember.Object.create({value: 'dueDate',      name: 'Due Date'}),
-     Ember.Object.create({value: 'dueTime',      name: 'Due Time'}),
-     Ember.Object.create({value: 'details',      name: 'Details'}),
-    ];
-  }.property(),
+  mailJobAssign: [
+      Ember.Object.create({title: 'Submit', clicked:"mailJobAssign"}),
+      Ember.Object.create({title: 'Cancel', clicked: 'closeMailModal', dismiss: 'modal'})
+  ],
+  mailJobReject: [
+      Ember.Object.create({title: 'Submit', clicked:"mailJobReject"}),
+      Ember.Object.create({title: 'Cancel', clicked: 'closeMailModal', dismiss: 'modal'})
+  ],
+  columns: [
+     Ember.Object.create({value: '',             name: ''          }), 
+     Ember.Object.create({value: 'id',           name: '#'         }),
+     Ember.Object.create({value: 'title',        name: 'Title'     }),
+     Ember.Object.create({value: 'fullName',     name: 'Full Name' }),
+     Ember.Object.create({value: 'email',        name: 'Email'     }),
+     Ember.Object.create({value: 'phone',        name: 'Phone'     }),
+     Ember.Object.create({value: 'section',      name: 'Section'   }),
+     Ember.Object.create({value: 'coverageType', name: 'Coverage'  }),
+     Ember.Object.create({value: 'dueDate',      name: 'Due Date'  }),
+     Ember.Object.create({value: 'dueTime',      name: 'Due Time'  }),
+     Ember.Object.create({value: 'details',      name: 'Details'   }),
+  ],
+  filters: [
+    { name: "All",        state: null },
+    { name: "Unassigned", state: 0    },
+    { name: "Assigned",   state: 1    },
+    { name: "Rejected",   state: 2    },
+    { name: "Completed",  state: 3    },
+  ],
+  filter: null,
   sortProperty: 'id',
   sortDirection: true, // ascending by default
+
   filteredJobs: function() {
     var jobs = this.get('content'), filter = this.get('filter'),
         sortProperty = this.get('sortProperty'), sortDirection = this.get('sortDirection');
@@ -31,24 +41,6 @@ App.JobsController = Em.ArrayController.extend({
     // if descending, reverse array
     return (sortDirection) ? jobs : jobs.reverse();
   }.property('content', 'content.@each.state', 'filter', 'sortProperty', 'sortDirection'),
-  filters: [{name: "All", state: null},
-            {name: "Unassigned", state: 0},
-            {name: "Assigned",   state: 1},
-            {name: "Rejected",   state: 2},
-            {name: "Completed",  state: 3},
-           ],
-  filter: null,
-
-  // ----- END of SORTING and FILTERING ----- //
-
-  mailJobAssign: [
-      Ember.Object.create({title: 'Submit', clicked:"mailJobAssign"}),
-      Ember.Object.create({title: 'Cancel', clicked: 'closeMailModal', dismiss: 'modal'})
-  ],
-  mailJobReject: [
-      Ember.Object.create({title: 'Submit', clicked:"mailJobReject"}),
-      Ember.Object.create({title: 'Cancel', clicked: 'closeMailModal', dismiss: 'modal'})
-  ],
 
   selectedJobs: Em.computed.filterBy('content', 'selected'),
   selectedDailyMember: null,
@@ -58,7 +50,7 @@ App.JobsController = Em.ArrayController.extend({
 
   actions: {
     toggleSort: function(column) {
-      if(this.get('sortProperty') == column) {
+      if (this.get('sortProperty') === column) {
         this.toggleProperty('sortDirection');
       } else {
         this.set('sortProperty', column);
@@ -67,12 +59,11 @@ App.JobsController = Em.ArrayController.extend({
     },
     markCompleted: function() {
       this.get('selectedJobs').slice().map(function(job) {
-        job.set('selected', false);
-        job.set('state', 3);
+        job.set('selected', false); // uncheck box
+        job.set('state', 3);        // set to complete
         job.save();
       });
     },
-
     showMailModal: function(type) {
       var job = this.get('selectedJobs')[0].get('data'), 
           deadline = job.dueDate + " " + job.dueTime;
@@ -83,29 +74,27 @@ App.JobsController = Em.ArrayController.extend({
 
         this.set('subject', generateSubjectAssign(job.coverageType, deadline));
         this.set('body', generateBodyAssign(name, job.coverageType, job.contact, 
-                                      deadline, job.loc, job.time, job.details));
+              deadline, job.loc, job.time, job.details));
 
         Bootstrap.ModalManager.open('mailModal', 'Assign Job: ' +
-                                    job.title, 'mail_assign', this.mailJobAssign, this);
+            job.title, 'mail_assign', this.mailJobAssign, this);
       }
-      else {
+      else { // type === 'reject'
         this.set('email', job.email);
         this.set('subject', generateSubjectReject(job.coverageType));
-        this.set('body', generateBodyReject(job.fullName, job.coverageType, job.details, 
-                                      deadline, new Date(job.timestamp)));
+        this.set('body', generateBodyReject(job.fullName, job.coverageType, 
+              job.details, deadline, new Date(job.timestamp)));
 
         Bootstrap.ModalManager.open('mailModal', 'Reject Job: ' + job.title, 
             'mail_reject', this.mailJobReject, this);
       }
     },
-
     closeMailModal: function() {
       this.set('subject', '');
       this.set('body', '');
     },
-
     mailJobAssign: function() {
-      var that = this,
+      var controller = this,
           job = this.get('selectedJobs')[0],
           member = this.get('selectedDailyMember'),
           email = this.get('email'), 
@@ -127,7 +116,7 @@ App.JobsController = Em.ArrayController.extend({
         url: '/mail_job?type=assign',
         data: data,
         success: function(response) {
-          that.send('closeMailModal'); // clear the input fields
+          controller.send('closeMailModal'); // clear the input fields
           job.set('selected', false); // uncheck the check box
           job.set('state', 1); // assign it
 
@@ -150,7 +139,7 @@ App.JobsController = Em.ArrayController.extend({
       return Bootstrap.ModalManager.close('mailModal');
     },
     mailJobReject: function() {
-      var that = this,
+      var controller = this,
           job = this.get('selectedJobs')[0], 
           deadline = job.get('dueDate') + " " + job.get('dueTime'),
           data = {
@@ -169,7 +158,7 @@ App.JobsController = Em.ArrayController.extend({
         url: '/mail_job?type=reject',
         data: data,
         success: function(response) {
-          that.send('closeMailModal'); // clear the input fields
+          controller.send('closeMailModal'); // clear the input fields
           job.set('selected', false); // uncheck the check box
           job.set('state', 2); // reject it
           

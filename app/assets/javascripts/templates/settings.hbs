@@ -17,16 +17,20 @@
       </tr>
     </thead>
     <tbody>
-      {{#each}}
-      <tr>
-        <td>{{name}}</td>
-        <td>{{position}}</td>
-        <td>{{email}}</td>
-        <td>{{phone}}</td>
-        <td>{{jobs.length}}</td>
-        <td><a {{action "deleteDailyMember" this}} style="text-decoration:none"><span class="glyphicon glyphicon-remove"></span></a></td>
-      </tr>
-      {{/each}}
+      {{#if content}}
+        {{#each}}
+        <tr>
+          <td>{{name}}</td>
+          <td>{{position}}</td>
+          <td>{{email}}</td>
+          <td>{{phone}}</td>
+          <td>{{jobs.length}}</td>
+          <td><a {{action "deleteDailyMember" this}} style="text-decoration:none"><span class="glyphicon glyphicon-remove"></span></a></td>
+        </tr>
+        {{/each}}
+      {{else}}
+        <tr><td colspan=5><em>You need some members!</em></td></tr>
+      {{/if}}
     </tbody>
   </table>
 </div>

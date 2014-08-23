@@ -9,7 +9,7 @@ App.IndexController = Em.ObjectController.extend({
 
       this.set('errors', {});
       if (validate(this, this.get('validations'))) {
-        var that = this, model = this.get('model');
+        var controller = this, model = this.get('model');
         job = this.store.createRecord('job', {
           timestamp:    new Date().getTime(),
           title:        model.title,
@@ -29,8 +29,7 @@ App.IndexController = Em.ObjectController.extend({
         });
 
         job.save().then(function() {
-          console.log('successfully saved');
-          that.set('model', {
+          controller.set('model', {
             timestamp: null,
             title: '',
             fullName: '',
@@ -47,6 +46,9 @@ App.IndexController = Em.ObjectController.extend({
             date: '',
             time: '',
           });
+          return Bootstrap.NM.push('Successfully submitted a job request.', 'success');
+        }, function() {
+          return Bootstrap.NM.push('Failed to submit a job request.', 'danger');
         });
       }
     }

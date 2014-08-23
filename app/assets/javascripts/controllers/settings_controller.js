@@ -1,16 +1,21 @@
 App.SettingsController = Em.ArrayController.extend({
   newDailyMemberModalButtons: [
     Ember.Object.create({title: 'Create', clicked: 'createDailyMember'}),
-    Ember.Object.create({title: 'Cancel', clicked: 'closeDailyMemberModal', dismiss: 'modal'})
+    Ember.Object.create({title: 'Cancel', clicked: 'cancel', dismiss: 'modal'})
   ],
   actions: {
     deleteDailyMember: function(member) {
+      // clear relationships
+      member.get('jobs').forEach(function(job) {
+        job.set('daily_member', null);
+      });
+
       member.destroyRecord();
     },
     showNewDailyMember: function() {
       return Bootstrap.ModalManager.show('newDailyMember');
     },
-    closeDailyMemberModal: function() {
+    cancel: function() {
       this.set('name', '');
       this.set('email', '');
       this.set('phone', '');
@@ -26,16 +31,14 @@ App.SettingsController = Em.ArrayController.extend({
           phone: this.get('phone')
         });
 
-        var that = this;
+        var controller = this;
         newMember.save().then(function() {
-          Bootstrap.NM.push('Succesfully added ' + that.get('name') + '.', 'success');
-          that.set('name', '');
-          that.set('email', '');
-          that.set('phone', '');
-          that.set('position', '');
+          controller.send('cancel');
+          return Bootstrap.NM.push('Succesfully added ' + controller.get('name') + '.', 'success');
         }, function() {
-          return Bootstrap.NM.push('Failed to add ' + that.get('name') + '.', 'danger');
+          return Bootstrap.NM.push('Failed to add ' + controller.get('name') + '.', 'danger');
         });
+
         return Bootstrap.ModalManager.close('newDailyMember');
       }
     },
