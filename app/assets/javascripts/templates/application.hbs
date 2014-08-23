@@ -24,10 +24,10 @@
 {{else}}
 <form role="form" class="navbar-form navbar-right">
   <div {{bind-attr class=":form-group credErrors:has-error"}}>
-      {{view Ember.TextField classNames="form-control" value=username placeholder="Administrator email..." type=email}}
+      {{view Ember.TextField classNames="form-control" value=username placeholder="Administrator email..." type="email"}}
   </div>
   <div {{bind-attr class=":form-group credErrors:has-error"}}>
-      {{view Ember.TextField classNames="form-control" value=password placeholder="Administrator password..." type=password}}
+      {{view Ember.TextField classNames="form-control" value=password placeholder="Administrator password..." type="password"}}
   </div>
   <button {{action "signIn"}} class="btn btn-brown">Sign In</button>
 </form>

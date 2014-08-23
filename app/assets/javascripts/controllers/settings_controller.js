@@ -82,10 +82,6 @@ App.SettingsController = Em.ArrayController.extend({
     position: {
       regex: /.*/,
       message: "Enter a position for this person"
-    },
-    day: {
-      regex: /.*/,
-      message: "Enter an on call day for this person"
-    },
+    }
   }
 });
