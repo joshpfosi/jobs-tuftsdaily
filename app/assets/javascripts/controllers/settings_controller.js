@@ -3,6 +3,7 @@ App.SettingsController = Em.ArrayController.extend({
     Ember.Object.create({title: 'Create', clicked: 'createDailyMember'}),
     Ember.Object.create({title: 'Cancel', clicked: 'cancel', dismiss: 'modal'})
   ],
+  days: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
   actions: {
     deleteDailyMember: function(member) {
       // clear relationships
@@ -20,15 +21,18 @@ App.SettingsController = Em.ArrayController.extend({
       this.set('email', '');
       this.set('phone', '');
       this.set('position', '');
+      this.set('day', null);
     },
     createDailyMember: function() {
+      console.log(this.get('day'));
       this.set('errors', {}); // move validation into the controller
       if (validate(this, this.get('validations'))) {
         var newMember = this.store.createRecord('daily_member', {
-          name: this.get('name'),
+          name:     this.get('name'),
           position: this.get('position'),
-          email: this.get('email'),
-          phone: this.get('phone')
+          email:    this.get('email'),
+          phone:    this.get('phone'),
+          day:      this.get('day')
         });
 
         var controller = this;
@@ -59,6 +63,10 @@ App.SettingsController = Em.ArrayController.extend({
     position: {
       regex: /.*/,
       message: "Enter a position for this person"
+    },
+    day: {
+      regex: /.*/,
+      message: "Enter an on call day for this person"
     },
   }
 });

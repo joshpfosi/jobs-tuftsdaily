@@ -13,6 +13,7 @@
         <th>Email</th>
         <th>Phone</th>
         <th># Assigned</th>
+        <th>On Call Day</th>
         <th></th>
       </tr>
     </thead>
@@ -25,11 +26,12 @@
           <td>{{email}}</td>
           <td>{{phone}}</td>
           <td>{{jobs.length}}</td>
+          <td>{{day}}</td>
           <td><a {{action "deleteDailyMember" this}} style="text-decoration:none"><span class="glyphicon glyphicon-remove"></span></a></td>
         </tr>
         {{/each}}
       {{else}}
-        <tr><td colspan=5><em>You need some members!</em></td></tr>
+        <tr><td colspan=6><em>You need some members!</em></td></tr>
       {{/if}}
     </tbody>
   </table>
@@ -63,6 +65,13 @@
       {{view Ember.TextField classNames="form-control" value=phone placeholder="### ### ####"}}
       {{#if errors.phone}}
         <span class="help-block">{{errors.phone}}</span>
+      {{/if}}
+    </div>
+    <div {{bind-attr class=":form-group errors.day:has-error"}}>
+      <label for="day">On Call Day</label>
+      {{view Ember.Select classNames="form-control" content=days value=day prompt="Choose the day this member is on call"}}
+      {{#if errors.day}}
+        <span class="help-block">{{errors.day}}</span>
       {{/if}}
     </div>
   </form>
