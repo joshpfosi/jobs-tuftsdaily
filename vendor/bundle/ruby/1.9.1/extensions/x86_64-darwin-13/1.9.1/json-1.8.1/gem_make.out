@@ -1,0 +1,12 @@
+/Users/joshuapfosii/.rvm/rubies/ruby-1.9.3-p484/bin/ruby -r ./siteconf20140823-87933-1ipsxpi.rb extconf.rb 
+creating Makefile
+
+make  clean
+
+make
+compiling parser.c
+linking shared-object json/ext/parser.bundle
+
+make  install
+/usr/bin/install -c -m 0755 parser.bundle .gem.20140823-87933-k23vz2/json/ext
+installing default parser libraries
