@@ -41,3 +41,4 @@ gem 'ember-source'
 
 gem 'devise'
 gem 'pg'
+gem 'figaro'
