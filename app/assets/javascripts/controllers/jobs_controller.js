@@ -63,6 +63,13 @@ App.JobsController = Em.ArrayController.extend({
         job.save();
       });
     },
+    markInvestigated: function() {
+      this.get('selectedJobs').slice().map(function(job) {
+        job.set('selected', false); // uncheck box
+        job.set('state', 4);        // set to investigated
+        job.save();
+      });
+    },
     showMailModal: function(type) {
       var job = this.get('selectedJobs')[0].get('data'), 
           deadline = job.dueDate + " " + job.dueTime;

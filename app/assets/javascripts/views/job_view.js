@@ -8,6 +8,8 @@ App.JobView = Em.View.extend({
       return 'success';
     if (state === 2) // rejected
       return 'danger';
+    if (state === 4) // investigated
+      return 'warning';
   }.property('context.state'),
   id: function() { return "demo" + this.get('context.id'); }.property(),
   href: function() { return "#" + this.get('id'); }.property(),

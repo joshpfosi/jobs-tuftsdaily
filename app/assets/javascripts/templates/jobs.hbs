@@ -8,9 +8,10 @@
       {{view Ember.Select class="form-control" content=daily_members optionLabelPath="content.name" value=selectedDailyMember prompt="Select a Daily member to assign"}}
     </span>
     <div class="col-md-3 col-sm-12 col-xs-12 col-padding">
-      <div style="margin: auto; max-width: 130px;">
+      <div style="margin: auto; max-width: 169px;">
         <button {{action "showMailModal" "assign"}} {{bind-attr class=":btn :btn-info isAssignable:disabled"}}><span class="glyphicon glyphicon-envelope"></span></button>
         <button {{action "showMailModal" "reject"}} {{bind-attr class=":btn :btn-danger isSelectedJobs:disabled"}}><span class="glyphicon glyphicon-trash"></span></button>
+        <button {{action "markInvestigated"}} {{bind-attr class=":btn :btn-warning isSelectedJobs:disabled"}}><span class="glyphicon glyphicon-eye-open"></span></button>
         <button {{action "markCompleted"}} {{bind-attr class=":btn :btn-success isSelectedJobs:disabled"}}><span class="glyphicon glyphicon-ok"></span></button>
       </div>
     </div>
@@ -32,9 +33,9 @@
           {{/if}}
         </th>
         {{/each}}
-        <th>Details</th>
         <th>Edit</th>
-        </tr>
+        <th>Details</th>
+      </tr>
     </thead>
       {{collection App.JobsCollection}}
   </table>

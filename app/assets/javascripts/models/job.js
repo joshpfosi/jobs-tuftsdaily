@@ -17,4 +17,4 @@ App.Job = DS.Model.extend({
   daily_member: DS.belongsTo('daily_member')
 });
 
-// NOTE state: 0 => unassigned, 1 => assigned, 2 => rejected 3 => completed
+// NOTE state: 0 => unassigned, 1 => assigned, 2 => rejected 3 => completed, 4 => investigated

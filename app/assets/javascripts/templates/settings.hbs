@@ -14,7 +14,8 @@
         <th>Phone</th>
         <th># Assigned</th>
         <th>On Call Day</th>
-        <th>Edit / Delete</th>
+        <th>Edit</th>
+        <th>Delete</th>
       </tr>
     </thead>
     <tbody>
@@ -29,6 +30,8 @@
           <td>{{day}}</td>
           <td>
             <a {{action "showNewDailyMember" this}} style="text-decoration:none; padding-right: 10px;"><span class="glyphicon glyphicon-pencil"></span></a>
+          </td>
+          <td>
             <a {{action "deleteDailyMember" this}} style="text-decoration:none; padding-left: 10px;"><span class="glyphicon glyphicon-remove"></span></a>
           </td>
         </tr>
