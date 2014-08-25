@@ -46,7 +46,20 @@ App.IndexController = Em.ObjectController.extend({
             date: '',
             time: '',
           });
-          return Bootstrap.NM.push('Successfully submitted a job request.', 'success');
+          $.ajax({
+            type: 'POST',
+            url: '/mail_job?type=job',
+            data: {
+              job: job.get('data')
+            },
+            success: function(response) {
+              return Bootstrap.NM.push('Successfully submitted a job request.', 'success');
+            },
+            error: function(response) {
+              return Bootstrap.NM.push('Failed to notify the administrator.', 'danger');
+            },
+            dataType: 'json'
+          });
         }, function() {
           return Bootstrap.NM.push('Failed to submit a job request.', 'danger');
         });

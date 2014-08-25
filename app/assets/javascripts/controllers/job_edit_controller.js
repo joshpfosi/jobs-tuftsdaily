@@ -6,10 +6,23 @@ App.JobEditController = Em.ObjectController.extend({
       if (this.get('isOther')) this.set('coverageType', this.get('coverageTypeOther'));
 
       if (validate(this, this.get('validations'))) {
-        var controller = this;
-        this.get('model').save().then(function() {
-          Bootstrap.NM.push('Successfully saved the job.', 'success');
-          controller.transitionToRoute('jobs');
+        var controller = this, model = this.get('model')
+        model.save().then(function() {
+          $.ajax({
+            type: 'POST',
+            url: '/mail_job?type=job',
+            data: {
+              job: model.get('data')
+            },
+            success: function(response) {
+              Bootstrap.NM.push('Successfully saved the job.', 'success');
+              controller.transitionToRoute('jobs');
+            },
+            error: function(response) {
+              return Bootstrap.NM.push('Failed to notify the administrator.', 'danger');
+            },
+            dataType: 'json'
+          });
         }, function() {
           return Bootstrap.NM.push('Failed to save the job.', 'danger');
         });

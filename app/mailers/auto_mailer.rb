@@ -26,4 +26,13 @@ class AutoMailer < ActionMailer::Base
     @id            = data[:id]
     mail(to: @email, subject: @subject)
   end
+
+  def mail_job(data)
+    puts "============================================="
+    puts data
+    @title   = data[:title]
+    @id      = data[:id]
+    @subject = "New or updated job"
+    mail(to: "joshpfosi@gmail.com", subject: @subject)
+  end
 end

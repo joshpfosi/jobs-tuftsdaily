@@ -51,6 +51,7 @@ function generateSubjectReject(coverageType) {
   return "Your request for " + coverageType + " has been rejected";
 };
 
-function generateBodyReject(name, coverageType, details, deadline, timestamp) {
-  return "Dear " + name + ",\n\nYou have submitted a request:\n\n" + coverageType + "\nDescription: " + details + "\nDeadline: " + deadline + "\n\nSubmitted on: " + timestamp + "\n\nThank you for taking the time to do this. Unfortunately, we are unable to cover your request.\n\nWe feel that [reason for rejection].\n\nPlease reply with any modification or additional ideas you may have.\n\nThank you,\n\nThe Tufts Daily Photo Team";
+function generateBodyReject(name, coverageType, details, deadline, timestamp, id) {
+  return "Dear " + name + ",\n\nYou have submitted a request:\n\n" + coverageType + "\nDescription: " + details + "\nDeadline: " + deadline + "\n\nSubmitted on: " + timestamp + "\n\nThank you for taking the time to do this. Unfortunately, we are unable to cover your request.\n\nWe feel that [reason for rejection].\n\nPlease reply with any modification or additional ideas you may have, or edit the job request directly at:\n\n protected-island-4100.heroku.com/#/job/" + id + "\n\nThank you,\n\nThe Tufts Daily Photo Team";
 };
+

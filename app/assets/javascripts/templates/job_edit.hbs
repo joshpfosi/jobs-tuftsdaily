@@ -38,7 +38,7 @@
     <div {{bind-attr class=":form-group errors.coverageType:has-error"}}>
       <label class="control-label" for="coverageType">Coverage Type*</label>
       {{#if isOther}}
-        {{view Ember.TextField classNames="form-control" value=coverageTypeOther placeholder="Enter the kind of coverage..."}}
+        {{view Ember.TextField classNames="form-control" value=coverageTypeOther prompt="Enter the kind of coverage..."}}
       {{else}}
         {{view Ember.Select classNames="form-control" content=coverageTypes value=coverageType placeholder="Select a coverage type"}}
       {{/if}}
