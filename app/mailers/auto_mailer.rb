@@ -23,6 +23,7 @@ class AutoMailer < ActionMailer::Base
     @timestamp     = data[:timestamp]
     @details       = data[:details]
     @reason        = data[:reason]
+    @id            = data[:id]
     mail(to: @email, subject: @subject)
   end
 end

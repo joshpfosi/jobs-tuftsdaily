@@ -10,7 +10,10 @@
   <td>{{toDate dueDate}}</td>
   <td>{{dueTime}}</td>
   <td>
-    <a style="text-decoration:none" class="glyphicon glyphicon-list" data-toggle="collapse" data-parent="#accordion" {{bind-attr href="view.href"}}></a>
+    <a style="text-decoration:none" data-toggle="collapse" data-parent="#accordion" {{bind-attr href="view.href"}}> <span class="glyphicon glyphicon-list"></span> </a>
+  </td>
+  <td>
+    <a style="text-decoration:none" {{bind-attr href="view.edit"}}><span class="glyphicon glyphicon-pencil"></span></a>
   </td>
 </tr>
 <tr>
@@ -47,4 +50,5 @@
       </div>
     </div>
   </td>
+  <td></td>
 </tr>

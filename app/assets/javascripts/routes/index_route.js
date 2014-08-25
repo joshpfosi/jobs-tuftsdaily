@@ -17,5 +17,8 @@ App.IndexRoute = Em.Route.extend({
       date: '',
       time: '',
     };
+  },
+  setupController: function(controller, model) {
+    controller.set('model', model);
   }
 });

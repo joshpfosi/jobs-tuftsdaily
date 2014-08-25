@@ -12,4 +12,5 @@ App.JobView = Em.View.extend({
   id: function() { return "demo" + this.get('context.id'); }.property(),
   href: function() { return "#" + this.get('id'); }.property(),
   eventLoc: Em.computed.alias('context.loc'),
+  edit: function() { return "#/job/" + this.get('context.id') }.property()
 });

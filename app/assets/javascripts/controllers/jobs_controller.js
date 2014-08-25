@@ -18,7 +18,6 @@ App.JobsController = Em.ArrayController.extend({
      Ember.Object.create({value: 'coverageType', name: 'Coverage'  }),
      Ember.Object.create({value: 'dueDate',      name: 'Due Date'  }),
      Ember.Object.create({value: 'dueTime',      name: 'Due Time'  }),
-     Ember.Object.create({value: 'details',      name: 'Details'   }),
   ],
   filters: [
     { name: "All",        state: null },
@@ -150,7 +149,8 @@ App.JobsController = Em.ArrayController.extend({
             deadline:     deadline,
             timestamp:    new Date(job.get('timestamp')),
             details:      job.get('details'),
-            reason:       this.get('reason')
+            reason:       this.get('reason'),
+            id:           job.get('id')
           };
 
       $.ajax({
