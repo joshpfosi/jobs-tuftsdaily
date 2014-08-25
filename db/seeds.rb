@@ -40,3 +40,4 @@
 #end
 
 User.create(email: "npfosi@gmail.com", password: "supero11143")
+User.create(email: "praekarn.nirandara@tufts.edu", password: "dailyphoto")
