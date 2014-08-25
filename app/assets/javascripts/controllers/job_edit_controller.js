@@ -15,7 +15,7 @@ App.JobEditController = Em.ObjectController.extend({
               job: model.get('data')
             },
             success: function(response) {
-              Bootstrap.NM.push('Successfully notified administrator.', 'success');
+              Bootstrap.NM.push('Successfully saved the job.', 'success');
               controller.transitionToRoute('jobs');
             },
             error: function(response) {
@@ -23,7 +23,6 @@ App.JobEditController = Em.ObjectController.extend({
             },
             dataType: 'json'
           });
-          return Bootstrap.NM.push('Successfully saved the job.', 'success');
         }, function() {
           return Bootstrap.NM.push('Failed to save the job.', 'danger');
         });

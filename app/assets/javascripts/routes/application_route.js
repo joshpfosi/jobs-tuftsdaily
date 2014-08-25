@@ -8,7 +8,6 @@ App.ApplicationRoute = Ember.Route.extend({
       route.controllerFor('application').set('signedIn', true);
     }).fail(function() {
       route.controllerFor('application').set('signedIn', false);
-      route.transitionTo('index');
     });
   }
 });
