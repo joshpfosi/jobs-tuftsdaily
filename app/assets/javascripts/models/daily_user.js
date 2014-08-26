@@ -4,5 +4,7 @@ App.DailyMember = DS.Model.extend({
   email:    DS.attr('string'),
   phone:    DS.attr('string'),
   jobs:     DS.hasMany('job'),
-  day:      DS.attr('string')
+  day:      DS.attr('string'),
+  backDay:  DS.attr('string'),
+  notes:    DS.attr('string')
 });

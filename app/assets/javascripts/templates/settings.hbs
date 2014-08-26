@@ -14,13 +14,15 @@
         <th>Phone</th>
         <th># Assigned</th>
         <th>On Call Day</th>
+        <th>Back Up Day</th>
         <th>Edit</th>
+        <th>Notes</th>
         <th>Delete</th>
       </tr>
     </thead>
-    <tbody>
-      {{#if content}}
-        {{#each}}
+      <tbody>
+        {{#if content}}
+        {{#each itemController="member"}}
         <tr>
           <td>{{name}}</td>
           <td>{{position}}</td>
@@ -28,6 +30,10 @@
           <td>{{phone}}</td>
           <td>{{jobs.length}}</td>
           <td>{{day}}</td>
+          <td>{{backDay}}</td>
+          <td>
+            <a style="text-decoration:none" data-toggle="collapse" data-parent="#accordion" {{bind-attr href="href"}}> <span class="glyphicon glyphicon-list"></span> </a>
+          </td>
           <td>
             <a {{action "showNewDailyMember" this}} style="text-decoration:none; padding-right: 10px;"><span class="glyphicon glyphicon-pencil"></span></a>
           </td>
@@ -35,11 +41,20 @@
             <a {{action "deleteDailyMember" this}} style="text-decoration:none; padding-left: 10px;"><span class="glyphicon glyphicon-remove"></span></a>
           </td>
         </tr>
+        <tr>
+          <td colspan="10" style="padding: 0; text-align: left">
+            <div {{bind-attr id="idTag"}} class="panel-collapse collapse">
+              <div class="panel-body">
+                {{notes}}
+              </div>
+            </div>
+          </td>
+        </tr>
         {{/each}}
-      {{else}}
-        <tr><td colspan=6><em>You need some members!</em></td></tr>
-      {{/if}}
-    </tbody>
+        {{else}}
+          <tr><td colspan=10><em>You need some members!</em></td></tr>
+        {{/if}}
+      </tbody>
   </table>
 </div>
 
@@ -76,6 +91,17 @@
     <div class="form-group">
       <label for="day">On Call Day</label>
       {{view Ember.Select classNames="form-control" content=days value=day prompt="Choose the day this member is on call"}}
+    </div>
+    <div class="form-group">
+      <label for="backDay">Back Up On Call Day</label>
+      {{view Ember.Select classNames="form-control" content=days value=backDay prompt="Choose the day this member is on call"}}
+    </div>
+    <div {{bind-attr class=":form-group errors.notes:has-error"}}>
+      <label for="notes">Notes</label>
+      {{view Ember.TextField classNames="form-control" value=notes placeholder="Enter any notes..."}}
+      {{#if errors.notes}}
+        <span class="help-block">{{errors.notes}}</span>
+      {{/if}}
     </div>
   </form>
 {{/bs-modal}}

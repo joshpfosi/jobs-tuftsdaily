@@ -22,6 +22,8 @@ App.SettingsController = Em.ArrayController.extend({
         this.set('phone',    member.get('phone'));
         this.set('position', member.get('position'));
         this.set('day',      member.get('day'));
+        this.set('backDay',  member.get('backDay'));
+        this.set('notes',    member.get('notes'));
       }
       return Bootstrap.ModalManager.show('newDailyMember');
     },
@@ -30,7 +32,9 @@ App.SettingsController = Em.ArrayController.extend({
       this.set('email', '');
       this.set('phone', '');
       this.set('position', '');
-      this.set('day', null);
+      this.set('day', '');
+      this.set('backDay', '');
+      this.set('notes', '');
     },
     createDailyMember: function() {
       newMember = this.get('editMember');
@@ -42,7 +46,9 @@ App.SettingsController = Em.ArrayController.extend({
             position: this.get('position'),
             email:    this.get('email'),
             phone:    this.get('phone'),
-            day:      this.get('day')
+            day:      this.get('day'),
+            backDay:  this.get('backDay'),
+            notes:    this.get('notes')
           });
         }
         // if defined, then editing an existing member so update all fields
@@ -52,6 +58,8 @@ App.SettingsController = Em.ArrayController.extend({
           newMember.set('email', this.get('email'));
           newMember.set('phone', this.get('phone'));
           newMember.set('day', this.get('day'));
+          newMember.set('backDay', this.get('backDay'));
+          newMember.set('notes', this.get('notes'));
         }
 
         var controller = this;

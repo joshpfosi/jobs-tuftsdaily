@@ -56,6 +56,6 @@ class DailyMembersController < ApplicationController
   end
 
   def daily_member_params
-    params.require(:daily_member).permit(:id, :name, :position, :email, :phone, :day)
+    params.require(:daily_member).permit(:id, :name, :position, :email, :phone, :day, :back_day, :notes)
   end
 end

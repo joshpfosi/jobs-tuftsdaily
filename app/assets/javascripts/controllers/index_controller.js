@@ -53,13 +53,14 @@ App.IndexController = Em.ObjectController.extend({
               job: job.get('data')
             },
             success: function(response) {
-              return Bootstrap.NM.push('Successfully submitted a job request.', 'success');
+              return Bootstrap.NM.push('Successfully notified the administrator.', 'success');
             },
             error: function(response) {
               return Bootstrap.NM.push('Failed to notify the administrator.', 'danger');
             },
             dataType: 'json'
           });
+          return Bootstrap.NM.push('Successfully submitted a job request.', 'success');
         }, function() {
           return Bootstrap.NM.push('Failed to submit a job request.', 'danger');
         });
