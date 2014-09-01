@@ -97,6 +97,7 @@ App.JobsController = Em.ArrayController.extend({
       }
     },
     closeMailModal: function() {
+      this.set('reason', '');
       this.set('subject', '');
       this.set('body', '');
     },
