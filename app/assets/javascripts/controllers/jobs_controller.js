@@ -16,6 +16,7 @@ App.JobsController = Em.ArrayController.extend({
      Ember.Object.create({value: 'phone',        name: 'Phone'     }),
      Ember.Object.create({value: 'section',      name: 'Section'   }),
      Ember.Object.create({value: 'coverageType', name: 'Coverage'  }),
+     Ember.Object.create({value: 'publishDate',  name: 'Publish Date'  }),
      Ember.Object.create({value: 'dueDate',      name: 'Due Date'  }),
      Ember.Object.create({value: 'dueTime',      name: 'Due Time'  }),
   ],

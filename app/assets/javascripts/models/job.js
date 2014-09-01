@@ -7,6 +7,7 @@ App.Job = DS.Model.extend({
   contact: DS.attr('string'),
   section: DS.attr('string'),
   coverageType: DS.attr('string'),
+  publishDate: DS.attr('string'),
   dueDate: DS.attr('string'),
   dueTime: DS.attr('string'),
   details: DS.attr('string'),

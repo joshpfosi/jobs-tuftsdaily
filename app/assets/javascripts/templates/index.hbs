@@ -38,9 +38,9 @@
     <div {{bind-attr class=":form-group errors.coverageType:has-error"}}>
       <label class="control-label" for="coverageType">Coverage Type*</label>
       {{#if isOther}}
-        {{view Ember.TextField classNames="form-control" value=coverageTypeOther prompt="Enter the kind of coverage..."}}
+        {{view Ember.TextField classNames="form-control" value=coverageTypeOther placeholder="Enter the kind of coverage..."}}
       {{else}}
-        {{view Ember.Select classNames="form-control" content=coverageTypes value=coverageType placeholder="Select a coverage type"}}
+        {{view Ember.Select classNames="form-control" content=coverageTypes value=coverageType prompt="Select a coverage type"}}
       {{/if}}
       {{#if errors.coverageType}}
         <span class="help-block">{{errors.coverageType}}</span>
@@ -53,11 +53,18 @@
         <span class="help-block">{{errors.contact}}</span>
       {{/if}}
     </div>
+    <div {{bind-attr class=":form-group errors.publishDate:has-error"}}>
+      <label class="control-label" for="publishDate">Publish Date*</label>
+      {{view Ember.TextField classNames="form-control" value=publishDate type="date"}}
+      {{#if errors.publishDate}}
+        <span class="help-block">{{errors.publishDate}}</span>
+      {{/if}}
+    </div>
     <div {{bind-attr class=":form-group errors.dueDate:has-error"}}>
       <label class="control-label" for="dueDate">Due Date*</label>
       {{view Ember.TextField classNames="form-control" value=dueDate type="date"}}
       {{#if errors.dueDate}}
-        <span class="help-block">{{errors.date}}</span>
+        <span class="help-block">{{errors.dueDate}}</span>
       {{/if}}
     </div>
     <div {{bind-attr class=":form-group errors.dueTime:has-error"}}>
