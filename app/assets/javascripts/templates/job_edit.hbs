@@ -53,6 +53,13 @@
         <span class="help-block">{{errors.contact}}</span>
       {{/if}}
     </div>
+    <div {{bind-attr class=":form-group errors.publishDate:has-error"}}>
+      <label class="control-label" for="publishDate">Publish Date*</label>
+      {{view Ember.TextField classNames="form-control" value=publishDate type="date"}}
+      {{#if errors.publishDate}}
+        <span class="help-block">{{errors.publishDate}}</span>
+      {{/if}}
+    </div>
     <div {{bind-attr class=":form-group errors.dueDate:has-error"}}>
       <label class="control-label" for="dueDate">Due Date*</label>
       {{view Ember.TextField classNames="form-control" value=dueDate type="date"}}
