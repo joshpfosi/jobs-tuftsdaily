@@ -1,6 +1,5 @@
 App.ApplicationController = Em.ObjectController.extend({
   signedIn: false,
-  isJobs: false,
   username: null,
   password: null,
   credErrors: false,

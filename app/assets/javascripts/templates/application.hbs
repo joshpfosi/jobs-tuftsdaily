@@ -16,11 +16,9 @@
       <div class="navbar-collapse collapse" id="tufts-nav" style="height: 1px;">
 {{#if signedIn}}
     <button {{action "signOut"}} class="btn btn-brown navbar-btn navbar-right">Sign Out</button>
-    {{#if isJobs}}
-      {{#link-to "settings" class="navbar-link navbar-right"}}<button class="btn btn-brown navbar-btn"><span class="glyphicon glyphicon-user"></span></button>{{/link-to}}
-    {{else}}
-      {{#link-to "jobs" class="navbar-link navbar-right"}}<button class="btn btn-brown navbar-btn">Jobs</button>{{/link-to}}
-    {{/if}}
+    {{#link-to "settings" class="navbar-link navbar-right"}}<button class="btn btn-brown navbar-btn">Members</button>{{/link-to}}
+    {{#link-to "jobs" class="navbar-link navbar-right"}}<button class="btn btn-brown navbar-btn">Jobs</button>{{/link-to}}
+    {{#link-to "archive" class="navbar-link navbar-right"}}<button class="btn btn-brown navbar-btn">Archive</button>{{/link-to}}
 {{else}}
 <form role="form" class="navbar-form navbar-right">
   <div {{bind-attr class=":form-group credErrors:has-error"}}>

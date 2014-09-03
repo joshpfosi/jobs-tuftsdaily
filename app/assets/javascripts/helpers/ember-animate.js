@@ -25,6 +25,8 @@
 
 			this.$el = this.$();
 
+			this._transitionTo = this._transitionTo || this.transitionTo;
+
 			if (!self.isDestroyed) {
 
 				self.willAnimateIn();
@@ -133,27 +135,20 @@
 					}
 				}
 
-				this.isDestroying = this.hasAnimatedOut;
+				this.isDestroying = false;
 
 				_super.call(this);
-
-				// destroy the element -- this will avoid each child view destroying
-				// the element over and over again...
-				if (!this.removedFromDOM) {
-					this.destroyElement();
-				}
 
 				// remove from parent if found. Don't call removeFromParent,
 				// as removeFromParent will try to remove the element from
 				// the DOM again.
-
 				if (this._parentView) {
 					this._parentView.removeChild(this);
 				}
 
 				this.isDestroying = true;
 
-				this.transitionTo('destroying', false);
+				this._transitionTo('destroying', false);
 
 				delete this.$;
 				delete this.$el;

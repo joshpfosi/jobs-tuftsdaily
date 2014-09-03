@@ -1,6 +1,7 @@
 // given a column and an array of jobs, returns the array sorted by the property
 // given by column
 function sortColumns(column, array) {
+  if (!array) throw "Cannot call sortColumns() with null array";
   switch (column) {
     case 'id':
       return array.sort(function(a, b) {

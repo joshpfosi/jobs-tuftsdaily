@@ -1,0 +1,29 @@
+<div class="content job-list">
+  <div style="margin-bottom:10px;">
+    <span class="col-md-2 text-center col-sm-12 col-xs-12 col-padding"><h4 style="margin:0;line-height:34px;">Archived Jobs</h4></span>
+  </div>
+
+  <div class="table-responsive">
+  <table class="table">
+    <thead>
+      <tr>
+        {{#each columns itemController="columnItem"}}
+        <th {{action toggleSort value}}>
+          {{name}}
+          {{#if sortedAsc}}
+            <i class="glyphicon glyphicon-chevron-up"></i>
+          {{/if}}
+          
+          {{#if sortedDesc}}
+            <i class="glyphicon glyphicon-chevron-down"></i>
+          {{/if}}
+        </th>
+        {{/each}}
+        <th>Edit</th>
+        <th>Details</th>
+      </tr>
+    </thead>
+      {{collection App.JobsCollection}}
+  </table>
+  </div>
+</div>

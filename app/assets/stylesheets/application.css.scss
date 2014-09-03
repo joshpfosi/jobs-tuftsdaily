@@ -17,6 +17,9 @@
 $tufts-blue: #92ABCE;
 $tufts-brown: #867A6E;
 $tufts-brown-hover: #69625B;
+$archived: #5CB4B8;
+$archived-border: #4CAAAE;
+$archived-hover: #429A9E;
 
 body {
   background-color: #f3f3f3 !important;
@@ -92,3 +95,33 @@ body {
   }
 }
 
+.btn-archived {
+  color: #FFF;
+  background-color: $archived;
+  border-color: $archived-border;
+  &:hover {
+    color: #FFF;
+    background-color: $archived-hover;
+  }
+}
+
+.pending {
+  background-color: rgba(66, 139, 202, 0.33);
+}
+.archived {
+  background-color: rgba(92, 180, 184, 0.33);
+}
+
+.job-list {
+  overflow-x: scroll;
+  th {
+    text-align: center;
+  }
+  td {
+    text-align: center;
+  }
+}
+
+.table {
+  margin-bottom: 0;
+}

@@ -1,10 +1,10 @@
 App.JobsController = Em.ArrayController.extend({
   mailJobAssign: [
-      Ember.Object.create({title: 'Submit', clicked:"mailJobAssign"}),
+      Ember.Object.create({title: 'Submit', clicked: "mailJobAssign"}),
       Ember.Object.create({title: 'Cancel', clicked: 'closeMailModal', dismiss: 'modal'})
   ],
   mailJobReject: [
-      Ember.Object.create({title: 'Submit', clicked:"mailJobReject"}),
+      Ember.Object.create({title: 'Submit', clicked: "mailJobReject"}),
       Ember.Object.create({title: 'Cancel', clicked: 'closeMailModal', dismiss: 'modal'})
   ],
   columns: [
@@ -27,14 +27,13 @@ App.JobsController = Em.ArrayController.extend({
     { name: "Rejected",   state: 2    },
     { name: "Completed",  state: 3    },
   ],
-  filter: null,
+  filter: null,        // state number to filter by
   sortProperty: 'id',
   sortDirection: true, // ascending by default
 
   filteredJobs: function() {
     var jobs = this.get('content'), filter = this.get('filter'),
         sortProperty = this.get('sortProperty'), sortDirection = this.get('sortDirection');
-
     // if filter selected, apply filterBy, otherwise don't
     jobs = (filter !== null) ? sortColumns(sortProperty, jobs.filterBy('state', filter)) : sortColumns(sortProperty, jobs.get('content'));
     
@@ -57,17 +56,10 @@ App.JobsController = Em.ArrayController.extend({
         this.set('sortDirection', true);
       }
     },
-    markCompleted: function() {
+    changeState: function(state) {
       this.get('selectedJobs').slice().map(function(job) {
         job.set('selected', false); // uncheck box
-        job.set('state', 3);        // set to complete
-        job.save();
-      });
-    },
-    markInvestigated: function() {
-      this.get('selectedJobs').slice().map(function(job) {
-        job.set('selected', false); // uncheck box
-        job.set('state', 4);        // set to investigated
+        job.set('state', state);        // set to complete
         job.save();
       });
     },
