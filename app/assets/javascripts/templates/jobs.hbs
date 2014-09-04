@@ -24,7 +24,7 @@
     <thead>
       <tr>
         {{#each columns itemController="columnItem"}}
-        <th {{action toggleSort value}}>
+        <th {{action "toggleSort" value}}>
           {{name}}
           {{#if sortedAsc}}
             <i class="glyphicon glyphicon-chevron-up"></i>
