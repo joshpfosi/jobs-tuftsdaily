@@ -1,0 +1,101 @@
+2014-09-04T18:29:51.602663+00:00 app[web.1]: Completed 200 OK in 182ms (Views: 55.5ms | ActiveRecord: 44.4ms)
+2014-09-04T18:29:51.678044+00:00 app[web.1]: Processing by DailyMembersController#index as JSON
+2014-09-04T18:29:51.605457+00:00 heroku[router]: at=info method=GET path="/jobs?state=0" host=protected-island-4100.herokuapp.com request_id=a112f0b1-24b7-479f-bc56-375bdfe60ba1 fwd="209.6.48.120" dyno=web.1 connect=1ms service=273ms status=304 bytes=1366
+2014-09-04T18:29:51.735778+00:00 heroku[router]: at=info method=GET path="/daily_members" host=protected-island-4100.herokuapp.com request_id=9a9a4b04-f121-4e4f-a476-3080bc3ce8a6 fwd="209.6.48.120" dyno=web.1 connect=1ms service=63ms status=304 bytes=1367
+2014-09-04T18:29:51.675464+00:00 app[web.1]: Started GET "/daily_members" for 209.6.48.120 at 2014-09-04 18:29:51 +0000
+2014-09-04T18:29:51.733720+00:00 app[web.1]: Completed 200 OK in 55ms (Views: 41.2ms | ActiveRecord: 12.4ms)
+2014-09-04T18:30:15.759197+00:00 app[web.1]:   Rendered auto_mailer/mail_job_assign.html.erb (0.1ms)
+2014-09-04T18:30:15.746396+00:00 app[web.1]: Started POST "/mail_job?type=assign" for 209.6.48.120 at 2014-09-04 18:30:15 +0000
+2014-09-04T18:30:15.759540+00:00 app[web.1]:   Rendered auto_mailer/mail_job_assign.text.erb (0.1ms)
+2014-09-04T18:30:15.752268+00:00 app[web.1]: Processing by MailJobController#create as JSON
+2014-09-04T18:30:15.752313+00:00 app[web.1]:   Parameters: {"email"=>"Caroline.Ambros@tufts.edu", "subject"=>"Tufts Daily Photo Assignment: Portrait/Headshot due on 2014-09-09 14:00", "name"=>"Caroline Ambros", "coverageType"=>"Portrait/Headshot", "contact"=>"Nino Testa", "deadline"=>"2014-09-09 14:00", "loc"=>"LGBT Center", "time"=>"10:00", "details"=>"Nino Testa was named Director of LGBT Center; we need portrait, half body, headshots, try, in some of the photos, to include context, nice light (windows are good). Because it's in the morning watch harsh shadows. Variety. 15-45 minutes of shooting. ", "type"=>"assign"}
+2014-09-04T18:30:16.753848+00:00 app[web.1]: Processing by JobsController#update as JSON
+2014-09-04T18:30:16.620102+00:00 heroku[router]: at=info method=POST path="/mail_job?type=assign" host=protected-island-4100.herokuapp.com request_id=39173791-2dc7-47a0-864f-87f609d0d9f4 fwd="209.6.48.120" dyno=web.1 connect=1ms service=878ms status=204 bytes=1983
+2014-09-04T18:30:16.773827+00:00 heroku[router]: at=info method=PUT path="/jobs/31" host=protected-island-4100.herokuapp.com request_id=3531f0bd-51f5-4854-9551-4126cdd7ad51 fwd="209.6.48.120" dyno=web.1 connect=1ms service=34ms status=200 bytes=2072
+2014-09-04T18:30:16.775691+00:00 app[web.1]:   Parameters: {"daily_member"=>{"position"=>"Staff Photographer", "name"=>"Caroline Ambros", "email"=>"Caroline.Ambros@tufts.edu", "phone"=>"818 392 0183", "day"=>"Monday", "back_day"=>"Sunday", "notes"=>nil}, "id"=>"8"}
+2014-09-04T18:30:16.775594+00:00 app[web.1]: Processing by DailyMembersController#update as JSON
+2014-09-04T18:30:16.789700+00:00 app[web.1]: Completed 200 OK in 14ms (Views: 0.8ms | ActiveRecord: 9.0ms)
+2014-09-04T18:30:16.793080+00:00 heroku[router]: at=info method=PUT path="/daily_members/8" host=protected-island-4100.herokuapp.com request_id=5086ef80-bbbb-47ae-8a01-bb7365c18eb2 fwd="209.6.48.120" dyno=web.1 connect=1ms service=48ms status=200 bytes=1620
+2014-09-04T18:30:16.615473+00:00 app[web.1]: Sent mail to Caroline.Ambros@tufts.edu (808.7ms)
+2014-09-04T18:30:16.615466+00:00 app[web.1]: 
+2014-09-04T18:30:16.753914+00:00 app[web.1]:   Parameters: {"job"=>{"timestamp"=>1409706071476, "title"=>"Nino Testa", "full_name"=>"Patrick McGrath", "email"=>"patrick.mcgrath@tufts.edu", "phone"=>"978 314 8193", "contact"=>"Nino Testa", "section"=>"News", "coverage_type"=>"Portrait/Headshot", "publish_date"=>"2014-09-10", "due_date"=>"2014-09-09", "due_time"=>"14:00", "details"=>"Nino Testa was named Director of LGBT Center; we need portrait, half body, headshots, try, in some of the photos, to include context, nice light (windows are good). Because it's in the morning watch harsh shadows. Variety. 15-45 minutes of shooting. ", "state"=>1, "loc"=>"LGBT Center", "date"=>"2014-09-08", "time"=>"10:00", "daily_member_id"=>"8"}, "id"=>"31"}
+2014-09-04T18:30:16.618216+00:00 app[web.1]: Completed 204 No Content in 866ms (Views: 2.4ms | ActiveRecord: 0.0ms)
+2014-09-04T18:30:16.770548+00:00 app[web.1]: Completed 200 OK in 16ms (Views: 1.1ms | ActiveRecord: 7.6ms)
+2014-09-04T18:30:16.772624+00:00 app[web.1]: Started PUT "/daily_members/8" for 209.6.48.120 at 2014-09-04 18:30:16 +0000
+2014-09-04T18:30:16.747045+00:00 app[web.1]: Started PUT "/jobs/31" for 209.6.48.120 at 2014-09-04 18:30:16 +0000
+2014-09-04T18:33:32.123163+00:00 app[web.1]: Started GET "/jobs?state=0" for 209.6.48.120 at 2014-09-04 18:33:32 +0000
+2014-09-04T18:33:32.125310+00:00 app[web.1]: Processing by JobsController#index as JSON
+2014-09-04T18:33:32.125331+00:00 app[web.1]:   Parameters: {"state"=>"0"}
+2014-09-04T18:33:32.140548+00:00 app[web.1]: Completed 200 OK in 15ms (Views: 10.2ms | ActiveRecord: 3.2ms)
+2014-09-04T18:33:32.146019+00:00 heroku[router]: at=info method=GET path="/jobs?state=0" host=protected-island-4100.herokuapp.com request_id=3e340465-afba-43d0-a1ab-ecbd0678e509 fwd="209.6.48.120" dyno=web.1 connect=1ms service=25ms status=200 bytes=1366
+2014-09-04T18:33:42.191276+00:00 heroku[router]: at=info method=GET path="/jobs" host=protected-island-4100.herokuapp.com request_id=c96d4d9a-4b1f-4ef3-bfe3-1ab906ee0220 fwd="209.6.48.120" dyno=web.1 connect=4ms service=32ms status=200 bytes=1358
+2014-09-04T18:33:42.209710+00:00 app[web.1]: Started GET "/jobs?state=0" for 209.6.48.120 at 2014-09-04 18:33:42 +0000
+2014-09-04T18:33:42.341683+00:00 app[web.1]: Completed 200 OK in 30ms (Views: 16.5ms | ActiveRecord: 11.9ms)
+2014-09-04T18:33:42.166496+00:00 app[web.1]: Processing by JobsController#index as JSON
+2014-09-04T18:33:42.212936+00:00 app[web.1]:   Parameters: {"state"=>"0"}
+2014-09-04T18:33:42.309448+00:00 app[web.1]: Started GET "/daily_members" for 209.6.48.120 at 2014-09-04 18:33:42 +0000
+2014-09-04T18:33:42.164111+00:00 app[web.1]: Started GET "/jobs" for 209.6.48.120 at 2014-09-04 18:33:42 +0000
+2014-09-04T18:33:42.233806+00:00 app[web.1]: Completed 200 OK in 21ms (Views: 13.8ms | ActiveRecord: 4.9ms)
+2014-09-04T18:33:42.187789+00:00 app[web.1]: Completed 200 OK in 21ms (Views: 15.7ms | ActiveRecord: 3.4ms)
+2014-09-04T18:33:42.311639+00:00 app[web.1]: Processing by DailyMembersController#index as JSON
+2014-09-04T18:33:42.212205+00:00 app[web.1]: Processing by JobsController#index as JSON
+2014-09-04T18:33:42.347049+00:00 heroku[router]: at=info method=GET path="/daily_members" host=protected-island-4100.herokuapp.com request_id=d18fc248-e90f-4159-bc05-a515490ea820 fwd="209.6.48.120" dyno=web.1 connect=1ms service=40ms status=200 bytes=1367
+2014-09-04T18:33:54.302524+00:00 app[web.1]: Processing by JobsController#index as JSON
+2014-09-04T18:33:54.316552+00:00 app[web.1]: Completed 200 OK in 14ms (Views: 9.2ms | ActiveRecord: 3.2ms)
+2014-09-04T18:33:54.302547+00:00 app[web.1]:   Parameters: {"state"=>"0"}
+2014-09-04T18:33:54.300321+00:00 app[web.1]: Started GET "/jobs?state=0" for 209.6.48.120 at 2014-09-04 18:33:54 +0000
+2014-09-04T18:33:54.318812+00:00 heroku[router]: at=info method=GET path="/jobs?state=0" host=protected-island-4100.herokuapp.com request_id=f6e47049-308e-49d7-894b-4a9936ba15f3 fwd="209.6.48.120" dyno=web.1 connect=1ms service=21ms status=304 bytes=1366
+2014-09-04T18:34:04.531347+00:00 heroku[router]: at=info method=GET path="/jobs?state=0" host=protected-island-4100.herokuapp.com request_id=51113b68-48a2-4744-b366-235153365f84 fwd="209.6.48.120" dyno=web.1 connect=1ms service=61ms status=304 bytes=1366
+2014-09-04T18:34:04.551081+00:00 heroku[router]: at=info method=GET path="/jobs" host=protected-island-4100.herokuapp.com request_id=727fb5d5-386f-4965-9465-5381cdc3d088 fwd="209.6.48.120" dyno=web.1 connect=1ms service=77ms status=304 bytes=1358
+2014-09-04T18:34:04.547632+00:00 app[web.1]: Completed 200 OK in 15ms (Views: 10.1ms | ActiveRecord: 2.8ms)
+2014-09-04T18:34:04.597288+00:00 app[web.1]: Processing by DailyMembersController#index as JSON
+2014-09-04T18:34:04.472902+00:00 app[web.1]: Started GET "/jobs?state=0" for 209.6.48.120 at 2014-09-04 18:34:04 +0000
+2014-09-04T18:34:04.530419+00:00 app[web.1]: Started GET "/jobs" for 209.6.48.120 at 2014-09-04 18:34:04 +0000
+2014-09-04T18:34:04.476270+00:00 app[web.1]:   Parameters: {"state"=>"0"}
+2014-09-04T18:34:04.476249+00:00 app[web.1]: Processing by JobsController#index as JSON
+2014-09-04T18:34:04.528929+00:00 app[web.1]: Completed 200 OK in 52ms (Views: 47.5ms | ActiveRecord: 3.2ms)
+2014-09-04T18:34:04.532926+00:00 app[web.1]: Processing by JobsController#index as JSON
+2014-09-04T18:34:04.594730+00:00 app[web.1]: Started GET "/daily_members" for 209.6.48.120 at 2014-09-04 18:34:04 +0000
+2014-09-04T18:34:04.647698+00:00 app[web.1]: Completed 200 OK in 50ms (Views: 17.9ms | ActiveRecord: 30.6ms)
+2014-09-04T18:34:04.651230+00:00 heroku[router]: at=info method=GET path="/daily_members" host=protected-island-4100.herokuapp.com request_id=7470fbe3-75cf-4f13-9618-db3d4372f7af fwd="209.6.48.120" dyno=web.1 connect=1ms service=58ms status=304 bytes=1367
+2014-09-04T18:50:52.566362+00:00 app[web.1]: Started PUT "/jobs/33" for 209.6.48.120 at 2014-09-04 18:50:52 +0000
+2014-09-04T18:50:52.584037+00:00 heroku[router]: at=info method=PUT path="/jobs/33" host=protected-island-4100.herokuapp.com request_id=095edea6-1ca0-48bf-9e60-7b41be700d91 fwd="209.6.48.120" dyno=web.1 connect=1ms service=21ms status=200 bytes=1881
+2014-09-04T18:51:39.012543+00:00 heroku[router]: at=info method=PUT path="/jobs/32" host=protected-island-4100.herokuapp.com request_id=d5972b70-0409-405e-9f28-08ffbcfc5e58 fwd="209.6.48.120" dyno=web.1 connect=1ms service=20ms status=200 bytes=1843
+2014-09-04T18:51:38.995030+00:00 app[web.1]: Started PUT "/jobs/32" for 209.6.48.120 at 2014-09-04 18:51:38 +0000
+2014-09-04T18:51:38.997329+00:00 app[web.1]: Processing by JobsController#update as JSON
+2014-09-04T18:51:38.997385+00:00 app[web.1]:   Parameters: {"job"=>{"timestamp"=>1409706173721, "title"=>"Sarah Pinto", "full_name"=>"Patrick McGrath", "email"=>"patrick.mcgrath@tufts.edu", "phone"=>"978 314 8193", "contact"=>"Sarah Pinto", "section"=>"News", "coverage_type"=>"Portrait/Headshot", "publish_date"=>"2014-09-12", "due_date"=>"2014-09-11", "due_time"=>"14:00", "details"=>"Sarah Pinto is new Program Director for WGSS", "state"=>4, "loc"=>"", "date"=>"", "time"=>"", "daily_member_id"=>nil}, "id"=>"32"}
+2014-09-04T18:51:39.011307+00:00 app[web.1]: Completed 200 OK in 14ms (Views: 0.7ms | ActiveRecord: 8.6ms)
+2014-09-04T19:54:24.220931+00:00 heroku[web.1]: Idling
+2014-09-04T19:54:24.221651+00:00 heroku[web.1]: State changed from up to down
+2014-09-04T19:54:28.002365+00:00 app[web.1]: [2014-09-04 19:54:28] ERROR SignalException: SIGTERM
+2014-09-04T19:54:28.002374+00:00 app[web.1]: 	/app/vendor/ruby-1.9.3/lib/ruby/1.9.1/webrick/server.rb:98:in `select'
+2014-09-04T19:54:27.241930+00:00 heroku[web.1]: Stopping all processes with SIGTERM
+2014-09-04T19:54:36.799679+00:00 heroku[web.1]: Error R12 (Exit timeout) -> At least one process failed to exit within 10 seconds of SIGTERM
+2014-09-04T19:54:36.799920+00:00 heroku[web.1]: Stopping remaining processes with SIGKILL
+2014-09-04T19:54:38.454660+00:00 heroku[web.1]: Process exited with status 137
+2014-09-04T20:22:26.326463+00:00 heroku[web.1]: Unidling
+2014-09-04T20:22:26.326759+00:00 heroku[web.1]: State changed from down to starting
+2014-09-04T20:22:30.583032+00:00 heroku[web.1]: Starting process with command `bin/rails server -p 20285 -e production`
+2014-09-04T20:22:36.432619+00:00 app[web.1]: [2014-09-04 20:22:36] INFO  WEBrick 1.3.1
+2014-09-04T20:22:36.432643+00:00 app[web.1]: [2014-09-04 20:22:36] INFO  ruby 1.9.3 (2014-05-14) [x86_64-linux]
+2014-09-04T20:22:36.433117+00:00 app[web.1]: [2014-09-04 20:22:36] INFO  WEBrick::HTTPServer#start: pid=2 port=20285
+2014-09-04T20:22:36.835278+00:00 heroku[web.1]: State changed from starting to up
+2014-09-04T20:22:37.166651+00:00 app[web.1]: => Booting WEBrick
+2014-09-04T20:22:37.166658+00:00 app[web.1]: => Rails 4.1.4 application starting in production on http://0.0.0.0:20285
+2014-09-04T20:22:37.166661+00:00 app[web.1]: => Run `rails server -h` for more startup options
+2014-09-04T20:22:37.166663+00:00 app[web.1]: => Notice: server is listening on all interfaces (0.0.0.0). Consider using 127.0.0.1 (--binding option)
+2014-09-04T20:22:37.166664+00:00 app[web.1]: => Ctrl-C to shutdown server
+2014-09-04T20:22:37.166666+00:00 app[web.1]: Started GET "/jobs?state=0" for 130.64.180.192 at 2014-09-04 20:22:37 +0000
+2014-09-04T20:22:37.288713+00:00 app[web.1]:   Parameters: {"state"=>"0"}
+2014-09-04T20:22:37.288702+00:00 app[web.1]: Processing by JobsController#index as JSON
+2014-09-04T20:22:37.452484+00:00 app[web.1]: Completed 200 OK in 164ms (Views: 65.8ms | ActiveRecord: 62.9ms)
+2014-09-04T20:22:37.579465+00:00 app[web.1]: Processing by DailyMembersController#index as JSON
+2014-09-04T20:22:37.459952+00:00 heroku[router]: at=info method=GET path="/jobs?state=0" host=protected-island-4100.herokuapp.com request_id=db068842-afde-49b3-8cf4-b6c3e0531cb6 fwd="130.64.180.192" dyno=web.1 connect=5ms service=331ms status=200 bytes=1371
+2014-09-04T20:22:37.575541+00:00 app[web.1]: Started GET "/daily_members" for 130.64.180.192 at 2014-09-04 20:22:37 +0000
+2014-09-04T20:22:37.697010+00:00 app[web.1]: Completed 200 OK in 117ms (Views: 77.9ms | ActiveRecord: 37.5ms)
+2014-09-04T20:22:37.707197+00:00 heroku[router]: at=info method=GET path="/daily_members" host=protected-island-4100.herokuapp.com request_id=f7718a54-82ef-47c9-b0d2-16e15bc8afe4 fwd="130.64.180.192" dyno=web.1 connect=2ms service=128ms status=304 bytes=1369
+2014-09-04T20:22:38.149924+00:00 heroku[router]: at=info method=GET path="/jobs" host=protected-island-4100.herokuapp.com request_id=a376a583-9ab0-4eab-a046-8b62fd30f217 fwd="130.64.180.192" dyno=web.1 connect=1ms service=27ms status=200 bytes=1363
+2014-09-04T20:22:38.124142+00:00 app[web.1]: Started GET "/jobs" for 130.64.180.192 at 2014-09-04 20:22:38 +0000
+2014-09-04T20:22:38.144677+00:00 app[web.1]: Completed 200 OK in 17ms (Views: 9.4ms | ActiveRecord: 6.3ms)
+2014-09-04T20:22:38.127341+00:00 app[web.1]: Processing by JobsController#index as JSON
+2014-09-04T20:22:38.402458+00:00 heroku[router]: at=info method=GET path="/favicon.ico" host=protected-island-4100.herokuapp.com request_id=e07856ab-d90a-4606-a175-dee52c05ad23 fwd="130.64.180.192" dyno=web.1 connect=1ms service=4ms status=304 bytes=1179
