@@ -8,7 +8,7 @@ class MailJobController < ApplicationController
     elsif params[:type] == 'reject'
       AutoMailer.mail_job_reject(data).deliver
     else
-      AutoMailer.mail_job(data[:job]).deliver
+      AutoMailer.mail_job(data).deliver
     end
     render json: "ok", status: 204
   end

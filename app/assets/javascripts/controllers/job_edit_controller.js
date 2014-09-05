@@ -7,12 +7,28 @@ App.JobEditController = Em.ObjectController.extend({
 
       if (validate(this, this.get('validations'))) {
         var controller = this, model = this.get('model')
-        model.save().then(function() {
-          var arg = {
+        model.save().then(function(job) {
+          d = job.get('data');
+          $.ajax({
             type: 'POST',
             url: '/mail_job?type=job',
             data: {
-              job: model.get('data')
+              timestamp:    d.timestamp,
+              title:        d.title,
+              fullName:     d.fullName,
+              email:        d.email,
+              phone:        d.phone,
+              contact:      d.contact,
+              section:      d.section,
+              coverageType: d.coverageType,
+              publishDate:  d.publishDate,
+              dueDate:      d.dueDate,
+              dueTime:      d.dueTime,
+              details:      d.details,
+              state:        d.state,
+              loc:          d.loc,
+              date:         d.date,
+              time:         d.time
             },
             success: function(response) {
               Bootstrap.NM.push('Successfully notified administrator.', 'success');
@@ -22,8 +38,7 @@ App.JobEditController = Em.ObjectController.extend({
               return Bootstrap.NM.push('Failed to notify the administrator.', 'danger');
             },
             dataType: 'json'
-          };
-          $.ajax(arg);
+          });
           return Bootstrap.NM.push('Successfully saved the job.', 'success');
         }, function() {
           return Bootstrap.NM.push('Failed to save the job.', 'danger');
