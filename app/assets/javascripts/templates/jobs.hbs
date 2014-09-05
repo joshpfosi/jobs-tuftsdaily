@@ -8,7 +8,7 @@
       {{view Ember.Select class="form-control" content=daily_members optionLabelPath="content.name" value=selectedDailyMember prompt="Select a Daily member to assign"}}
     </span>
     <div class="col-md-4 col-sm-12 col-xs-12 col-padding">
-      <div style="margin: auto; max-width: 298px;">
+      <div style="margin: auto; max-width: 260px;">
         <button {{action "showMailModal" "assign"}} {{bind-attr class=":btn :btn-info isAssignable:disabled"}}><span class="glyphicon glyphicon-envelope"></span></button>
         <button {{action "showMailModal" "reject"}} {{bind-attr class=":btn :btn-danger isSelectedJobs:disabled"}}><span class="glyphicon glyphicon-trash"></span></button>
         <button {{action "changeState" 0}} {{bind-attr class=":btn :btn-default  isSelectedJobs:disabled"}}><span class="glyphicon glyphicon-eject"></span></button>
