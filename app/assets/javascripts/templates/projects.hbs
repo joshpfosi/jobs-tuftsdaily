@@ -1,0 +1,93 @@
+<div class="table-responsive content job-list">
+  <span class="col-md-2 text-center col-sm-12 col-xs-12 col-padding"><h4 style="margin:0;line-height:34px;">Projects</h4></span>
+    <div class="col-md-2 col-sm-12 col-xs-12 col-md-offset-8 col-padding">
+      <div style="margin: auto; max-width: 130px;">
+        <button class="btn btn-brown" {{action "showNewProject"}}>Add Project</button>
+      </div>
+    </div>
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th>Title</th>
+        <th>Author</th>
+        <th>Start Date</th>
+        <th>Publish Date</th>
+        <th>Notes</th>
+        <th>Edit</th>
+        <th>Delete</th>
+      </tr>
+    </thead>
+      <tbody>
+        {{#if content}}
+        {{#each itemController="collapse"}}
+        <tr>
+          <td>{{title}}</td>
+          <td>{{author}}</td>
+          <td>{{startDate}}</td>
+          <td>{{publishDate}}</td>
+          <td>
+            <a style="text-decoration:none" data-toggle="collapse" data-parent="#accordion" {{bind-attr href="href"}}> <span class="glyphicon glyphicon-list"></span> </a>
+          </td>
+          <td>
+            <a {{action "showNewProject" this}} style="text-decoration:none;"><span class="glyphicon glyphicon-pencil"></span></a>
+          </td>
+          <td>
+            <a {{action "deleteProject" this}} style="text-decoration:none;"><span class="glyphicon glyphicon-remove"></span></a>
+          </td>
+        </tr>
+        <tr>
+          <td colspan="10" style="padding: 0; text-align: left">
+            <div {{bind-attr id="idTag"}} class="panel-collapse collapse">
+              <div class="panel-body">
+                {{notes}}
+              </div>
+            </div>
+          </td>
+        </tr>
+        {{/each}}
+        {{else}}
+          <tr><td colspan=10><em>You need some projects!</em></td></tr>
+        {{/if}}
+      </tbody>
+  </table>
+</div>
+
+{{#bs-modal name="newProject" fade=true footerButtonsBinding="newProjectModalButtons" title="Add a new project"}}
+  <form role="form">
+    <div {{bind-attr class=":form-group errors.title:has-error"}}>
+      <label for="title">Title</label>
+      {{view Ember.TextField classNames="form-control" value=title placeholder="Enter project title..."}}
+      {{#if errors.title}}
+        <span class="help-block">{{errors.title}}</span>
+      {{/if}}
+    </div>
+    <div {{bind-attr class=":form-group errors.author:has-error"}}>
+      <label for="author">Author</label>
+      {{view Ember.TextField classNames="form-control" value=author placeholder="Enter author of this job..."}}
+      {{#if errors.author}}
+        <span class="help-block">{{errors.author}}</span>
+      {{/if}}
+    </div>
+    <div {{bind-attr class=":form-group errors.publishDate:has-error"}}>
+      <label class="control-label" for="publishDate">Publish Date</label>
+      {{view Ember.TextField classNames="form-control" value=publishDate type="date"}}
+      {{#if errors.publishDate}}
+        <span class="help-block">{{errors.publishDate}}</span>
+      {{/if}}
+    </div>
+    <div {{bind-attr class=":form-group errors.startDate:has-error"}}>
+      <label class="control-label" for="startDate">Start Date</label>
+      {{view Ember.TextField classNames="form-control" value=startDate type="date"}}
+      {{#if errors.startDate}}
+        <span class="help-block">{{errors.startDate}}</span>
+      {{/if}}
+    </div>
+    <div {{bind-attr class=":form-group errors.notes:has-error"}}>
+      <label for="notes">Notes</label>
+      {{view Ember.TextField classNames="form-control" value=notes placeholder="Enter any notes..."}}
+      {{#if errors.notes}}
+        <span class="help-block">{{errors.notes}}</span>
+      {{/if}}
+    </div>
+  </form>
+{{/bs-modal}}

@@ -15,14 +15,14 @@
         <th># Assigned</th>
         <th>On Call Day</th>
         <th>Back Up Day</th>
-        <th>Edit</th>
         <th>Notes</th>
+        <th>Edit</th>
         <th>Delete</th>
       </tr>
     </thead>
       <tbody>
         {{#if content}}
-        {{#each itemController="member"}}
+        {{#each itemController="collapse"}}
         <tr>
           <td>{{name}}</td>
           <td>{{position}}</td>
@@ -35,10 +35,10 @@
             <a style="text-decoration:none" data-toggle="collapse" data-parent="#accordion" {{bind-attr href="href"}}> <span class="glyphicon glyphicon-list"></span> </a>
           </td>
           <td>
-            <a {{action "showNewDailyMember" this}} style="text-decoration:none; padding-right: 10px;"><span class="glyphicon glyphicon-pencil"></span></a>
+            <a {{action "showNewDailyMember" this}} style="text-decoration:none;"><span class="glyphicon glyphicon-pencil"></span></a>
           </td>
           <td>
-            <a {{action "deleteDailyMember" this}} style="text-decoration:none; padding-left: 10px;"><span class="glyphicon glyphicon-remove"></span></a>
+            <a {{action "deleteDailyMember" this}} style="text-decoration:none;"><span class="glyphicon glyphicon-remove"></span></a>
           </td>
         </tr>
         <tr>

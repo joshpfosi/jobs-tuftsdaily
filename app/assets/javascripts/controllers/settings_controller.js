@@ -14,7 +14,6 @@ App.SettingsController = Em.ArrayController.extend({
       member.destroyRecord();
     },
     showNewDailyMember: function(member) {
-      console.log(member);
       if (member) {
         this.set('editMember', member);
         this.set('name',     member.get('name'));
