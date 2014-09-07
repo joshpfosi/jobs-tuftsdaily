@@ -24,7 +24,13 @@
           <td>{{title}}</td>
           <td>{{author}}</td>
           <td>{{startDate}}</td>
-          <td>{{publishDate}}</td>
+          <td>
+            {{#if publishDate}}
+              {{publishDate}}
+            {{else}}
+              -
+            {{/if}}
+          </td>
           <td>
             <a style="text-decoration:none" data-toggle="collapse" data-parent="#accordion" {{bind-attr href="href"}}> <span class="glyphicon glyphicon-list"></span> </a>
           </td>

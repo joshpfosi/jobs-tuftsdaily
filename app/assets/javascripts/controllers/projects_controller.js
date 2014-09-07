@@ -68,10 +68,6 @@ App.ProjectsController = Em.ArrayController.extend({
       regex: /.*/,
       message: "Enter an author for this project"
     },
-    publishDate: {
-      regex: /\d\d\d\d-\d\d-\d\d/,
-      message: "Enter a valid date"
-    },
     startDate: {
       regex: /\d\d\d\d-\d\d-\d\d/,
       message: "Enter a valid date"
