@@ -4,6 +4,7 @@ App.SettingsController = Em.ArrayController.extend({
     Ember.Object.create({title: 'Cancel', clicked: 'cancel', dismiss: 'modal'})
   ],
   days: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
+  sportsAnswers: ['Yes', 'No'],
   actions: {
     deleteDailyMember: function(member) {
       // clear relationships
@@ -22,6 +23,7 @@ App.SettingsController = Em.ArrayController.extend({
         this.set('position', member.get('position'));
         this.set('day',      member.get('day'));
         this.set('backDay',  member.get('backDay'));
+        this.set('sports',   member.get('sports'));
         this.set('notes',    member.get('notes'));
       }
       return Bootstrap.ModalManager.show('newDailyMember');
@@ -33,6 +35,7 @@ App.SettingsController = Em.ArrayController.extend({
       this.set('position', '');
       this.set('day', '');
       this.set('backDay', '');
+      this.set('sports', '');
       this.set('notes', '');
     },
     createDailyMember: function() {
@@ -47,18 +50,20 @@ App.SettingsController = Em.ArrayController.extend({
             phone:    this.get('phone'),
             day:      this.get('day'),
             backDay:  this.get('backDay'),
+            sports:   this.get('sports'),
             notes:    this.get('notes')
           });
         }
         // if defined, then editing an existing member so update all fields
         else { 
-          newMember.set('name', this.get('name'));
+          newMember.set('name',     this.get('name'));
           newMember.set('position', this.get('position'));
-          newMember.set('email', this.get('email'));
-          newMember.set('phone', this.get('phone'));
-          newMember.set('day', this.get('day'));
-          newMember.set('backDay', this.get('backDay'));
-          newMember.set('notes', this.get('notes'));
+          newMember.set('email',    this.get('email'));
+          newMember.set('phone',    this.get('phone'));
+          newMember.set('day',      this.get('day'));
+          newMember.set('backDay',  this.get('backDay'));
+          newMember.set('sports',   this.get('sports'));
+          newMember.set('notes',    this.get('notes'));
         }
 
         var controller = this;

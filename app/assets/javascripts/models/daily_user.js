@@ -6,5 +6,6 @@ App.DailyMember = DS.Model.extend({
   jobs:     DS.hasMany('job'),
   day:      DS.attr('string'),
   backDay:  DS.attr('string'),
+  sports:   DS.attr('string'),
   notes:    DS.attr('string')
 });
