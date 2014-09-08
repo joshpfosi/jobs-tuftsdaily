@@ -2,8 +2,8 @@ App.JobsRoute = Em.Route.extend({
   beforeModel: function() {
     this.store.find('job').then(function(jobs) {
       jobs.forEach(function(job) {
-        var currentTime = new Date().getTime() + 24 * 60 * 60 * 1000;
-            publishDate = new Date(job.get('publishDate')).getTime();
+        var currentTime = new Date().getTime();
+            publishDate = new Date(job.get('publishDate')).getTime() + 24 * 60 * 60 * 1000;
         if (publishDate < currentTime) { // past publish date
           job.set('state', 6);           // archive the job
           job.save();
