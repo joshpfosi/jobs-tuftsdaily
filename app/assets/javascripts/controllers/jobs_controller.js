@@ -72,7 +72,7 @@ App.JobsController = Em.ArrayController.extend({
 
         this.set('subject', generateSubjectAssign(job.coverageType, deadline));
         this.set('body', generateBodyAssign(name, job.coverageType, job.contact, 
-              deadline, job.loc, job.time, job.details));
+              deadline, job.loc, job.time, job.date, job.details));
 
         Bootstrap.ModalManager.open('mailModal', 'Assign Job: ' +
             job.title, 'mail_assign', this.mailJobAssign, this);
@@ -107,6 +107,7 @@ App.JobsController = Em.ArrayController.extend({
             deadline:     deadline,
             loc:          job.get('loc'),
             time:         job.get('time'),
+            date:         job.get('date'),
             details:      job.get('details')
           };
 

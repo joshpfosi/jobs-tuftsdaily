@@ -68,6 +68,10 @@ App.IndexController = Em.ObjectController.extend({
     }
   },
   validations: {
+    email: {
+      regex: /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i,
+      message: "Enter a valid email"
+    },
     title: {
       regex: /.*/,
       message: "Enter a title for the job"

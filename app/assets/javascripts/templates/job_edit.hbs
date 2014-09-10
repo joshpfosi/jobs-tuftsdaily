@@ -15,7 +15,7 @@
       {{/if}}
     </div>
     <div {{bind-attr class=":form-group errors.email:has-error"}}>
-      <label class="control-label" for="email">Email</label>
+      <label class="control-label" for="email">Email*</label>
       {{view Ember.TextField classNames="form-control" value=email placeholder="Enter your email address..." type="email"}}
       {{#if errors.email}}
         <span class="help-block">{{errors.email}}</span>

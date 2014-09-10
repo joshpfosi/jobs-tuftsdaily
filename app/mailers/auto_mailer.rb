@@ -10,6 +10,7 @@ class AutoMailer < ActionMailer::Base
     @deadline      = data[:deadline]
     @location      = data[:loc]
     @time          = data[:time]
+    @date          = data[:date]
     @details       = data[:details]
     mail(to: @email, subject: @subject)
   end
