@@ -8,21 +8,21 @@
       {{/if}}
     </div>
     <div {{bind-attr class=":form-group errors.fullName:has-error"}}>
-      <label class="control-label" for="fullName">Full Name*</label>
+      <label class="control-label" for="fullName">Full Name</label>
       {{view Ember.TextField classNames="form-control" value=fullName placeholder="Enter your full name..."}}
       {{#if errors.fullName}}
         <span class="help-block">{{errors.fullName}}</span>
       {{/if}}
     </div>
     <div {{bind-attr class=":form-group errors.email:has-error"}}>
-      <label class="control-label" for="email">Email*</label>
+      <label class="control-label" for="email">Email</label>
       {{view Ember.TextField classNames="form-control" value=email placeholder="Enter your email address..." type="email"}}
       {{#if errors.email}}
         <span class="help-block">{{errors.email}}</span>
       {{/if}}
     </div>
     <div {{bind-attr class=":form-group errors.phone:has-error"}}>
-      <label class="control-label" for="phone">Phone Number*</label>
+      <label class="control-label" for="phone">Phone Number</label>
       {{view Ember.TextField classNames="form-control" value=phone placeholder="### ### ####" type="tel"}}
       {{#if errors.phone}}
         <span class="help-block">{{errors.phone}}</span>
@@ -47,7 +47,7 @@
       {{/if}}
     </div>
     <div {{bind-attr class=":form-group errors.contact:has-error"}}>
-      <label class="control-label" for="contact">Contact Information for Subject / Event Coordinator*</label>
+      <label class="control-label" for="contact">Contact Information for Subject / Event Coordinator</label>
       {{view Ember.TextArea classNames="form-control" value=contact placeholder="Enter the subject's contact information..." rows="2"}}
       {{#if errors.contact}}
         <span class="help-block">{{errors.contact}}</span>
