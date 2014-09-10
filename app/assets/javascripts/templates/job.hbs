@@ -4,14 +4,13 @@
   <td>
     <a style="text-decoration:none" data-toggle="collapse" data-parent="#accordion" {{bind-attr href="view.href"}}>{{title}}</a>
   </td>
-  <td>{{fullName}}</td>
-  <td>{{email}}</td>
-  <td>{{phone}}</td>
+  <td>{{cleanOnEmpty fullName}}</td>
+  <td>{{cleanOnEmpty email}}</td>
+  <td>{{cleanOnEmpty phone}}</td>
   <td>{{section}}</td>
   <td>{{coverageType}}</td>
   <td>{{publishDate}}</td>
   <td>{{dueDate}}</td>
-  <td>{{dueTime}}</td>
   <td>
     <a style="text-decoration:none" {{bind-attr href="view.edit"}}><span class="glyphicon glyphicon-pencil"></span></a>
   </td>

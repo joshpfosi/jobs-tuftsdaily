@@ -21,7 +21,6 @@ App.IndexController = Em.ObjectController.extend({
           coverageType: model.coverageType,
           publishDate:  model.publishDate,
           dueDate:      model.dueDate,
-          dueTime:      model.dueTime,
           details:      model.details,
           state:        0,
           loc:          model.loc,
@@ -41,7 +40,6 @@ App.IndexController = Em.ObjectController.extend({
             coverageType: '',
             publishDate: '',
             dueDate: '',
-            dueTime: '',
             details: '',
             state: 0,
             loc: '',
@@ -89,10 +87,6 @@ App.IndexController = Em.ObjectController.extend({
     dueDate: {
       regex: /\d\d\d\d-\d\d-\d\d/,
       message: "Enter a valid date"
-    },
-    dueTime: {
-      regex: /\d\d:\d\d/,
-      message: "Enter a valid time"
     },
     details: {
       regex: /.*/,

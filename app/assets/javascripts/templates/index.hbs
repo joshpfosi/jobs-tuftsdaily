@@ -67,13 +67,6 @@
         <span class="help-block">{{errors.dueDate}}</span>
       {{/if}}
     </div>
-    <div {{bind-attr class=":form-group errors.dueTime:has-error"}}>
-      <label class="control-label" for="dueTime">Due Time*</label>
-      {{view Ember.TextField classNames="form-control" value=dueTime type="time"}}
-      {{#if errors.dueTime}}
-        <span class="help-block">{{errors.dueTime}}</span>
-      {{/if}}
-    </div>
     <div {{bind-attr class=":form-group errors.details:has-error"}}>
       <label class="control-label" for="details">Details*</label>
       {{view Ember.TextArea classNames="form-control" value=details placeholder="Enter any details..." rows="4"}}

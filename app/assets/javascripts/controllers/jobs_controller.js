@@ -18,7 +18,6 @@ App.JobsController = Em.ArrayController.extend({
      Ember.Object.create({value: 'coverageType', name: 'Coverage'  }),
      Ember.Object.create({value: 'publishDate',  name: 'Publish Date'  }),
      Ember.Object.create({value: 'dueDate',      name: 'Due Date'  }),
-     Ember.Object.create({value: 'dueTime',      name: 'Due Time'  }),
   ],
   filters: [
     { name: "All",        state: null },
@@ -65,7 +64,7 @@ App.JobsController = Em.ArrayController.extend({
     },
     showMailModal: function(type) {
       var job = this.get('selectedJobs')[0].get('data'), 
-          deadline = job.dueDate + " " + job.dueTime;
+          deadline = job.dueDate;
       if (type === "assign") {
         var member = this.get('selectedDailyMember.data'),
             name = member.name;
@@ -98,7 +97,7 @@ App.JobsController = Em.ArrayController.extend({
           job = this.get('selectedJobs')[0],
           member = this.get('selectedDailyMember'),
           email = this.get('email'), 
-          deadline = job.get('dueDate') + " " + job.get('dueTime'),
+          deadline = job.get('dueDate'),
           data = { 
             email:        email,
             subject:      this.get('subject'),
@@ -141,7 +140,7 @@ App.JobsController = Em.ArrayController.extend({
     mailJobReject: function() {
       var controller = this,
           job = this.get('selectedJobs')[0], 
-          deadline = job.get('dueDate') + " " + job.get('dueTime'),
+          deadline = job.get('dueDate'),
           data = {
             email:        job.get('email'),
             subject:      this.get('subject'),

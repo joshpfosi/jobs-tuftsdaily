@@ -10,7 +10,6 @@ App.IndexRoute = Em.Route.extend({
       section: '',
       coverageType: '',
       dueDate: '',
-      dueTime: '',
       details: '',
       state: 0,
       loc: '',

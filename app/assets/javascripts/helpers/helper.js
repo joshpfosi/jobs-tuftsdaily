@@ -12,10 +12,6 @@ function sortColumns(column, array) {
         return new Date(a.get('dueDate')).getTime()
                - new Date(b.get('dueDate')).getTime();
       });
-    case 'dueTime':
-      return array.sort(function(a, b) { 
-        return parseInt(a.get('dueTime').replace(':', ''))
-               - parseInt(b.get('dueTime').replace(':', '')); });
     default:
       return array.sortBy(column);
   };

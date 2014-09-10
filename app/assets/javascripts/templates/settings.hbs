@@ -10,10 +10,10 @@
     <thead>
       <tr>
         <th></th>
-        <th>Name</th>
-        <th>Position</th>
-        <th>Email</th>
-        <th>Phone</th>
+        <th>Name*</th>
+        <th>Position*</th>
+        <th>Email*</th>
+        <th>Phone*</th>
         <th># Assigned</th>
         <th>Sports</th>
         <th>On Call Day</th>
@@ -33,9 +33,9 @@
           <td>{{email}}</td>
           <td>{{phone}}</td>
           <td>{{jobs.length}}</td>
-          <td>{{sports}}</td>
-          <td>{{day}}</td>
-          <td>{{backDay}}</td>
+          <td>{{cleanOnEmpty sports}}</td>
+          <td>{{cleanOnEmpty day}}</td>
+          <td>{{cleanOnEmpty backDay}}</td>
           <td>
             <a style="text-decoration:none" data-toggle="collapse" data-parent="#accordion" {{bind-attr href="href"}}> <span class="glyphicon glyphicon-list"></span> </a>
           </td>

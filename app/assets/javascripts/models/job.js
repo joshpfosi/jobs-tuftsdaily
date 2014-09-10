@@ -9,7 +9,6 @@ App.Job = DS.Model.extend({
   coverageType: DS.attr('string'),
   publishDate: DS.attr('string'),
   dueDate: DS.attr('string'),
-  dueTime: DS.attr('string'),
   details: DS.attr('string'),
   state: DS.attr('number'),
   loc: DS.attr('string'),

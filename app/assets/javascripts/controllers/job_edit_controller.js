@@ -23,7 +23,6 @@ App.JobEditController = Em.ObjectController.extend({
               coverageType: d.coverageType,
               publishDate:  d.publishDate,
               dueDate:      d.dueDate,
-              dueTime:      d.dueTime,
               details:      d.details,
               state:        d.state,
               loc:          d.loc,
