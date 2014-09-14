@@ -99,6 +99,7 @@ App.JobsController = Em.ArrayController.extend({
           email = this.get('email'), 
           deadline = job.get('dueDate'),
           data = { 
+            title:        job.get('title'),
             email:        email,
             subject:      this.get('subject'),
             name:         member.get('name'),

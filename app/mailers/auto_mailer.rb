@@ -2,6 +2,7 @@ class AutoMailer < ActionMailer::Base
   default from: "dailyphoto@gmail.com"
 
   def mail_job_assign(data)
+    @title         = data[:title]
     @email         = data[:email]
     @subject       = data[:subject]
     @name          = data[:name]
