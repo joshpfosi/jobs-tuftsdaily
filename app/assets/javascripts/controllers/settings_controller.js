@@ -13,6 +13,14 @@ App.SettingsController = Em.ArrayController.extend({
 
   selectedMembers: Em.computed.filterBy('content', 'selected'),
   isSelectedMembers: Em.computed.empty('selectedMembers'),
+  
+  selectedAll: false,
+  selectAll: function() {
+    selected = this.get('selectedAll');
+    this.get('content').forEach(function(member) {
+      member.set('selected', selected);
+    });
+  }.observes('selectedAll'),
 
   actions: {
     deleteDailyMember: function(member) {
