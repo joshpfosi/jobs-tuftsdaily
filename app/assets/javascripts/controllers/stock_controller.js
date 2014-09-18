@@ -1,4 +1,9 @@
+// TODO - need to modulate this into 1 controller
 App.StockController = Em.ArrayController.extend({
+  mailJobReject: [
+      Ember.Object.create({title: 'Submit', clicked: "mailJobReject"}),
+      Ember.Object.create({title: 'Cancel', clicked: 'closeMailModal', dismiss: 'modal'})
+  ],
   columns: [
      Ember.Object.create({value: '',             name: ''          }), 
      Ember.Object.create({value: 'id',           name: '#'         }),
@@ -24,6 +29,9 @@ App.StockController = Em.ArrayController.extend({
     return (sortDirection) ? jobs : jobs.reverse();
   }.property('content', 'sortProperty', 'sortDirection'),
 
+  selectedJobs: Em.computed.filterBy('content', 'selected'),
+  isSelectedJobs: Em.computed.empty('selectedJobs'),
+
   actions: {
     toggleSort: function(column) {
       if (this.get('sortProperty') === column) {
@@ -32,6 +40,87 @@ App.StockController = Em.ArrayController.extend({
         this.set('sortProperty', column);
         this.set('sortDirection', true);
       }
-    }
+    },
+    changeState: function(state) {
+      this.get('selectedJobs').slice().map(function(job) {
+        job.set('selected', false); // uncheck box
+        job.set('state', state);        // set to complete
+        job.save();
+      });
+    },
+    showMailModal: function(type) {
+      var job = this.get('selectedJobs')[0].get('data'), 
+          deadline = job.dueDate;
+      if (type === "assign") {
+        var member = this.get('selectedDailyMember.data'),
+            name = member.name;
+        this.set('email', member.email);
+
+        this.set('subject', generateSubjectAssign(job.coverageType, deadline));
+        this.set('body', generateBodyAssign(name, job.coverageType, job.contact, 
+              deadline, job.loc, job.time, job.date, job.details));
+
+        Bootstrap.ModalManager.open('mailModal', 'Assign Job: ' +
+            job.title, 'mail_assign', this.mailJobAssign, this);
+      }
+      else { // type === 'reject'
+        this.set('email', job.email);
+        this.set('subject', generateSubjectReject(job.coverageType));
+        this.set('body', generateBodyReject(job.fullName, job.coverageType, 
+              job.details, deadline, new Date(job.timestamp), job.id));
+
+        Bootstrap.ModalManager.open('mailModal', 'Reject Job: ' + job.title, 
+            'mail_reject', this.mailJobReject, this);
+      }
+    },
+    closeMailModal: function() {
+      this.set('reason', '');
+      this.set('subject', '');
+      this.set('body', '');
+    },
+    mailJobReject: function() {
+      var controller = this,
+          job = this.get('selectedJobs')[0], 
+          deadline = job.get('dueDate'),
+          data = {
+            email:        job.get('email'),
+            subject:      this.get('subject'),
+            name:         job.get('fullName'),
+            coverageType: job.get('coverageType'),
+            deadline:     deadline,
+            timestamp:    new Date(job.get('timestamp')),
+            details:      job.get('details'),
+            reason:       this.get('reason'),
+            id:           job.get('id')
+          };
+
+      $.ajax({
+        type: "POST",
+        url: '/mail_job?type=reject',
+        data: data,
+        success: function(response) {
+          controller.send('closeMailModal'); // clear the input fields
+          job.set('selected', false); // uncheck the check box
+          job.set('state', 2); // reject it
+          
+          // clear associations
+          var member = job.get('daily_member');
+          // if assigned, remove job from daily_member and daily_member from job
+          if (member !== null) { 
+            member.get('jobs').removeObject(job);
+            member.save();
+            job.set('daily_member', null);
+          }
+          job.save();
+
+          return Bootstrap.NM.push('Successfully sent email to ' + job.get('email') + ' regarding job ' + job.get('title') + '.', 'success');
+        },
+        error: function(response) {
+          return Bootstrap.NM.push('Failed to send email to ' + email + ' regarding job ' + job.get('title') + '.', 'danger');
+        },
+        dataType: 'json'
+      });
+      return Bootstrap.ModalManager.close('mailModal');
+    },
   },
 });

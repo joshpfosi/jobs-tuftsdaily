@@ -1,6 +1,12 @@
 <div class="content job-list">
   <div style="margin-bottom:10px;">
     <span class="col-md-2 text-center col-sm-12 col-xs-12 col-padding"><h4 style="margin:0;line-height:34px;">File Photos</h4></span>
+    <div class="col-md-2 col-sm-12 col-xs-12 col-md-offset-8 col-padding">
+      <div style="margin: auto; max-width: 83px;">
+        <button {{action "showMailModal" "reject"}} {{bind-attr class=":btn :btn-danger isSelectedJobs:disabled"}}><span class="glyphicon glyphicon-trash"></span></button>
+        <button {{action "changeState" 5}} {{bind-attr class=":btn :btn-primary  isSelectedJobs:disabled"}}><span class="glyphicon glyphicon-tasks"></span></button>
+      </div>
+    </div>
   </div>
 
   <div class="table-responsive">
