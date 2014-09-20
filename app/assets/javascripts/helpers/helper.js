@@ -52,3 +52,47 @@ function generateBodyReject(name, coverageType, details, deadline, timestamp, id
   return "Dear " + name + ",\n\nYou have submitted a request:\n\n" + coverageType + "\nDescription: " + details + "\nDeadline: " + deadline + "\n\nSubmitted on: " + timestamp + "\n\nThank you for taking the time to do this. Unfortunately, we are unable to cover your request.\n\nWe feel that [reason for rejection].\n\nPlease reply with any modification or additional ideas you may have, or edit the job request directly at:\n\n protected-island-4100.heroku.com/#/job/" + id + "\n\nThank you,\n\nThe Tufts Daily Photo Team";
 };
 
+function mailJobReject() {
+  var controller = this,
+      job = this.get('selectedJobs')[0], 
+      deadline = job.get('dueDate'),
+      data = {
+        email:        job.get('email'),
+        subject:      this.get('subject'),
+        name:         job.get('fullName'),
+        coverageType: job.get('coverageType'),
+        deadline:     deadline,
+        timestamp:    new Date(job.get('timestamp')),
+        details:      job.get('details'),
+        reason:       this.get('reason'),
+        id:           job.get('id')
+      };
+
+  $.ajax({
+    type: "POST",
+    url: '/mail_job?type=reject',
+    data: data,
+    success: function(response) {
+      controller.send('closeMailModal'); // clear the input fields
+      job.set('selected', false); // uncheck the check box
+      job.set('state', 2); // reject it
+
+      // clear associations
+      var member = job.get('daily_member');
+      // if assigned, remove job from daily_member and daily_member from job
+      if (member !== null) { 
+        member.get('jobs').removeObject(job);
+        member.save();
+        job.set('daily_member', null);
+      }
+      job.save();
+
+      return Bootstrap.NM.push('Successfully sent email to ' + job.get('email') + ' regarding job ' + job.get('title') + '.', 'success');
+    },
+    error: function(response) {
+      return Bootstrap.NM.push('Failed to send email to ' + email + ' regarding job ' + job.get('title') + '.', 'danger');
+    },
+    dataType: 'json'
+  });
+  return Bootstrap.ModalManager.close('mailModal');
+};

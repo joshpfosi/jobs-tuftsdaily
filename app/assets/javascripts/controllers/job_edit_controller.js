@@ -6,7 +6,8 @@ App.JobEditController = Em.ObjectController.extend({
       if (this.get('isOther')) this.set('coverageType', this.get('coverageTypeOther'));
 
       if (validate(this, this.get('validations'))) {
-        var controller = this, model = this.get('model')
+        var controller = this, model = this.get('model');
+        model.set('state', 0); // make it unassigned
         model.save().then(function(job) {
           d = job.get('data');
           $.ajax({
