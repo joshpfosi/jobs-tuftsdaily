@@ -1,8 +1,9 @@
-Dear <%= @name %>
+Dear <%= @name %>,
 
 You have submitted a request:
 
-<%= @coverage_type %>
+Title: <%= @title %>
+Coverage Type: <%= @coverage_type %>
 Description: <%= @details %>
 Deadline: <%= @deadline %>
 
@@ -10,10 +11,13 @@ Submitted on: <%= @timestamp %>
 
 Thank you for taking the time to do this. Unfortunately we are unable to cover your request. 
 
-We feel that <%= @reason %>
+Reason for rejection:
+
+<%s= @reason %>
+
 Please reply with any modification or additional ideas you may have, or edit the job request directly at:
 
-http://jobs-tuftsdaily.herokuapp.com/#/job/<%= @id %>
+ http://jobs-tuftsdaily.herokuapp.com/#/job/<%= @id %>
 
 Thank you,
 

@@ -21,6 +21,7 @@ class AutoMailer < ActionMailer::Base
     @subject       = data[:subject]
     @name          = data[:name]
     @coverage_type = data[:coverage_type]
+    @title         = data[:title]
     @deadline      = data[:deadline]
     @timestamp     = data[:timestamp]
     @details       = data[:details]
