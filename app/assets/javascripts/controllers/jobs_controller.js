@@ -71,7 +71,7 @@ App.JobsController = Em.ArrayController.extend({
         this.set('email', member.email);
 
         this.set('subject', generateSubjectAssign(job.coverageType, deadline));
-        this.set('body', generateBodyAssign(name, job.coverageType, job.contact, 
+        this.set('body', generateBodyAssign(job.title, name, job.coverageType, job.contact, 
               deadline, job.loc, job.time, job.date, job.details));
 
         Bootstrap.ModalManager.open('mailModal', 'Assign Job: ' +

@@ -40,7 +40,7 @@ function generateSubjectAssign(coverageType, deadline) {
   return "Tufts Daily Photo Assignment: " + coverageType + " due on " + deadline;
 };
 
-function generateBodyAssign(name, coverageType, contact, deadline, loc, time, date, details) {
+function generateBodyAssign(title, name, coverageType, contact, deadline, loc, time, date, details) {
   return "Dear " + name + ",\n\nPlease cover the following assignment and let me know if you are unable to.\n\nSlug: " + title + "\n\nEvent Details:\n\nCoverage type: <%= @coverage_type %>\nContact information for the subject: " + contact + "\nDue on the Photoshelter server by: " + deadline + "\n\nWhere: " + location + "\nWhen: " + date + " " + time + "\n\nDetails: " + details + "\nThank you for working on this assignment. If you have any questions please call Nick at 603-686-3733 or reply to this email. Please deliver all images onto the Photoshelter server via FTP by the specified deadline with captions, keywords, and proper toning. Full sized JPGs will suffice.\n\nThank you,\n\nThe Tufts Daily Photo Team\n\n"
 };
 
