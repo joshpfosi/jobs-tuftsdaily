@@ -27,7 +27,7 @@ App.JobsController = Em.ArrayController.extend({
     { name: "Completed",  state: 3    },
   ],
   filter: null,        // state number to filter by
-  sortProperty: 'id',
+  sortProperty: 'publishDate',
   sortDirection: true, // ascending by default
 
   filteredJobs: function() {
