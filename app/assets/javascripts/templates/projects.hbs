@@ -45,7 +45,7 @@
           <td colspan="10" style="padding: 0; text-align: left">
             <div {{bind-attr id="idTag"}} class="panel-collapse collapse">
               <div class="panel-body">
-                {{notes}}
+                {{#if notes}} {{notes}} {{else}} <em>No notes for this project</em> {{/if}}
               </div>
             </div>
           </td>
