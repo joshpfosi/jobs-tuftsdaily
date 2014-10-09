@@ -1,10 +1,10 @@
 App.IndexRoute = Em.Route.extend({
-  model: function() {
+  model: function(params) {
     return {
       timestamp: null,
       title: '',
-      fullName: '',
-      email: '',
+      fullName: params.name,
+      email: params.email,
       phone: '',
       contact: '',
       section: '',

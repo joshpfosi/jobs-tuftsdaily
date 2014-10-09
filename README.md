@@ -10,3 +10,4 @@ The site is live at [jobs-tuftsdaily.com](http://jobs-tuftsdaily.herokuapp.com/ 
 * BUG: Solve modals overtaking mobile screen when too long
 * FEATURE: Investigating a job should open blank mail modal
 * BUG: State change on stock image page doesn't update
+* IMPROVEMENT: Refactor validations into Rails not Ember
