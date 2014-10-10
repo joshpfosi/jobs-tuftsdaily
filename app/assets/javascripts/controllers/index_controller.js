@@ -7,6 +7,9 @@ App.IndexController = Em.ObjectController.extend({
   
   actions: {
     save: function(model) {
+      console.log('clicked save');
+      // disable to prevent double clicking until ajax returns
+      $('.btn-block').addClass('disabled'); 
       if (this.get('isOther')) this.set('coverageType', this.get('coverageTypeOther'));
 
       this.set('errors', {});
@@ -55,6 +58,7 @@ App.IndexController = Em.ObjectController.extend({
               job: job.get('data')
             },
             success: function(response) {
+              $('.btn-block').addClass('disabled'); 
               return Bootstrap.NM.push('Successfully notified the administrator.', 'success');
             },
             error: function(response) {
@@ -67,6 +71,8 @@ App.IndexController = Em.ObjectController.extend({
           return Bootstrap.NM.push('Failed to submit a job request.', 'danger');
         });
       }
+      // re-enable button
+      else $('.btn-block').removeClass('disabled'); 
     }
   },
   validations: {
