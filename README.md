@@ -11,3 +11,4 @@ The site is live at [jobs-tuftsdaily.com](http://jobs-tuftsdaily.herokuapp.com/ 
 * FEATURE: Investigating a job should open blank mail modal
 * BUG: State change on stock image page doesn't update
 * IMPROVEMENT: Refactor validations into Rails not Ember
+* BUG: Due to necessity, query parameters on index page is implemented but very buggy
