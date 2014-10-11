@@ -125,3 +125,8 @@ body {
 .table {
   margin-bottom: 0;
 }
+
+.modal-dialog {
+  overflow: scroll;
+  max-height: 90%;
+}
