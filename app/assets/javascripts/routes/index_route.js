@@ -3,8 +3,8 @@ App.IndexRoute = Em.Route.extend({
     return {
       timestamp: null,
       title: '',
-      fullName: params.name,
-      email: params.email,
+      fullName: '',
+      email: '',
       phone: '',
       contact: '',
       section: '',

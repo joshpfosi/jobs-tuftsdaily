@@ -1,6 +1,4 @@
 App.IndexController = Em.ObjectController.extend({
-  queryParams: ['name', 'email'],
-  name: null, email: null,
   sections: ['News', 'Features', 'Sports', 'Arts', 'Multimedia', 'Op-Ed'],
   coverageTypes: ['Portrait/Headshot', 'Event', 'Lecture', 'Feature Story', 'File Photo', 'Stock', 'Other'],
   isOther: Em.computed.equal('coverageType', 'Other'),
