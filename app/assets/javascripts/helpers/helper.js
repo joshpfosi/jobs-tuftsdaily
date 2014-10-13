@@ -97,3 +97,21 @@ function mailJobReject() {
   });
   return Bootstrap.ModalManager.close('mailModal');
 };
+
+function getEditorEmail(section) {
+  switch (section) {
+    case 'News':
+      return "tuftsdailynews@gmail.com";
+    case 'Features':
+      return "tuftsfeatures@gmail.com";
+    case 'Sports':
+      return "sports@tuftsdaily.com";
+    case 'Arts':
+      return "dzennir@aol.com";
+    case 'Multimedia':
+      return "tuftsdailymedia@gmail.com";
+    case 'Op-Ed':
+      return "tuftsdailyoped@gmail.com";
+  }
+  return ''; // should never occur
+}

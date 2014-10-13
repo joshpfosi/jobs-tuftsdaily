@@ -49,18 +49,24 @@ App.IndexController = Em.ObjectController.extend({
             date: '',
             time: '',
           });
+
+          var editorEmail = getEditorEmail(model.section);
+          if (editorEmail === '') throw "getEditorEmail called with invalid section" + model.section;
+          // send mail
           $.ajax({
             type: 'POST',
             url: '/mail_job?type=job',
             data: {
-              job: job.get('data')
+              job: job.get('data'),
+              editorEmail: editorEmail
             },
             success: function(response) {
-              $('.btn-block').addClass('disabled'); 
+              $('.btn-block').removeClass('disabled'); 
               return Bootstrap.NM.push('Successfully notified the administrator.', 'success');
             },
             error: function(response) {
-              return Bootstrap.NM.push('Failed to notify the administrator.', 'danger');
+              $('.btn-block').removeClass('disabled'); 
+              return Bootstrap.NM.push('Failed to notify the administrator - please contact him.', 'danger');
             },
             dataType: 'json'
           });
