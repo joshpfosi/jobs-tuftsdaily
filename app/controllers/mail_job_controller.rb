@@ -9,9 +9,11 @@ class MailJobController < ApplicationController
       AutoMailer.mail_job_reject(data).deliver
     elsif params[:type] == 'members'
       AutoMailer.mail_job_members(data).deliver
-    else
+    elsif params[:type] == ' job'
       AutoMailer.mail_job(data, "npfosi@gmail.com").deliver
       AutoMailer.mail_job(data, data[:editorEmail]).deliver
+    else # type == update_job
+      AutoMailer.mail_job(data, "npfosi@gmail.com").deliver
     end
     render json: "ok", status: 204
   end

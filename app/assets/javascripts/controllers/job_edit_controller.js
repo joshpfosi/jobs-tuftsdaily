@@ -12,7 +12,7 @@ App.JobEditController = Em.ObjectController.extend({
           d = job.get('data');
           $.ajax({
             type: 'POST',
-            url: '/mail_job?type=job',
+            url: '/mail_job?type=update_job',
             data: {
               timestamp:    d.timestamp,
               title:        d.title,
