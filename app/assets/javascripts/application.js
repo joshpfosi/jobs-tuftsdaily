@@ -17,7 +17,6 @@
 //= require ember
 //= require ember-data
 //= require spin.min
-//= require list-view
 //= require_self
 //= require ./app
 
