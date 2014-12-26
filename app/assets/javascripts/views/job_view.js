@@ -1,4 +1,4 @@
-App.JobView = Em.View.extend({
+App.JobView = Em.ListItemView.extend({
   templateName: 'job',
   color: function() {
     var state = this.get('context.state');

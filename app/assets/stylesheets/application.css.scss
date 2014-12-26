@@ -49,6 +49,8 @@ body {
 }
 
 .container {
+  width: auto;
+  max-width: 1200px;
   margin-bottom: 20px;
 }
 
@@ -129,4 +131,13 @@ body {
 .modal-dialog {
   overflow: scroll;
   max-height: 90%;
+}
+
+// required for ember-list-view
+.ember-list-view {
+  overflow: auto;
+  position: relative;
+}
+.ember-list-item-view {
+  position: absolute;
 }

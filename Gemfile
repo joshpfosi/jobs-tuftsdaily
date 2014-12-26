@@ -42,3 +42,10 @@ gem 'ember-source'
 gem 'devise'
 gem 'pg'
 gem 'figaro'
+gem 'faker' # for seed data
+
+# ember table dependencies
+# ember
+gem 'jquery-ui-rails'
+gem 'jquery-mousewheel-rails'
+gem 'rails_antiscroll'

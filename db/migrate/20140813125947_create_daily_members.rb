@@ -5,6 +5,10 @@ class CreateDailyMembers < ActiveRecord::Migration
       t.string :name
       t.string :email
       t.string :phone
+      t.string :day
+      t.string :back_day
+      t.text   :notes
+      t.string :sports
 
       t.timestamps
     end

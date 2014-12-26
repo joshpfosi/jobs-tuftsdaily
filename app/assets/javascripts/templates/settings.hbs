@@ -51,6 +51,23 @@
             <div {{bind-attr id="idTag"}} class="panel-collapse collapse">
               <div class="panel-body">
                 {{#if notes}} {{notes}} {{else}} <em>No notes on this member</em> {{/if}}
+                <hr>
+                <label>Job History</label>
+                <div class="table-response" style="width: 400px;">
+                  <table class="table" style="background-color: #FDFDFD">
+                    <thead>
+                    </thead>
+                    <tbody>
+                    {{#each job in jobs}}
+                    <tr>
+                      <th>{{job.title}}</th>
+                      <th>{{job.section}}</th>
+                      <th>{{job.dueDate}}</th>
+                    </tr>
+                    {{/each}}
+                    </tbody>
+                  </table>
+                </div>
               </div>
             </div>
           </td>
