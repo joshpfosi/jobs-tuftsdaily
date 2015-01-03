@@ -2,7 +2,7 @@ class CreateJobs < ActiveRecord::Migration
   def change
     create_table :jobs do |t|
       t.string     :title
-      t.integer    :timestamp
+      t.string    :timestamp
       t.string     :full_name
       t.string     :email
       t.string     :phone
