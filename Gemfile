@@ -49,3 +49,5 @@ gem 'faker' # for seed data
 gem 'jquery-ui-rails'
 gem 'jquery-mousewheel-rails'
 gem 'rails_antiscroll'
+
+gem 'seed_dump'
