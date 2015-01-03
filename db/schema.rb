@@ -31,7 +31,7 @@ ActiveRecord::Schema.define(version: 20140905185108) do
 
   create_table "jobs", force: true do |t|
     t.string   "title"
-    t.integer  "timestamp"
+    t.string   "timestamp"
     t.string   "full_name"
     t.string   "email"
     t.string   "phone"
