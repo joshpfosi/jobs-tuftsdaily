@@ -44,10 +44,7 @@ gem 'pg'
 gem 'figaro'
 gem 'faker' # for seed data
 
-# ember table dependencies
-# ember
-gem 'jquery-ui-rails'
-gem 'jquery-mousewheel-rails'
-gem 'rails_antiscroll'
-
-gem 'seed_dump'
+# for archiving
+gem 'delayed_job_active_record'
+gem 'daemons'
+gem 'delayed_job_recurring'

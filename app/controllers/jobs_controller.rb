@@ -12,7 +12,11 @@ class JobsController < ApplicationController
 
   # GET /jobs
   def index
-    @jobs = Job.all
+    if params[:state] == 'archived'
+      @jobs = Job.select{ |job| job.state == 6 }
+    else
+      @jobs = Job.select{ |job| job.state != 6 }
+    end
     
     respond_to do |format|
       format.json { render json: @jobs }
