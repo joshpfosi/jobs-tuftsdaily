@@ -27,6 +27,7 @@ App.SettingsController = Em.ArrayController.extend({
       // clear relationships
       member.get('jobs').forEach(function(job) {
         job.set('daily_member', null);
+        job.save();
       });
 
       member.destroyRecord();
