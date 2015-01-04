@@ -4,6 +4,7 @@ class Archive
   run_at '4:00am'
 
   def perform
+    Delayed::Worker.logger.debug("RUNNING JOB at #{Time.now}")
     Job.select{|j| j.state != 6}.each do |job|
       time = job.publish_date.split('-')
       time = Time.new(time[0], time[1], time[2])
