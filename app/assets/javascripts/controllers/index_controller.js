@@ -5,108 +5,44 @@ App.IndexController = Em.ObjectController.extend({
   
   actions: {
     save: function(model) {
-      console.log('clicked save');
       // disable to prevent double clicking until ajax returns
       $('.btn-block').addClass('disabled'); 
-      if (this.get('isOther')) this.set('coverageType', this.get('coverageTypeOther'));
 
-      this.set('errors', {});
-      if (validate(this, this.get('validations'))) {
-        var controller = this, model = this.get('model');
-        job = this.store.createRecord('job', {
-          timestamp:    new Date().getTime(),
-          title:        model.title,
-          fullName:     model.fullName,
-          email:        model.email,
-          phone:        model.phone,
-          contact:      model.contact,
-          section:      model.section,
-          coverageType: model.coverageType,
-          publishDate:  model.publishDate,
-          dueDate:      model.dueDate,
-          details:      model.details,
-          state:        0,
-          loc:          model.loc,
-          date:         model.date,
-          time:         model.time
-        });
-
-        job.save().then(function() {
-          controller.set('model', {
-            timestamp: null,
-            title: '',
-            fullName: '',
-            email: '',
-            phone: '',
-            contact: '',
-            section: '',
-            coverageType: '',
-            publishDate: '',
-            dueDate: '',
-            details: '',
-            state: 0,
-            loc: '',
-            date: '',
-            time: '',
-          });
-
-          var editorEmail = getEditorEmail(model.section);
-          if (editorEmail === '') throw "getEditorEmail called with invalid section" + model.section;
-          // send mail
-          $.ajax({
-            type: 'POST',
-            url: '/mail_job?type=job',
-            data: {
-              job: job.get('data'),
-              editorEmail: editorEmail
-            },
-            success: function(response) {
-              $('.btn-block').removeClass('disabled'); 
-              return Bootstrap.NM.push('Successfully notified the administrator.', 'success');
-            },
-            error: function(response) {
-              $('.btn-block').removeClass('disabled'); 
-              return Bootstrap.NM.push('Failed to notify the administrator - please contact him.', 'danger');
-            },
-            dataType: 'json'
-          });
-          return Bootstrap.NM.push('Successfully submitted a job request.', 'success');
-        }, function() {
-          return Bootstrap.NM.push('Failed to submit a job request.', 'danger');
+      if (this.get('isOther')) {
+        this.setProperties({
+          coverageType: this.get('coverageTypeOther'),
+          timestamp:    new Date().getTime()
         });
       }
-      // re-enable button
-      else $('.btn-block').removeClass('disabled'); 
+
+      var controller = this, model = this.get('model');
+      this.get('model').save().then(function() {
+        controller.set('model', controller.store.createRecord('job'));
+
+        var editorEmail = getEditorEmail(model.section);
+        if (editorEmail === '') {
+          throw "getEditorEmail called with invalid section" + model.section;
+        }
+
+        // send mail
+        $.ajax({
+          type: 'POST', url: '/mail_job?type=job',
+          data: { job: job.get('data'), editorEmail: editorEmail },
+          success: function(response) {
+            $('.btn-block').removeClass('disabled'); 
+            Bootstrap.NM.push('Successfully notified the administrator.', 'success');
+          },
+          error: function(response) {
+            $('.btn-block').removeClass('disabled'); 
+            Bootstrap.NM.push('Failed to notify the administrator - please contact him.', 'danger');
+          },
+          dataType: 'json'
+        });
+        Bootstrap.NM.push('Successfully submitted a job request.', 'success');
+      }, function() { // failed to save job record
+        $('.btn-block').removeClass('disabled'); 
+        Bootstrap.NM.push('Failed to submit a job request.', 'danger');
+      });
     }
   },
-  validations: {
-    email: {
-      regex: /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i,
-      message: "Enter a valid email"
-    },
-    title: {
-      regex: /.*/,
-      message: "Enter a title for the job"
-    },
-    section: {
-      regex: /.*/,
-      message: "Choose a section from the list"
-    },
-    coverageType: {
-      regex: /.*/,
-      message: "Enter the kind of coverage"
-    },
-    publishDate: {
-      regex: /\d\d\d\d-\d\d-\d\d/,
-      message: "Enter a valid date"
-    },
-    dueDate: {
-      regex: /\d\d\d\d-\d\d-\d\d/,
-      message: "Enter a valid date"
-    },
-    details: {
-      regex: /.*/,
-      message: "You must submit details"
-    }
-  }
 });

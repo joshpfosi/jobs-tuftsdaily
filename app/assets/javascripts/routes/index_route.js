@@ -1,23 +1,10 @@
 App.IndexRoute = Em.Route.extend({
-  model: function(params) {
-    return {
-      timestamp: null,
-      title: '',
-      fullName: '',
-      email: '',
-      phone: '',
-      contact: '',
-      section: '',
-      coverageType: '',
-      dueDate: '',
-      details: '',
-      state: 0,
-      loc: '',
-      date: '',
-      time: '',
-    };
+  model: function() {
+    return this.store.createRecord('job');
   },
-  setupController: function(controller, model) {
-    controller.set('model', model);
+  actions: {
+    willTransition: function() {
+      this.controllerFor('index').get('model').deleteRecord();
+    }
   }
 });

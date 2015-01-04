@@ -4,7 +4,6 @@ App.JobEditRoute = Em.Route.extend({
   },
   setupController: function(controller, model) {
     controller.set('model', model);
-    controller.set('validations',   this.controllerFor('index').get('validations'));
     controller.set('sections',      this.controllerFor('index').get('sections'));
     controller.set('coverageTypes', this.controllerFor('index').get('coverageTypes'));
   }

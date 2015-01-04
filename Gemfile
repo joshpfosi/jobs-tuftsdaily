@@ -48,3 +48,5 @@ gem 'faker' # for seed data
 gem 'delayed_job_active_record'
 gem 'daemons'
 gem 'delayed_job_recurring'
+
+gem 'ember-validations-rails'
