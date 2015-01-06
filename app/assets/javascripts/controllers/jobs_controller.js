@@ -47,6 +47,9 @@ App.JobsController = Em.ArrayController.extend({
   isAssignable: Em.computed.or('isSelectedDailyMember', 'isSelectedJobs'),
 
   actions: {
+    deleteJob: function(job) {
+      job.destroyRecord();
+    },
     toggleSort: function(column) {
       if (this.get('sortProperty') === column) {
         this.toggleProperty('sortDirection');

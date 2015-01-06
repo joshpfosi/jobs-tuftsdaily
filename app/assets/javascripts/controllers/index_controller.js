@@ -15,13 +15,13 @@ App.IndexController = Em.ObjectController.extend({
         });
       }
 
-      var controller = this, model = this.get('model');
-      this.get('model').save().then(function() {
+      var controller = this;
+      this.get('model').save().then(function(job) {
         controller.set('model', controller.store.createRecord('job'));
 
-        var editorEmail = getEditorEmail(model.section);
+        var editorEmail = getEditorEmail(job.get('section'));
         if (editorEmail === '') {
-          throw "getEditorEmail called with invalid section" + model.section;
+          throw "getEditorEmail called with invalid section" + job.get('section');
         }
 
         // send mail

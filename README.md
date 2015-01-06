@@ -4,11 +4,13 @@ A simple web application for managing job requests for photos for the Tufts Univ
 
 The site is live at [jobs-tuftsdaily.com](http://jobs-tuftsdaily.herokuapp.com/ "site-link") 
 
+Please report bugs to "joshpfosi@gmail.com"
+
 ### TODO ###
 
-* IMPROVEMENT: Parametrize bulky ajax calls for mailing
-* BUG: Solve modals overtaking mobile screen when too long
+* IMPROVEMENT: Refactor date strings into datetime
+* IMPROVEMENT: Why can’t there be separate lines in the description for an assignment? 
+* FEATURE: Add a "notes" option to jobs so when I mark them as "Investigated" (yellow) I can write down in what way I investigated them
+* IMPROVEMENT: Positions drop down, and inactive disables them
 * FEATURE: Investigating a job should open blank mail modal
-* BUG: State change on stock image page doesn't update
-* IMPROVEMENT: Refactor validations into Rails not Ember
-* BUG: Due to necessity, query parameters on index page is implemented but very buggy
+* IMPROVEMENT: Parametrize bulky ajax calls for mailing
