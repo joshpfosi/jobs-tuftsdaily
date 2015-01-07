@@ -1,61 +1,48 @@
 class ProjectsController < ApplicationController
+  before_action :set_project, only: [:show, :edit, :update, :destroy]
   before_filter :authenticate_user!
 
-  # GET /projects/:id
-  def show
-    @project = Project.find(params[:id])
-
-    respond_to do |format|
-      format.json { render json: @project }
-    end
-  end
+  respond_to :json
 
   # GET /projects
   def index
     @projects = Project.all
-    
-    respond_to do |format|
-      format.json { render json: @projects }
-    end
+
+    respond_with(@projects)
+  end
+
+  # GET /projects/1
+  def show
+    respond_with(@project)
   end
 
   # POST /projects
   def create
     @project = Project.new(project_params)
-
-    respond_to do |format|
-      if @project.save
-        format.json { render json: @project, status: :created }
-      else
-        format.json { render json: @project.errors, status: :unprocessable_entity }
-      end
-    end
+    @project.save
+    respond_with(@project)
   end
 
   # PUT /projects/:id
   def update
-    @project = Project.find(params[:id])
-
-    respond_to do |format|
-      if @project.update(project_params)
-        format.json { render json: nil, status: :ok }
-      else
-        format.json { render json: @project.errors, status: :unprocessable_entity}
-      end
-    end
+    @project.update(project_params)
+    respond_with(@project)
   end
 
   # DELETE /projects/:id.json
   def destroy
-    @project = Project.find(params[:id])
     @project.destroy
+    respond_with(@project)
+  end
 
-    respond_to do |format|
-      format.json { render json: nil, status: :ok }
+  private
+    # Use callbacks to share common setup or constraints between actions.
+    def set_project
+      @project = Project.find(params[:id])
     end
-  end
 
-  def project_params
-    params.require(:project).permit(:id, :title, :author, :start_date, :publish_date, :notes)
-  end
+    # Never trust parameters from the scary internet, only allow the white list through.
+    def project_params
+      params.require(:project).permit(:id, :title, :author, :start_date, :publish_date, :notes)
+    end
 end

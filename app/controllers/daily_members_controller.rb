@@ -1,61 +1,45 @@
 class DailyMembersController < ApplicationController
+  before_action :set_daily_member, only: [:show, :edit, :update, :destroy]
   before_filter :authenticate_user!
 
-  # GET /daily_members/:id
-  def show
-    @daily_member = DailyMember.find(params[:id])
-
-    respond_to do |format|
-      format.json { render json: @daily_member }
-    end
-  end
+  respond_to :json
 
   # GET /daily_members
   def index
     @daily_members = DailyMember.all
-    
-    respond_to do |format|
-      format.json { render json: @daily_members }
-    end
+    respond_with(@daily_members)
+  end
+
+  # GET /daily_members/:id
+  def show
+    respond_with(@daily_member)
   end
 
   # POST /daily_members
   def create
     @daily_member = DailyMember.new(daily_member_params)
-
-    respond_to do |format|
-      if @daily_member.save
-        format.json { render json: @daily_member, status: :created }
-      else
-        format.json { render json: @daily_member.errors, status: :unprocessable_entity }
-      end
-    end
+    @daily_member.save
+    respond_with(@daily_member)
   end
 
   # PUT /daily_members/:id
   def update
-    @daily_member = DailyMember.find(params[:id])
-
-    respond_to do |format|
-      if @daily_member.update(daily_member_params)
-        format.json { render json: nil, status: :ok }
-      else
-        format.json { render json: @daily_member.errors, status: :unprocessable_entity}
-      end
-    end
+    @daily_member.update(daily_member_params)
+    respond_with(@daily_member)
   end
 
   # DELETE /daily_members/:id.json
   def destroy
-    @daily_member = DailyMember.find(params[:id])
     @daily_member.destroy
+    respond_with(@daily_member)
+  end
 
-    respond_to do |format|
-      format.json { render json: nil, status: :ok }
+  private
+    def set_daily_member
+      @daily_member = DailyMember.find(params[:id])
     end
-  end
 
-  def daily_member_params
-    params.require(:daily_member).permit(:id, :name, :position, :email, :phone, :day, :back_day, :sports, :notes)
-  end
+    def daily_member_params
+      params.require(:daily_member).permit(:id, :name, :position, :email, :phone, :day, :back_day, :sports, :notes)
+    end
 end

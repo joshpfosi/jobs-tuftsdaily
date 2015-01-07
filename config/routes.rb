@@ -1,9 +1,9 @@
 Rails.application.routes.draw do
-  devise_for :users, :controllers => { :sessions => "json_sessions" }
-  root to: 'home#index'
+  resources :projects
   resources :jobs
   resources :daily_members
-  resources :projects
 
+  devise_for :users, :controllers => { :sessions => "json_sessions" }
+  root to: 'home#index'
   post   'mail_job'          => 'mail_job#create'
 end

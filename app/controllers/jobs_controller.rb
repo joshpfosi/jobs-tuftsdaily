@@ -12,6 +12,8 @@ class JobsController < ApplicationController
       @jobs = Job.select{ |job| job.state != 6 }
     elsif params[:coverageType] == 'stock'
       @jobs = Job.select{ |job| job.state != 6 && (job.coverage_type == 'File Photo' || job.coverage_type == 'Stock') }
+    else
+      @jobs = Job.all
     end
     
     respond_with(@jobs)
