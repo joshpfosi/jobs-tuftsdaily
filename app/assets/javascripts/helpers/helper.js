@@ -17,25 +17,6 @@ function sortColumns(column, array) {
   };
 };
 
-// given a controller and a set of validations with a regex to validate against,
-// validates that the controller's field adheres to the regex, setting context.errors
-// if not
-function validate(controller, validations) {
-  var isValid = true;
-  for (field in validations) {
-    // if field is blank and it passes the regex
-    var data = controller.get(field);
-    if (data && data.match(validations[field].regex)) {
-      controller.set("errors." + field, null);
-    }
-    else { // it failed
-      controller.set("errors." + field, validations[field].message);
-      isValid = false;
-    }
-  }
-  return isValid;
-};
-
 function generateSubjectAssign(coverageType, deadline) {
   return "Tufts Daily Photo Assignment: " + coverageType + " due on " + deadline;
 };

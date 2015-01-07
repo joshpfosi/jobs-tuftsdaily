@@ -16,6 +16,8 @@ RSpec.describe DailyMember, :type => :model do
 
   it { should be_valid }
 
+  it { should have_many :jobs }
+
   # TODO shoulda_matchers should work but aren't
   #it { should validate_length_of(:name).is_at_least(3) }
   #it { should validate_length_of(:name).is_at_most(20) }

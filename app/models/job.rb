@@ -12,4 +12,19 @@ class Job < ActiveRecord::Base
   end
 
   belongs_to :daily_member
+
+  scope :equal_state,     lambda { |state| where(state: state) }
+  scope :not_equal_state, lambda { |state| where.not(state: state) }
+  scope :is_stock,        lambda { |bool|  where(coverage_type: ['Stock', 'File Photo']) if bool }
+
+  def self.search(params = {})
+    products = params[:job_ids].present? ? Job.find(params[:job_ids]) : Job.all
+
+    products = products.equal_state(params[:equal_state]) if params[:equal_state]
+    products = products.not_equal_state(params[:not_equal_state]) if params[:not_equal_state]
+    products = products.is_stock(params[:is_stock]) if params[:is_stock]
+
+    products
+  end
+
 end

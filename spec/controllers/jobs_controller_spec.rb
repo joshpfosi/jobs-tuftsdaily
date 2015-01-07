@@ -4,39 +4,51 @@ require 'support/controller_helper'
 RSpec.describe JobsController, :type => :controller do
 
   context "GET #index" do
-    context 'authenticated' do
+    context 'when user authenticated' do
       before(:each) { sign_in }
 
-      it "returns nothing without query" do
-        4.times { FactoryGirl.create :job }
-        get :index
-        jobs_response = json_response
-        expect(jobs_response[:jobs].length).to eql 4
-        should respond_with 200
+      context 'when filter by nothing' do
+        before do
+          @job1 = FactoryGirl.create :job
+          @job2 = FactoryGirl.create :job
+          @job3 = FactoryGirl.create :job
+          get :index
+          @jobs_response = json_response[:jobs]
+        end
+
+        it 'returns all records' do
+          expect(@jobs_response.length).to eql 3
+        end
+
+        it 'returns correct products' do
+          expect(Job.all).to match_array([@job1,@job2,@job3])
+        end
       end
 
-      it "returns archived with query" do
-        4.times { FactoryGirl.create(:job, state: 6) }
-        get :index, state: 'archived'
-        jobs_response = json_response
-        expect(jobs_response[:jobs].length).to eql 4
-        should respond_with 200
-      end
+      context 'when filtering' do
+        before(:each) do
+          @job1 = FactoryGirl.create(:job, state: 6)
+          @job2 = FactoryGirl.create(:job, state: 2, coverage_type: "Stock")
+          @job3 = FactoryGirl.create(:job, state: 3, coverage_type: "File Photo")
+          @job4 = FactoryGirl.create(:job, state: 4)
+          @job5 = FactoryGirl.create(:job, state: 6)
+        end
 
-      it "returns unarchived with query" do
-        4.times { FactoryGirl.create(:job, state: 4) }
-        get :index, state: 'unarchived'
-        jobs_response = json_response
-        expect(jobs_response[:jobs].length).to eql 4
-        should respond_with 200
-      end
+        it 'returns archived if state == 6' do
+          expect(Job.search({equal_state: 6})).to match_array([@job1, @job5])
+        end
 
-      it "returns stock with query" do
-        4.times { FactoryGirl.create(:job, state: 4, coverage_type: "Stock") }
-        get :index, coverageType: 'stock'
-        jobs_response = json_response
-        expect(jobs_response[:jobs].length).to eql 4
-        should respond_with 200
+        it 'returns unarchived if state != 6' do
+          expect(Job.search({not_equal_state: 6})).to match_array([@job2, @job3, @job4])
+        end
+
+        it 'returns file photo and stock if coverageType == Stock' do
+          expect(Job.search({is_stock: true})).to match_array([@job2, @job3])
+        end
+
+        it 'returns empty when stock and archived' do
+          expect(Job.search({equal_state: 6, is_stock: true})).to be_empty
+        end
       end
     end
   end
@@ -133,33 +145,4 @@ RSpec.describe JobsController, :type => :controller do
     it { should respond_with 204 }
 
   end
-
-  #context 'GET #index' do
-  #  it 'error if unauthenticated' do
-  #    get :index
-  #    expect(response).to have_http_status(401)
-  #  end
-
-  #  context 'authenticted' do
-  #    before(:each) do
-  #      sign_in
-  #    end
-
-  #    it 'assigns nil iff authenticated and no query' do
-  #      get :index
-  #      expect(response).to have_http_status(200)
-  #    end
-
-  #    it 'returns only archives w/ state == archived' do
-  #      get :index, state: 'archived'
-  #      expect(response).to have_http_status(200)
-
-  #      #expected_jobs = [@job1,@job5].map{ |job| job.to_json }
-  #      #expect(response.body).to eq(expected_jobs)
-  #    end
-
-  #    it 'returns only unarchived w/ state == unarchived'
-  #    it 'returns only stock w/ state == stock'
-  #  end
-  #end
 end

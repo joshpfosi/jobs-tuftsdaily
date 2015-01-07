@@ -6,19 +6,8 @@ class JobsController < ApplicationController
 
   # GET /jobs
   def index
-    if params[:state] == 'archived'
-      @jobs = Job.select{ |job| job.state == 6 }
-    elsif params[:state] == 'unarchived'
-      @jobs = Job.select{ |job| job.state != 6 }
-    elsif params[:coverageType] == 'stock'
-      @jobs = Job.select{ |job| job.state != 6 && (job.coverage_type == 'File Photo' || job.coverage_type == 'Stock') }
-    else
-      @jobs = Job.all
-    end
-    
-    respond_with(@jobs)
+    respond_with(Job.search(params))
   end
-
 
   # GET /jobs/:id
   def show

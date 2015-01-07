@@ -28,9 +28,10 @@ group :development, :test do
   gem 'faker' # for seed data
   gem 'shoulda-matchers'
   gem 'figaro'
+  gem 'email_spec'
+  gem 'simplecov'
+  gem 'database_cleaner'
 end
-
-gem 'simplecov', :require => false, :group => :test
 
 gem 'ember-rails'
 gem 'ember-source'

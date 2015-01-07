@@ -1,3 +1,4 @@
+require 'email_spec'
 require 'support/request_helpers'
 require 'simplecov'
 SimpleCov.start 'rails' do
@@ -92,5 +93,28 @@ RSpec.configure do |config|
   config.include Request::JsonHelpers, :type => :controller
   config.before(:each, type: :controller) do
     request.headers['Accept'] = "#{Mime::JSON}"
+  end
+  config.include(EmailSpec::Helpers)
+  config.include(EmailSpec::Matchers)
+
+  
+  config.before(:suite) do
+    DatabaseCleaner.clean_with(:truncation)
+  end
+
+  config.before(:each) do
+    DatabaseCleaner.strategy = :transaction
+  end
+
+  config.before(:each, :js => true) do
+    DatabaseCleaner.strategy = :truncation
+  end
+
+  config.before(:each) do
+    DatabaseCleaner.start
+  end
+
+  config.after(:each) do
+    DatabaseCleaner.clean
   end
 end
