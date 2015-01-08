@@ -14,7 +14,13 @@ Please report bugs to "joshpfosi@gmail.com"
 * IMPROVEMENT: Positions drop down, and inactive disables them
 * FEATURE: Investigating a job should open blank mail modal
 * IMPROVEMENT: Parametrize bulky ajax calls for mailing
+* BUG: `form-field-select` reports error on `view "select"` - hotfixed to `Em.Select`
+* IMPROVEMENT: Needs Karma for automated integration testing
 
 # Configurations
 
 * `config/environments/test.rb` - added `config.log\_level = :error` to suppress SQL errors when testing with RSpec
+
+# CI Setup
+
+* Uses Codeship on Heroku for continuous integration. Runs a limited RSpec test suite currently.

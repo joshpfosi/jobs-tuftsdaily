@@ -31,6 +31,7 @@ group :development, :test do
   gem 'email_spec'
   gem 'simplecov'
   gem 'database_cleaner'
+  gem 'qunit-rails'
 end
 
 gem 'ember-rails'
@@ -59,3 +60,5 @@ gem 'delayed_job_recurring'
 gem 'ember-validations-rails'
 
 gem 'byebug'
+
+gem 'momentjs-rails'

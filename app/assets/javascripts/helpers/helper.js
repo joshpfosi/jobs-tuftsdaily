@@ -44,7 +44,7 @@ function mailJobReject() {
         coverage_type: job.get('coverageType'),
         title:        job.get('title'),
         deadline:     deadline,
-        timestamp:    new Date(job.get('timestamp')),
+        timestamp:    job.get('createdAt'),
         details:      job.get('details'),
         reason:       this.get('reason'),
         id:           job.get('id')

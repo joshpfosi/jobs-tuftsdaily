@@ -1,29 +1,6 @@
 {
   "RSpec": {
     "coverage": {
-      "/Users/joshpfosi/jobs-tuftsdaily/lib/archive.rb": [
-        1,
-        1,
-        1,
-        1,
-        null,
-        1,
-        0,
-        0,
-        0,
-        0,
-        null,
-        null,
-        0,
-        0,
-        0,
-        null,
-        0,
-        null,
-        null,
-        null,
-        null
-      ],
       "/Users/joshpfosi/jobs-tuftsdaily/app/models/user.rb": [
         1,
         null,
@@ -315,6 +292,6 @@
         null
       ]
     },
-    "timestamp": 1420662177
+    "timestamp": 1420678712
   }
 }

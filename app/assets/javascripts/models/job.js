@@ -1,5 +1,5 @@
 App.Job = DS.Model.extend(Em.Validations.Mixin, {
-  timestamp: DS.attr('number', { defaultValue: new Date().getTime() }),
+  createdAt: DS.attr('utc'),
   title: DS.attr('string'),
   fullName: DS.attr('string'),
   email: DS.attr('string'),
@@ -7,8 +7,8 @@ App.Job = DS.Model.extend(Em.Validations.Mixin, {
   contact: DS.attr('string'),
   section: DS.attr('string'),
   coverageType: DS.attr('string'),
-  publishDate: DS.attr('string'),
-  dueDate: DS.attr('string'),
+  publishDate: DS.attr('utc'),
+  dueDate: DS.attr('utc'),
   details: DS.attr('string'),
   state: DS.attr('number', { defaultValue: 0 }),
   loc: DS.attr('string'),

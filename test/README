@@ -1,0 +1,4 @@
+This is the QUnit testing directory. Tests placed under javascripts will run,
+however, because Bootstrap notifications time out after the application is
+reset, the last test errors out. Unclear how to solve this. In the meantime,
+let the application be user tested *laughs*.

@@ -3,7 +3,7 @@ App.ApplicationRoute = Ember.Route.extend({
     var route = this;
     Ember.$.post('/users/sign_in', function() {
       route.controllerFor('application').set('signedIn', true);
-    }).fail(function() {
+    }).fail(function(response) {
       route.controllerFor('application').set('signedIn', false);
       route.transitionTo('index');
     });

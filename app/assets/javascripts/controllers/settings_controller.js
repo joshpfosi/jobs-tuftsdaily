@@ -11,6 +11,7 @@ App.SettingsController = Em.ArrayController.extend({
 
   days: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
   sportsAnswers: ['Yes', 'No'],
+  positions: ['Executive Photo Editor', 'Photo Administrator', 'Picture Tufts Editor', 'Picture Tufts Contributor', 'Stock Image Editor', 'Section Liaison', 'Staff Photographer', 'Project Photographer', 'Trainee', 'Inactive'],
 
   selectedMembers: Em.computed.filterBy('content', 'selected'),
   isSelectedMembers: Em.computed.empty('selectedMembers'),

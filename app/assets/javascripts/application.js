@@ -17,6 +17,7 @@
 //= require ember
 //= require ember-data
 //= require spin.min
+//= require moment
 //= require ember-validations
 //= require_self
 //= require ./app
@@ -24,4 +25,13 @@
 // for more details see: http://emberjs.com/guides/application/
 App = Ember.Application.create();
 
+// TODO move elsewhere, but cannot figure out why it isn't loaded
+App.UtcTransform = DS.Transform.extend({  
+  serialize: function(value) {
+    return value ? moment.utc(new Date(value)).format() : null;
+  },
+  deserialize: function(value) {
+    return value ? moment.utc(value).format("YYYY-MM-DD") : null;
+  }
+});
 //= require_tree .

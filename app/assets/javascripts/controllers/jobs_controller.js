@@ -84,7 +84,7 @@ App.JobsController = Em.ArrayController.extend({
         this.set('email', job.email);
         this.set('subject', generateSubjectReject(job.coverageType));
         this.set('body', generateBodyReject(job.fullName, job.coverageType, 
-              job.title, job.details, deadline, new Date(job.timestamp), job.id));
+              job.title, job.details, deadline, job.createdAt, job.id));
 
         Bootstrap.ModalManager.open('mailModal', 'Reject Job: ' + job.title, 
             'mail_reject', this.mailJobReject, this);

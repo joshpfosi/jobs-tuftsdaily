@@ -8,12 +8,7 @@ App.IndexController = Em.ObjectController.extend({
       // disable to prevent double clicking until ajax returns
       $('.btn-block').addClass('disabled'); 
 
-      if (this.get('isOther')) {
-        this.setProperties({
-          coverageType: this.get('coverageTypeOther'),
-          timestamp:    new Date().getTime()
-        });
-      }
+      if (this.get('isOther')) this.set('coverageType', this.get('coverageTypeOther'));
 
       var controller = this;
       this.get('model').save().then(function(job) {

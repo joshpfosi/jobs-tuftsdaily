@@ -13,8 +13,8 @@ class CreateJobs < ActiveRecord::Migration
       t.text       :details
       t.integer    :state
       t.string     :loc
-      t.date       :date
-      t.time       :time
+      t.string     :date
+      t.string     :time
       t.datetime   :publish_date
       t.text       :notes
       t.belongs_to :daily_member

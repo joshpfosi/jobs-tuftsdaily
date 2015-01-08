@@ -82,52 +82,15 @@
 
 {{#bs-modal name="newDailyMember" fade=true footerButtonsBinding="newDailyMemberModalButtons" title="Add a new daily member"}}
   <form role="form">
-    <div {{bind-attr class=":form-group editMember.errors.name:has-error"}}>
-      <label for="name">Name</label>
-      {{view Ember.TextField classNames="form-control" value=editMember.name placeholder="Enter his / her name..."}}
-      {{#if editMember.errors.name}}
-        <span class="help-block">{{editMember.errors.name}}</span>
-      {{/if}}
-    </div>
-    <div {{bind-attr class=":form-group editMember.errors.position:has-error"}}>
-      <label for="position">Position</label>
-      {{view Ember.TextField classNames="form-control" value=editMember.position placeholder="Enter his / her position on the Daily..."}}
-      {{#if editMember.errors.position}}
-        <span class="help-block">{{editMember.errors.position}}</span>
-      {{/if}}
-    </div>
-    <div {{bind-attr class=":form-group editMember.errors.email:has-error"}}>
-      <label for="email">Email</label>
-      {{view Ember.TextField classNames="form-control" value=editMember.email placeholder="Enter his / her email..."}}
-      {{#if editMember.errors.email}}
-        <span class="help-block">{{editMember.errors.email}}</span>
-      {{/if}}
-    </div>
-    <div {{bind-attr class=":form-group editMember.errors.phone:has-error"}}>
-      <label for="phone">Phone</label>
-      {{view Ember.TextField classNames="form-control" value=editMember.phone placeholder="### ### ####"}}
-      {{#if editMember.errors.phone}}
-        <span class="help-block">{{editMember.errors.phone}}</span>
-      {{/if}}
-    </div>
-    <div class="form-group">
-      <label for="sports">Sports</label>
-      {{view Ember.Select classNames="form-control" content=sportsAnswers value=editMember.sports prompt="Can this member shoot sports?"}}
-    </div>
-    <div class="form-group">
-      <label for="day">On Call Day</label>
-      {{view Ember.Select classNames="form-control" content=days value=editMember.day prompt="Choose the day this member is on call"}}
-    </div>
-    <div class="form-group">
-      <label for="backDay">Back Up On Call Day</label>
-      {{view Ember.Select classNames="form-control" content=days value=editMember.backDay prompt="Choose the day this member is on call"}}
-    </div>
-    <div {{bind-attr class=":form-group editMember.errors.notes:has-error"}}>
-      <label for="notes">Notes</label>
-      {{view Ember.TextField classNames="form-control" value=editMember.notes placeholder="Enter any notes..."}}
-      {{#if editMember.errors.notes}}
-        <span class="help-block">{{editMember.errors.notes}}</span>
-      {{/if}}
-    </div>
+    {{form-field-text value=editMember.name error=editMember.errors.name placeholder="Enter his / her name..." label="Name"}}
+    {{form-field-select value=editMember.position error=editMember.errors.position content=positions prompt="Select his / her position on the Daily..." label="Position"}}
+    {{form-field-text value=editMember.email error=editMember.errors.email placeholder="Enter his / her email..." label="Email"}}
+    {{form-field-text value=editMember.phone error=editMember.errors.phone placeholder="### ### ####" label="Phone"}}
+
+    {{form-field-select value=editMember.sports content=sportsAnswers prompt="Can this member shoot sports?" label="Sports"}}
+    {{form-field-select value=editMember.day content=days prompt="Choose the day this member is on call" label="On Call Day"}}
+    {{form-field-select value=editMember.backDay content=days prompt="Choose the day this member is on call" label="Back Up On Call Day"}}
+
+    {{form-field-text value=editMember.notes error=editMember.errors.notes placeholder="Enter any notes..." label="Notes"}}
   </form>
 {{/bs-modal}}
