@@ -16,6 +16,7 @@ Please report bugs to "joshpfosi@gmail.com"
 * IMPROVEMENT: Parametrize bulky ajax calls for mailing
 * BUG: `form-field-select` reports error on `view "select"` - hotfixed to `Em.Select`
 * IMPROVEMENT: Needs Karma for automated integration testing
+* IMPROVEMENT: Refactor past date check into `past?`
 
 # Configurations
 
