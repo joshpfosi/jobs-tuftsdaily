@@ -6,7 +6,7 @@ The site is live at [jobs-tuftsdaily.com](http://jobs-tuftsdaily.herokuapp.com/ 
 
 Please report bugs to "joshpfosi@gmail.com"
 
-## TODO
+# Todo
 
 * IMPROVEMENT: Refactor date strings into datetime
 * IMPROVEMENT: Why can’t there be separate lines in the description for an assignment? 
