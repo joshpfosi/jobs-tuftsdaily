@@ -18,13 +18,13 @@ class Job < ActiveRecord::Base
   scope :is_stock,        lambda { |bool|  where(coverage_type: ['Stock', 'File Photo']) if bool }
 
   def self.search(params = {})
-    products = params[:job_ids].present? ? Job.find(params[:job_ids]) : Job.all
+    jobs = params[:job_ids].present? ? Job.find(params[:job_ids]) : Job.all
 
-    products = products.equal_state(params[:equal_state]) if params[:equal_state]
-    products = products.not_equal_state(params[:not_equal_state]) if params[:not_equal_state]
-    products = products.is_stock(params[:is_stock]) if params[:is_stock]
+    jobs = jobs.equal_state(params[:equal_state]) if params[:equal_state]
+    jobs = jobs.not_equal_state(params[:not_equal_state]) if params[:not_equal_state]
+    jobs = jobs.is_stock(params[:is_stock]) if params[:is_stock]
 
-    products
+    jobs
   end
 
 end

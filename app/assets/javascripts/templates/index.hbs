@@ -2,7 +2,7 @@
   <form role="form">
     <div {{bind-attr class=":form-group errors.title:has-error"}}>
       <label class="control-label" for="title">Slug*</label>
-      {{view Ember.TextField classNames="form-control" value=title placeholder="Enter a slug for the job..."}}
+      {{view Ember.TextField classNames="form-control" name="title" value=title placeholder="Enter a slug for the job..."}}
       {{#if errors.title}}
         <span class="help-block">{{errors.title}}</span>
       {{/if}}
