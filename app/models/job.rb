@@ -7,8 +7,8 @@ class Job < ActiveRecord::Base
   validate :dates
 
   def dates
-    errors.add(:due_date, "date has occured")     if due_date.nil? || due_date < Time.now
-    errors.add(:publish_date, "date has occured") if publish_date.nil? || publish_date < Time.now
+    errors.add(:due_date, "date has occured")     if due_date.nil? || due_date < Date.today
+    errors.add(:publish_date, "date has occured") if publish_date.nil? || publish_date < Date.today
   end
 
   belongs_to :daily_member

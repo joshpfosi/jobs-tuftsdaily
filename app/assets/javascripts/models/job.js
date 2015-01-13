@@ -1,5 +1,5 @@
 App.Job = DS.Model.extend(Em.Validations.Mixin, {
-  createdAt: DS.attr('utc'),
+  createdAt: DS.attr('utc', { defaultValue: new Date() }),
   title: DS.attr('string'),
   fullName: DS.attr('string'),
   email: DS.attr('string'),
