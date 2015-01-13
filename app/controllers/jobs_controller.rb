@@ -39,6 +39,6 @@ class JobsController < ApplicationController
 
     # note Unpermitted parameters: :daily_member_ids
     def job_params
-      params.require(:job).permit(:id, :timestamp, :title, :full_name, :email, :phone, :contact, :section, :coverage_type, :publish_date, :due_date, :details, :state, :loc, :date, :time, :daily_member_id)
+      params.require(:job).permit(:id, :created_at, :timestamp, :title, :full_name, :email, :phone, :contact, :section, :coverage_type, :publish_date, :due_date, :details, :state, :loc, :date, :time, :daily_member_id)
     end
 end
