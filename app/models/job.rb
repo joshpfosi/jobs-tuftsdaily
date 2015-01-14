@@ -3,13 +3,7 @@ class Job < ActiveRecord::Base
   validates :title, :section, :coverage_type, :publish_date, :due_date, :details, presence: true
   validates :state, inclusion: { in: 0..6 }
 
-  # TODO: Refactor some how (see project.rb)
-  validate :dates
-
-  def dates
-    errors.add(:due_date, "date has occured")     if due_date.nil? || due_date < Date.today
-    errors.add(:publish_date, "date has occured") if publish_date.nil? || publish_date < Date.today
-  end
+  validates :due_date, :publish_date, is_not_past: true
 
   belongs_to :daily_member
 

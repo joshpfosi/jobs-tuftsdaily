@@ -29,6 +29,9 @@ RSpec.describe Job, :type => :model do
   it { should validate_presence_of(:publish_date) }
   it { should validate_presence_of(:due_date) }
   it { should validate_presence_of(:details) }
+  it { should validate_not_in_past(:due_date) }
+  it { should validate_not_in_past(:publish_date) }
+
   it { should validate_inclusion_of(:state).in_range(0..6) }
   it { should allow_value('example@domain.com').for(:email) }
 
