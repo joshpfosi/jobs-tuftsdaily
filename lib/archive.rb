@@ -6,15 +6,14 @@ class Archive
   def perform
     Delayed::Worker.logger.debug("RUNNING JOB at #{Time.now}")
     Job.select{|j| j.state != 6}.each do |job|
-      time = job.publish_date.split('-')
-      time = Time.new(time[0], time[1], time[2])
 
       # archive the job
-      if Time.now - time > 0
+      if job.publish_date < Time.now
         job.state = 6
-        job.save
+        job.save(validate: false)
+        # must validate: false, as we are updating a record in the past
 
-        Delayed::Worker.logger.debug("Job #{job.id} archived with #{Time.now} - #{time} > 0")
+        Delayed::Worker.logger.debug("Job #{job.id} archived with #{Time.now} > #{job.publish_date}")
       end
     end
   end
