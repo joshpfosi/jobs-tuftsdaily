@@ -105,7 +105,9 @@ describe AutoMailer do
   context ".mail_job" do
     before(:all) do
       @email = Faker::Internet.email
-      @data = { title: Faker::App.name, id: 5 }
+      @title = Faker::App.name
+      @id    = 5
+      @data = { job: { title: @title, id: @id }, editor_email: "joshpfosi@gmail.com" }
       @assignment_mailer = AutoMailer.mail_job(@data, @email)
     end
 
@@ -118,7 +120,7 @@ describe AutoMailer do
     end
 
     it "should contain the message in the mail body" do
-      expect(@assignment_mailer).to have_body_text("Successfully added or updated job: #{@data[:title]} (##{@data[:id]}). Check the jobs to see the new information.")
+      expect(@assignment_mailer).to have_body_text("Successfully added or updated job: #{@title} (##{@id}). Check the jobs to see the new information.")
     end
 
     it "should have the correct subject" do
