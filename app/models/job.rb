@@ -3,7 +3,7 @@ class Job < ActiveRecord::Base
   validates :title, :section, :coverage_type, :publish_date, :due_date, :details, presence: true
   validates :state, inclusion: { in: 0..6 }
 
-  validates :due_date, :publish_date, is_not_past: true
+  validates_date :due_date, :publish_date, :on_or_after => lambda { Date.current }
 
   belongs_to :daily_member
 
