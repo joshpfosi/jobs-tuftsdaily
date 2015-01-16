@@ -43,7 +43,7 @@ export default Ember.ObjectController.extend({
 
         // send mail
         Ember.$.ajax({
-          type: 'POST', url: 'http://localhost:3000/api/mail_job?type=job',
+          type: 'POST', url: 'api/mail_job?type=job',
           data: { job: job.get('data'), editorEmail: editorEmail },
           success: function() {
             Ember.$('.btn-block').removeClass('disabled'); 

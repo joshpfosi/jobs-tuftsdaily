@@ -17,7 +17,7 @@ export default DS.Model.extend(EmberValidations.Mixin, {
   loc: DS.attr('string'),
   date: DS.attr('string'),
   time: DS.attr('string'),
-  dailyMember: DS.belongsTo('daily-member'),
+  dailyMember: DS.belongsTo('daily-member', { async: true }),
 
   validations: {
     email: {

@@ -15,7 +15,7 @@ export default Ember.ObjectController.extend({
         var d = job.get('data');
         Ember.$.ajax({
           type: 'POST',
-          url: '/mail_job?type=update_job',
+          url: 'api/mail_job?type=update_job',
           data: {
             timestamp:    d.timestamp,
             title:        d.title,

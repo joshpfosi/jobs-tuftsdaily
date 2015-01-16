@@ -10,7 +10,7 @@ export default DS.Model.extend(EmberValidations.Mixin, {
   backDay:  DS.attr('string'),
   sports:   DS.attr('string'),
   notes:    DS.attr('string'),
-  jobs:     DS.hasMany('job'),
+  jobs:     DS.hasMany('job', { async: true }),
        
   validations: {
     name: {

@@ -7,9 +7,9 @@ export default Ember.Route.extend({
     });
   },
   setupController: function(controller, model) {
+    controller.set('model', model);
     this.store.find('daily_member').then(function(members) {
       controller.set('daily_members', members); // for use in drop down 
     });
-    controller.set('model', model);
   }
 });

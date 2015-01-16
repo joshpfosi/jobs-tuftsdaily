@@ -81,7 +81,7 @@ export default Ember.ArrayController.extend({
           };
       Ember.$.ajax({
         type: "POST",
-        url: '/mail_job?type=members',
+        url: 'api/mail_job?type=members',
         data: data,
         success: function() {
           controller.send('closeMailMembersModal'); // clear the input fields
