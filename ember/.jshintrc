@@ -2,7 +2,14 @@
   "predef": [
     "document",
     "window",
-    "-Promise"
+    "-Promise",
+    "moment",
+    "generateBodyReject",
+    "generateBodyAssign",
+    "generateSubjectReject",
+    "generateSubjectAssign",
+    "getEditorEmail",
+    "Bootstrap"
   ],
   "browser": true,
   "boss": true,
