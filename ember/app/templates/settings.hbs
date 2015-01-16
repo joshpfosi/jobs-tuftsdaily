@@ -10,10 +10,10 @@
     <thead>
       <tr>
         <th>{{input type="checkbox" checked=selectedAll}}</th>
-        <th>Name*</th>
-        <th>Position*</th>
-        <th>Email*</th>
-        <th>Phone*</th>
+        <th>Name</th>
+        <th>Position</th>
+        <th>Email</th>
+        <th>Phone</th>
         <th># Assigned</th>
         <th>Sports</th>
         <th>On Call Day</th>
@@ -40,7 +40,7 @@
             <a style="text-decoration:none" data-toggle="collapse" data-parent="#accordion" {{bind-attr href="href"}}> <span class="glyphicon glyphicon-list"></span> </a>
           </td>
           <td>
-            <a {{action "showNewDailyMember" this}} style="text-decoration:none;"><span class="glyphicon glyphicon-pencil"></span></a>
+            <a {{action "editOldDailyMember" this}} style="text-decoration:none;"><span class="glyphicon glyphicon-pencil"></span></a>
           </td>
           <td>
             <a {{action "deleteDailyMember" this}} style="text-decoration:none;"><span class="glyphicon glyphicon-remove"></span></a>
@@ -79,18 +79,32 @@
       </tbody>
   </table>
 </div>
+{{#em-modal-form configName="bs" id="modalf" on-submit="createDailyMember" in-async=async open-if=hasEditMember close-if=success}}
+    {{#em-modal-title}}
+        {{#em-modal-toggler class="close"}}<span aria-hidden="true">×</span><span class="sr-only">Close</span>{{/em-modal-toggler}}
+        <h4 class="modal-title">Add a new daily member</h4>
+    {{/em-modal-title}}
 
-{{#bs-modal name="newDailyMember" fade=true footerButtonsBinding="newDailyMemberModalButtons" title="Add a new daily member"}}
-  <form role="form">
-    {{form-field-text value=editMember.name error=editMember.errors.name placeholder="Enter his / her name..." label="Name"}}
-    {{form-field-select value=editMember.position error=editMember.errors.position content=positions prompt="Select his / her position on the Daily..." label="Position"}}
-    {{form-field-text value=editMember.email error=editMember.errors.email placeholder="Enter his / her email..." label="Email"}}
-    {{form-field-text value=editMember.phone error=editMember.errors.phone placeholder="### ### ####" label="Phone"}}
+    {{#em-modal-body}}
+        {{#if async}}
+            Submitting, please wait...
+        {{else}}
+          <form role="form">
+            {{form-field-text value=editMember.name error=editMember.errors.name placeholder="Enter his / her name..." label="Name"}}
+            {{form-field-select value=editMember.position error=editMember.errors.position content=positions prompt="Select his / her position on the Daily..." label="Position"}}
+            {{form-field-text value=editMember.email error=editMember.errors.email placeholder="Enter his / her email..." label="Email"}}
+            {{form-field-text value=editMember.phone error=editMember.errors.phone placeholder="### ### ####" label="Phone"}}
 
-    {{form-field-select value=editMember.sports content=sportsAnswers prompt="Can this member shoot sports?" label="Sports"}}
-    {{form-field-select value=editMember.day content=days prompt="Choose the day this member is on call" label="On Call Day"}}
-    {{form-field-select value=editMember.backDay content=days prompt="Choose the day this member is on call" label="Back Up On Call Day"}}
+            {{form-field-select value=editMember.sports content=sportsAnswers prompt="Can this member shoot sports?" label="Sports"}}
+            {{form-field-select value=editMember.day content=days prompt="Choose the day this member is on call" label="On Call Day"}}
+            {{form-field-select value=editMember.backDay content=days prompt="Choose the day this member is on call" label="Back Up On Call Day"}}
 
-    {{form-field-text value=editMember.notes error=editMember.errors.notes placeholder="Enter any notes..." label="Notes"}}
-  </form>
-{{/bs-modal}}
+            {{form-field-text value=editMember.notes error=editMember.errors.notes placeholder="Enter any notes..." label="Notes"}}
+          </form>
+        {{/if}}
+    {{/em-modal-body}}
+
+    {{#em-modal-footer}}
+        <button type="submit" class="btn btn-primary" {{bind-attr disabled=async}}>Submit</button>
+    {{/em-modal-footer}}
+{{/em-modal-form}}

@@ -2,10 +2,11 @@ import Ember from 'ember';
 
 export default Ember.ArrayController.extend({
   editMember: null,
-  newDailyMemberModalButtons: [
-    Ember.Object.create({title: 'Create', clicked: 'createDailyMember'}),
-    Ember.Object.create({title: 'Cancel', clicked: 'cancel', dismiss: 'modal'})
-  ],
+  hasEditMemberObs: function() {
+    this.set('hasEditMember', this.get('editMember') !== null);
+  }.observes('editMember'),
+  hasEditMember: false,
+  success:  false,
   mailMembers: [
     Ember.Object.create({title: 'Send Mail', clicked: 'sendMailToMembers'}),
     Ember.Object.create({title: 'Cancel', clicked: 'cancel', dismiss: 'modal'})
@@ -35,28 +36,22 @@ export default Ember.ArrayController.extend({
 
       member.destroyRecord();
     },
-    showNewDailyMember: function(member) {
-      if (!member) {
-        member = this.store.createRecord('daily_member');
-      }
-
-      this.set('editMember', member);
-      Bootstrap.ModalManager.show('newDailyMember');
+    showNewDailyMember: function() {
+      this.set('editMember', this.store.createRecord('daily_member'));
     },
-    cancel: function() {
-      this.setProperties({
-        name: '', email: '', phone: '', position: '', day: '', 
-        backDay: '', sports: '', notes: '', editMember: null
-      });
+    editOldDailyMember: function(member) {
+      this.set('editMember', member);
     },
     createDailyMember: function() {
       var controller = this;
-      this.get('editMember').save().then(function(member) {
-        controller.send('cancel');
+      return this.get('editMember').save().then(function(member) {
         controller.notify.success('Succesfully added ' + member.get('name') + '.');
-        Bootstrap.ModalManager.close('newDailyMember');
+        controller.set('editMember', null);
+        controller.set('hasEditMember', false);
+        controller.set('success', true);
       }, function() {
         controller.notify.alert('Failed to save daily member.');
+        controller.set('hasEditMember', true);
       });
     },
     showMailMembersModal: function() {

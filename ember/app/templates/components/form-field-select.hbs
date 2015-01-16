@@ -1,6 +1,6 @@
 <div {{bind-attr class=":form-group error:has-error"}}>
   <label class="control-label" for="value">{{label}}</label>
-  {{view Em.Select classNames="form-control" content=content value=value prompt=prompt optionLabelPath=labelPath optionValuePath=valuePath}}
+  {{view "select" classNames="form-control" content=content value=value prompt=prompt optionLabelPath=labelPath optionValuePath=valuePath}}
   {{#if error}}
     <span class="help-block">{{error}}</span>
   {{/if}}

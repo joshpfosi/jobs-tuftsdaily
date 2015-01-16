@@ -1,8 +1,8 @@
 <label class="control-label" for=value>{{label}}</label>
 {{#if rows}}
-  {{textarea rows=rows type=type classNames="form-control" value=value placeholder=placeholder}}
+  {{textarea rows=rows type=type classNames="form-control" value=value placeholder=placeholder disabled=disabled}}
 {{else}}
-  {{input type=type classNames="form-control" value=value placeholder=placeholder}}
+  {{input type=type classNames="form-control" value=value placeholder=placeholder disabled=disabled}}
 {{/if}}
 {{#unless hideMsg}}
   {{#if error}}
