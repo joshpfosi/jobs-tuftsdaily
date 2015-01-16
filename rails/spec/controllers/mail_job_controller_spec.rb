@@ -1,5 +1,5 @@
 require 'rails_helper'
 
-RSpec.describe MailJobController, :type => :controller do
+RSpec.describe Api::MailJobController, :type => :controller do
 
 end

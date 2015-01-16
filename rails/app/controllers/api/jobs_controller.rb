@@ -1,4 +1,4 @@
-class JobsController < ApplicationController
+class Api::JobsController < ApplicationController
   before_action :set_job, only: [:show, :edit, :update, :destroy]
   before_filter :authenticate_user!, except: [:create, :show, :update]
 
@@ -18,7 +18,7 @@ class JobsController < ApplicationController
   def create
     @job = Job.new(job_params)
     @job.save
-    respond_with(@job)
+    respond_with :api, @job
   end
 
   # PUT /jobs/:id

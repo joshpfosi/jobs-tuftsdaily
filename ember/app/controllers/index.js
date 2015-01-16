@@ -1,5 +1,23 @@
 import Ember from 'ember';
 
+function getEditorEmail(section) {
+  switch (section) {
+    case 'News':
+      return "tuftsdailynews@gmail.com";
+    case 'Features':
+      return "tuftsfeatures@gmail.com";
+    case 'Sports':
+      return "sports@tuftsdaily.com";
+    case 'Arts':
+      return "dzennir@aol.com";
+    case 'Multimedia':
+      return "tuftsdailymedia@gmail.com";
+    case 'Op-Ed':
+      return "tuftsdailyoped@gmail.com";
+  }
+  return ''; // should never occur
+}
+
 export default Ember.ObjectController.extend({
   sections: ['News', 'Features', 'Sports', 'Arts', 'Multimedia', 'Op-Ed'],
   coverageTypes: ['Portrait/Headshot', 'Event', 'Lecture', 'Feature Story', 'File Photo', 'Stock', 'Other'],
@@ -25,7 +43,7 @@ export default Ember.ObjectController.extend({
 
         // send mail
         Ember.$.ajax({
-          type: 'POST', url: '/mail_job?type=job',
+          type: 'POST', url: 'http://localhost:3000/api/mail_job?type=job',
           data: { job: job.get('data'), editorEmail: editorEmail },
           success: function() {
             Ember.$('.btn-block').removeClass('disabled'); 

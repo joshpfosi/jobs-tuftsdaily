@@ -1,7 +1,7 @@
 require 'rails_helper'
 require 'support/controller_helper'
 
-RSpec.describe ProjectsController, :type => :controller do
+RSpec.describe Api::ProjectsController, :type => :controller do
   before(:each) { sign_in }
 
   context "GET #index" do

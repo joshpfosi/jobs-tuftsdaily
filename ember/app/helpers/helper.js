@@ -37,21 +37,3 @@ function generateSubjectReject(coverageType) {
 function generateBodyReject(name, coverageType, title, details, deadline, timestamp, id) {
   return "Dear " + name + ",\n\nYou have submitted a request:\n\nTitle: " + title + "\nCoverage Type: " + coverageType + "\nDescription: " + details + "\nDeadline: " + deadline + "\nSubmitted on: " + timestamp + "\n\nThank you for taking the time to do this. Unfortunately we are unable to cover your request.\n\n[Reason for rejection]\n\nPlease reply with any modification or additional ideas you may have, or edit the job request directly at:\n\n http://jobs-tuftsdaily.herokuapp.com/#/job/" + id + "\n\nThank you,\n\nThe Tufts Daily Photo Team\n\n";
 }
-
-function getEditorEmail(section) {
-  switch (section) {
-    case 'News':
-      return "tuftsdailynews@gmail.com";
-    case 'Features':
-      return "tuftsfeatures@gmail.com";
-    case 'Sports':
-      return "sports@tuftsdaily.com";
-    case 'Arts':
-      return "dzennir@aol.com";
-    case 'Multimedia':
-      return "tuftsdailymedia@gmail.com";
-    case 'Op-Ed':
-      return "tuftsdailyoped@gmail.com";
-  }
-  return ''; // should never occur
-}
