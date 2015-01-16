@@ -1,7 +1,7 @@
 require 'rails_helper'
 require 'support/controller_helper'
 
-RSpec.describe JobsController, :type => :controller do
+RSpec.describe Api::JobsController, :type => :controller do
 
   context "GET #index" do
     context 'when user authenticated' do

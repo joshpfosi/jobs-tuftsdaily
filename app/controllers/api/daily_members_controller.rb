@@ -1,4 +1,4 @@
-class DailyMembersController < ApplicationController
+class Api::DailyMembersController < ApplicationController
   before_action :set_daily_member, only: [:show, :edit, :update, :destroy]
   before_filter :authenticate_user!
 
@@ -19,7 +19,7 @@ class DailyMembersController < ApplicationController
   def create
     @daily_member = DailyMember.new(daily_member_params)
     @daily_member.save
-    respond_with(@daily_member)
+    respond_with :api, @daily_member
   end
 
   # PUT /daily_members/:id

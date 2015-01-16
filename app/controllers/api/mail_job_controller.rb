@@ -1,4 +1,4 @@
-class MailJobController < ApplicationController
+class Api::MailJobController < ApplicationController
   respond_to :json
   
   def create

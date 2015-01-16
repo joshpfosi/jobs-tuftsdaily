@@ -51,3 +51,5 @@ gem 'delayed_job_recurring'
 gem 'ember-validations-rails'
 
 gem 'momentjs-rails'
+
+gem 'rack-cors', :require => 'rack/cors'
