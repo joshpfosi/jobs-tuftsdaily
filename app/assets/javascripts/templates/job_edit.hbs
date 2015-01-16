@@ -2,35 +2,35 @@
   <form role="form">
     <div {{bind-attr class=":form-group errors.title:has-error"}}>
       <label class="control-label" for="title">Slug*</label>
-      {{view Ember.TextField classNames="form-control" value=title placeholder="Enter a slug for the job..."}}
+      {{input classNames="form-control" value=title placeholder="Enter a slug for the job..."}}
       {{#if errors.title}}
         <span class="help-block">{{errors.title}}</span>
       {{/if}}
     </div>
     <div {{bind-attr class=":form-group errors.fullName:has-error"}}>
       <label class="control-label" for="fullName">Full Name</label>
-      {{view Ember.TextField classNames="form-control" value=fullName placeholder="Enter your full name..."}}
+      {{input classNames="form-control" value=fullName placeholder="Enter your full name..."}}
       {{#if errors.fullName}}
         <span class="help-block">{{errors.fullName}}</span>
       {{/if}}
     </div>
     <div {{bind-attr class=":form-group errors.email:has-error"}}>
       <label class="control-label" for="email">Email*</label>
-      {{view Ember.TextField classNames="form-control" value=email placeholder="Enter your email address..." type="email"}}
+      {{input classNames="form-control" value=email placeholder="Enter your email address..." type="email"}}
       {{#if errors.email}}
         <span class="help-block">{{errors.email}}</span>
       {{/if}}
     </div>
     <div {{bind-attr class=":form-group errors.phone:has-error"}}>
       <label class="control-label" for="phone">Phone Number</label>
-      {{view Ember.TextField classNames="form-control" value=phone placeholder="### ### ####" type="tel"}}
+      {{input classNames="form-control" value=phone placeholder="### ### ####" type="tel"}}
       {{#if errors.phone}}
         <span class="help-block">{{errors.phone}}</span>
       {{/if}}
     </div>
     <div {{bind-attr class=":form-group errors.section:has-error"}}>
       <label class="control-label" for="section">Section*</label>
-      {{view Ember.Select classNames="form-control" content=sections value=section prompt="Select a Daily section"}}
+      {{view "select" classNames="form-control" content=sections value=section prompt="Select a Daily section"}}
       {{#if errors.section}}
         <span class="help-block">{{errors.section}}</span>
       {{/if}}
@@ -38,9 +38,9 @@
     <div {{bind-attr class=":form-group errors.coverageType:has-error"}}>
       <label class="control-label" for="coverageType">Coverage Type*</label>
       {{#if isOther}}
-        {{view Ember.TextField classNames="form-control" value=coverageTypeOther prompt="Enter the kind of coverage..."}}
+        {{input classNames="form-control" value=coverageTypeOther prompt="Enter the kind of coverage..."}}
       {{else}}
-        {{view Ember.Select classNames="form-control" content=coverageTypes value=coverageType placeholder="Select a coverage type"}}
+        {{view "select" classNames="form-control" content=coverageTypes value=coverageType placeholder="Select a coverage type"}}
       {{/if}}
       {{#if errors.coverageType}}
         <span class="help-block">{{errors.coverageType}}</span>
@@ -55,14 +55,14 @@
     </div>
     <div {{bind-attr class=":form-group errors.publishDate:has-error"}}>
       <label class="control-label" for="publishDate">Publish Date*</label>
-      {{view Ember.TextField classNames="form-control" value=publishDate type="date"}}
+      {{input classNames="form-control" value=publishDate type="date"}}
       {{#if errors.publishDate}}
         <span class="help-block">{{errors.publishDate}}</span>
       {{/if}}
     </div>
     <div {{bind-attr class=":form-group errors.dueDate:has-error"}}>
       <label class="control-label" for="dueDate">Due Date*</label>
-      {{view Ember.TextField classNames="form-control" value=dueDate type="date"}}
+      {{input classNames="form-control" value=dueDate type="date"}}
       {{#if errors.dueDate}}
         <span class="help-block">{{errors.date}}</span>
       {{/if}}
@@ -77,15 +77,15 @@
 
     <div class="form-group">
       <label class="control-label" for="location">Event Location</label>
-      {{view Ember.TextField classNames="form-control" value=loc placeholder="Enter the event location..."}}
+      {{input classNames="form-control" value=loc placeholder="Enter the event location..."}}
     </div>
     <div class="form-group">
       <label class="control-label" for="date">Event Date</label>
-      {{view Ember.TextField classNames="form-control" value=date placeholder="Enter the event date..." type="date"}}
+      {{input classNames="form-control" value=date placeholder="Enter the event date..." type="date"}}
     </div>
     <div class="form-group">
       <label class="control-label" for="time">Event Time</label>
-      {{view Ember.TextField classNames="form-control" value=time placeholder="Enter the time of the event..." type="time"}}
+      {{input classNames="form-control" value=time placeholder="Enter the time of the event..." type="time"}}
     </div>
     <div style="padding-bottom: 15px;" class="text-muted">* indicates a required field</div>
     <button {{action "save" this}} class="btn btn-primary btn-block">Save Job</button>

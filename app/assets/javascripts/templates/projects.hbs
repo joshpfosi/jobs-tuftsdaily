@@ -62,35 +62,35 @@
   <form role="form">
     <div {{bind-attr class=":form-group errors.title:has-error"}}>
       <label for="title">Title</label>
-      {{view Ember.TextField classNames="form-control" value=title placeholder="Enter project title..."}}
+      {{input classNames="form-control" value=title placeholder="Enter project title..."}}
       {{#if errors.title}}
         <span class="help-block">{{errors.title}}</span>
       {{/if}}
     </div>
     <div {{bind-attr class=":form-group errors.author:has-error"}}>
       <label for="author">Author</label>
-      {{view Ember.TextField classNames="form-control" value=author placeholder="Enter author of this job..."}}
+      {{input classNames="form-control" value=author placeholder="Enter author of this job..."}}
       {{#if errors.author}}
         <span class="help-block">{{errors.author}}</span>
       {{/if}}
     </div>
     <div {{bind-attr class=":form-group errors.publishDate:has-error"}}>
       <label class="control-label" for="publishDate">Publish Date</label>
-      {{view Ember.TextField classNames="form-control" value=publishDate type="date"}}
+      {{input classNames="form-control" value=publishDate type="date"}}
       {{#if errors.publishDate}}
         <span class="help-block">{{errors.publishDate}}</span>
       {{/if}}
     </div>
     <div {{bind-attr class=":form-group errors.startDate:has-error"}}>
       <label class="control-label" for="startDate">Start Date</label>
-      {{view Ember.TextField classNames="form-control" value=startDate type="date"}}
+      {{input classNames="form-control" value=startDate type="date"}}
       {{#if errors.startDate}}
         <span class="help-block">{{errors.startDate}}</span>
       {{/if}}
     </div>
     <div {{bind-attr class=":form-group errors.notes:has-error"}}>
       <label for="notes">Notes</label>
-      {{view Ember.TextField classNames="form-control" value=notes placeholder="Enter any notes..."}}
+      {{input classNames="form-control" value=notes placeholder="Enter any notes..."}}
       {{#if errors.notes}}
         <span class="help-block">{{errors.notes}}</span>
       {{/if}}

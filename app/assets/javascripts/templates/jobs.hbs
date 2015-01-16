@@ -2,10 +2,10 @@
   <div style="margin-bottom:10px;">
     <span class="col-md-2 text-center col-sm-12 col-xs-12 col-padding"><h4 style="margin:0;line-height:34px;">Current Jobs</h4></span>
     <span class="col-md-2 col-sm-12 col-xs-12 col-padding">
-      {{view Ember.Select class="form-control" content=filters optionLabelPath="content.name" optionValuePath="content.state" value=filter}}
+      {{view "select" class="form-control" content=filters optionLabelPath="content.name" optionValuePath="content.state" value=filter}}
     </span>
     <span id="daily-select" class="col-md-4 col-sm-12 col-xs-12 col-padding">
-      {{view Ember.Select class="form-control" content=daily_members optionLabelPath="content.name" value=selectedDailyMember prompt="Select a Daily member to assign"}}
+      {{view "select" class="form-control" content=daily_members optionLabelPath="content.name" value=selectedDailyMember prompt="Select a Daily member to assign"}}
     </span>
     <div class="col-md-4 col-sm-12 col-xs-12 col-padding">
       <div style="margin: auto; max-width: 260px;">
