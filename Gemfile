@@ -5,6 +5,7 @@ source 'https://rubygems.org'
 gem 'rails', '4.2.0'
 # Use postgresql as the database for Active Record
 gem 'pg'
+gem 'devise'
 # See https://github.com/sstephenson/execjs#readme for more supported runtimes
 # gem 'therubyracer', platforms: :ruby
 
@@ -21,9 +22,15 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 # gem 'capistrano-rails', group: :development
 
 group :development, :test do
-  # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
-
+  gem 'rspec-rails'
+  gem "factory_girl_rails"
+  gem 'faker' # for seed data
+  gem 'shoulda-matchers'
+  gem 'figaro'
+  gem 'email_spec'
+  gem 'simplecov'
+  gem 'database_cleaner'
   # Access an IRB console on exception pages or by using <%= console %> in views
   gem 'web-console', '~> 2.0'
 
@@ -32,3 +39,15 @@ group :development, :test do
 end
 
 gem 'active_model_serializers', '0.8.3'
+
+# for in_past validation
+gem 'jc-validates_timeliness'
+
+# for archiving
+gem 'delayed_job_active_record'
+gem 'daemons'
+gem 'delayed_job_recurring'
+
+gem 'ember-validations-rails'
+
+gem 'momentjs-rails'
