@@ -1,14 +1,26 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <title>JobsTuftsdaily</title>
-  <%= stylesheet_link_tag    '/assets/assets/jobs-tuftsdaily', media: 'all', 'data-turbolinks-track' => true %>
-  <%= javascript_include_tag '/assets/assets/jobs-tuftsdaily', 'data-turbolinks-track' => true %>
-  <%= csrf_meta_tags %>
-</head>
-<body>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>JobsTuftsdaily</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<%= yield %>
+    <base href="/" />
+<meta name="jobs-tuftsdaily/config/environment" content="%7B%22contentSecurityPolicy%22%3A%7B%22default-src%22%3A%22%27none%27%22%2C%22script-src%22%3A%22%27self%27%20%27unsafe-inline%27%20%27unsafe-eval%27%20use.typekit.net%20connect.facebook.net%20maps.googleapis.com%20maps.gstatic.com%22%2C%22font-src%22%3A%22%27self%27%20data%3A%20use.typekit.net%22%2C%22connect-src%22%3A%22%27self%27%22%2C%22img-src%22%3A%22%27self%27%20www.facebook.com%20p.typekit.net%22%2C%22style-src%22%3A%22%27self%27%20%27unsafe-inline%27%20use.typekit.net%22%2C%22frame-src%22%3A%22s-static.ak.facebook.com%20static.ak.facebook.com%20www.facebook.com%22%7D%2C%22modulePrefix%22%3A%22jobs-tuftsdaily%22%2C%22environment%22%3A%22production%22%2C%22baseURL%22%3A%22/%22%2C%22locationType%22%3A%22auto%22%2C%22EmberENV%22%3A%7B%22FEATURES%22%3A%7B%7D%7D%2C%22APP%22%3A%7B%7D%2C%22exportApplicationGlobal%22%3Afalse%7D" />
 
-</body>
+    <link rel="stylesheet" href="assets/vendor-93de46fa448422fee74721b9993983a6.css">
+    <link rel="stylesheet" href="assets/jobs-tuftsdaily-a2538a131f2ffebecfa128a59095358d.css">
+
+    
+  <%= csrf_meta_tags %></head>
+  <body><%= yield %>
+    
+
+    <script src="assets/vendor-72beccd4107b5fdd997515f60b884f33.js"></script>
+    <script src="assets/jobs-tuftsdaily-0c297c94ed893394567356bd9192c0aa.js"></script>
+
+    
+  </body>
 </html>
