@@ -2,6 +2,7 @@ import Ember from 'ember';
 
 var JobView = Ember.View.extend({
   templateName: 'job',
+  //classNameBindings: ['color'],
   color: function() {
     var state = this.get('context.state');
     return ['info', 'danger', 'success', 'warning', 'pending', 'archived'][state + 1];
