@@ -1,4 +1,4 @@
-import Ember from 'ember'
+import Ember from 'ember';
 
 // given a column and an array of jobs, returns the array sorted by the property
 // given by column
@@ -71,4 +71,4 @@ export default Ember.Component.extend({
       this.set('detailJob', job);
     },
   }
-})
+});
