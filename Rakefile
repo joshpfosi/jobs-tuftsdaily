@@ -24,7 +24,7 @@ end
 task :deploy do
   sh 'git checkout production'
   sh 'git merge master -m "Merging master for deployment"'
-  sh 'build.sh'
+  sh './build.sh'
 
   unless `git status` =~ /nothing to commit, working directory clean/
     sh 'git add -A'
