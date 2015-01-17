@@ -7,6 +7,5 @@ Rails.application.routes.draw do
     post   'mail_job' => 'mail_job#create'
   end
 
-  devise_for :users, :controllers => { :sessions => "json_sessions" }
   root to: 'home#index'
 end
