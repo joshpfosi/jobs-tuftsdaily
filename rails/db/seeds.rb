@@ -14,9 +14,9 @@
 #  })
 #end
 
-User.create(email: "npfosi@gmail.com", password: "supero11143")
-User.create(email: "evan.sayles@tufts.edu", password: "dailyphoto")
-User.create(email: "evan.sayles@gmail.com", password: "dailyphoto")
+#User.create(email: "npfosi@gmail.com", password: "supero11143")
+#User.create(email: "evan.sayles@tufts.edu", password: "dailyphoto")
+#User.create(email: "evan.sayles@gmail.com", password: "dailyphoto")
 
 DailyMember.create!({position: "Executive Photo Editor", name: "Nicholas Pfosi", email: "npfosi@gmail.com", phone: "603 686 3733", day: nil, back_day: nil, notes: nil, sports: nil})
 DailyMember.create!({position: "Staff Photographer", name: "Alexandra Magnani", email: "alexandra.magnani@tufts.edu", phone: "610 389 4144", day: "Friday", back_day: "Sunday", notes: "Good last minute handling of a request", sports: "Yes"})
@@ -36,26 +36,26 @@ DailyMember.create!({position: "Section Liaison", name: "Sofie Hecht", email: "s
 DailyMember.create!({position: "Staff Photographer", name: "Grace Cooper", email: "grace.cooper@tufts.edu", phone: "773 620 7531", day: "Friday", back_day: "Saturday", notes: "", sports: "Yes"})
 DailyMember.create!({position: "Staff Photographer", name: "John Hampson", email: "jdwhampson@gmail.com", phone: "805 451 4537", day: "Wednesday", back_day: "Thursday", notes: "Awesome conversation with him. Has pictures from horse racing/traveling across country. Needs training on new systems. Eager to get started. Good vibe.", sports: "Yes"})
 DailyMember.create!({position: "Project Photographer", name: "Ari Schneider", email: "ari.schneider@tufts.edu", phone: "802 345 8991", day: nil, back_day: nil, notes: "successful shot portraits of dean, received feedback well, promptly incorporated. Alumni stuff, TMC", sports: "Yes"})
-
-100.times do
-  Job.create!({
-    title: Faker::App.name,
-    timestamp: Time.now.to_i - rand(0..12433648),
-    full_name: "#{Faker::Name.first_name} #{Faker::Name.last_name}",
-    email: Faker::Internet.email,
-    phone: Faker::PhoneNumber.phone_number,
-    contact: Faker::Internet.email,
-    section: "News",
-    coverage_type: 'Lecture',
-    due_date: Faker::Time.forward(30),
-    details: Faker::Lorem.paragraph(3),
-    state: rand(0..5),
-    loc: "Tisch Roof",
-    date: "2014-01-02",
-    time: "13:00",
-    publish_date: Faker::Time.forward(30),
-    notes: "no notes yet",
-    daily_member: DailyMember.all.sample(1).first
-  })
-end
-
+#
+#100.times do
+#  Job.create!({
+#    title: Faker::App.name,
+#    timestamp: Time.now.to_i - rand(0..12433648),
+#    full_name: "#{Faker::Name.first_name} #{Faker::Name.last_name}",
+#    email: Faker::Internet.email,
+#    phone: Faker::PhoneNumber.phone_number,
+#    contact: Faker::Internet.email,
+#    section: "News",
+#    coverage_type: 'Lecture',
+#    due_date: Faker::Time.forward(30),
+#    details: Faker::Lorem.paragraph(3),
+#    state: rand(0..5),
+#    loc: "Tisch Roof",
+#    date: "2014-01-02",
+#    time: "13:00",
+#    publish_date: Faker::Time.forward(30),
+#    notes: "no notes yet",
+#    daily_member: DailyMember.all.sample(1).first
+#  })
+#end
+#
