@@ -2,7 +2,7 @@
   <span class="col-md-2 text-center col-sm-12 col-xs-12 col-padding"><h4 style="margin:0;line-height:34px;">Members</h4></span>
     <div class="col-md-3 col-sm-12 col-xs-12 col-md-offset-7 col-padding">
       <div style="margin: auto; max-width: 187px;">
-        <button {{action "showMailMembersModal"}} {{bind-attr class=":btn :btn-brown isSelectedMembers:disabled"}}><span class="glyphicon glyphicon-envelope"></span></button>
+        {{#em-modal-toggler modal-id="mail" class="btn btn-brown" disabled=isSelectedMembers}}<span class="glyphicon glyphicon-envelope"></span>{{/em-modal-toggler}}
         <button class="btn btn-brown" {{action "showNewDailyMember"}}>Add Daily Member</button>
       </div>
     </div>
@@ -79,6 +79,7 @@
       </tbody>
   </table>
 </div>
+
 {{#em-modal-form configName="bs" id="modalf" on-submit="createDailyMember" in-async=async open-if=hasEditMember close-if=success}}
     {{#em-modal-title}}
         {{#em-modal-toggler class="close"}}<span aria-hidden="true">×</span><span class="sr-only">Close</span>{{/em-modal-toggler}}
@@ -100,6 +101,30 @@
             {{form-field-select value=editMember.backDay content=days prompt="Choose the day this member is on call" label="Back Up On Call Day"}}
 
             {{form-field-text value=editMember.notes error=editMember.errors.notes placeholder="Enter any notes..." label="Notes"}}
+          </form>
+        {{/if}}
+    {{/em-modal-body}}
+
+    {{#em-modal-footer}}
+        <button type="submit" class="btn btn-primary" {{bind-attr disabled=async}}>Submit</button>
+    {{/em-modal-footer}}
+{{/em-modal-form}}
+
+
+{{#em-modal-form configName="bs" id="mail" on-submit="sendMailToMembers" in-async=async on-show="setEmails"}}
+    {{#em-modal-title}}
+        {{#em-modal-toggler class="close"}}<span aria-hidden="true">×</span><span class="sr-only">Close</span>{{/em-modal-toggler}}
+        <h4 class="modal-title">Add a new daily member</h4>
+    {{/em-modal-title}}
+
+    {{#em-modal-body}}
+        {{#if async}}
+            Submitting, please wait...
+        {{else}}
+          <form role="form">
+            {{form-field-text value=email placeholder="Enter an email..." readonly=true error=errors.toEmail label="To:"}}
+            {{form-field-text value=subject placeholder="Enter an a subject line..." label="Subject:"}}
+            {{form-field-text value=body placeholder="Enter an a body message..." label="Body:" rows=8}}
           </form>
         {{/if}}
     {{/em-modal-body}}

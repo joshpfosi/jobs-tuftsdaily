@@ -1,6 +1,7 @@
 import Ember from 'ember';
 
 export default Ember.ArrayController.extend({
+  email: null,
   editMember: null,
   hasEditMemberObs: function() {
     this.set('hasEditMember', this.get('editMember') !== null);
@@ -54,17 +55,9 @@ export default Ember.ArrayController.extend({
         controller.set('hasEditMember', true);
       });
     },
-    showMailMembersModal: function() {
+    setEmails: function() {
       var members = this.get('selectedMembers');
       this.set('email', members.mapBy('email'));
-
-      //@property {string} The name of the modal, required later to close the modal
-      //@property {string} The title of the modal.
-      //@property {string} The template name to render within the modal body, a View class may also be specified.
-      //@property {array} Array of Button meta data
-      //@property {object} The controller instance that instantiate the modal.
-      Bootstrap.ModalManager.open('mailMembersModal', 'Send Mail', 
-          'mail_members', this.mailMembers, this);
     },
     sendMailToMembers: function() {
       var controller = this, members = this.get('selectedMembers'),
@@ -79,7 +72,6 @@ export default Ember.ArrayController.extend({
         url: 'api/mail_job?type=members',
         data: data,
         success: function() {
-          controller.send('closeMailMembersModal'); // clear the input fields
           members.slice().forEach(function(member) {
             member.set('selected', false); // uncheck the check boxes
           });
@@ -91,11 +83,6 @@ export default Ember.ArrayController.extend({
         },
         dataType: 'json'
       });
-      Bootstrap.ModalManager.close('mailMembersModal');
     },
-    closeMailMembersModal: function() {
-      this.set('subject', '');
-      this.set('body', '');
-    }
   },
 });
