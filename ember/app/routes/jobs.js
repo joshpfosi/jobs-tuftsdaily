@@ -2,7 +2,7 @@ import Ember from 'ember';
 
 export default Ember.Route.extend({
   model: function() {
-    return this.store.filter('job', { state: 'unarchived' }, function(job) {
+    return this.store.filter('job', { not_equal_state: 6 }, function(job) {
       return job.get('state') !== 6;
     });
   },

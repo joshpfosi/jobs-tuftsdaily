@@ -9,8 +9,8 @@
     </div>
   </div>
 
-  <div class="table-responsive">
-  <table class="table">
+  <div class="table">
+  <table class="table table-condensed">
     <thead>
       <tr>
         {{#each columns itemController="columnItem"}}
@@ -29,7 +29,7 @@
         <th>Details</th>
       </tr>
     </thead>
-      {{collection App.JobsCollection}}
+      {{collection "jobs-collection"}}
   </table>
   </div>
 </div>

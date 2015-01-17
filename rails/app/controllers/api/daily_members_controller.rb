@@ -1,6 +1,6 @@
 class Api::DailyMembersController < ApplicationController
   before_action :set_daily_member, only: [:show, :edit, :update, :destroy]
-  before_filter :authenticate_user!
+  #before_filter :authenticate_user!
 
   respond_to :json
 
