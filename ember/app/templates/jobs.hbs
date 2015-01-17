@@ -19,30 +19,8 @@
     </div>
   </div>
 
-  <div class="table">
-  <table class="table table-condensed">
-    <thead>
-      <tr>
-        {{#each columns itemController="columnItem"}}
-        <th {{action "toggleSort" value}}>
-          {{name}}
-          {{#if sortedAsc}}
-            <i class="glyphicon glyphicon-chevron-up"></i>
-          {{/if}}
-          
-          {{#if sortedDesc}}
-            <i class="glyphicon glyphicon-chevron-down"></i>
-          {{/if}}
-        </th>
-        {{/each}}
-        <th>Edit</th>
-        <th>Details</th>
-        <th>Delete</th>
-      </tr>
-    </thead>
-      {{collection "jobs-collection"}}
-  </table>
-  </div>
+  {{jobs-table content=filteredJobs}}
+
 </div>
 
 {{#em-modal-form configName="bs" id="assign" on-submit="mailJobAssign" in-async=async on-show="setupMailAssign"}}

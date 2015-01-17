@@ -1,0 +1,91 @@
+<div class="table">
+  <table class="table table-condensed">
+    <thead>
+      <tr>
+        {{#each columns itemController="columnItem"}}
+        <th {{action "toggleSort" value}}>
+          {{name}}
+          {{#if sortedAsc}}
+          <i class="glyphicon glyphicon-chevron-up"></i>
+          {{/if}}
+
+          {{#if sortedDesc}}
+          <i class="glyphicon glyphicon-chevron-down"></i>
+          {{/if}}
+        </th>
+        {{/each}}
+        <th>Edit</th>
+        <th>Details</th>
+        <th>Delete</th>
+      </tr>
+    </thead>
+    <tbody>
+    {{#each job in sortedContent}}
+    <tr {{bind-attr class="job.color"}}>
+      <td>{{input type="checkbox" checked=job.selected}}</td>
+      <td>{{job.id}}</td>
+      <td>
+        <a style="cursor: pointer" {{action "setupDetailJob" job}}>{{job.title}}</a>
+      </td>
+      <td>{{clean-on-empty job.fullName}}</td>
+      <td>{{clean-on-empty job.email}}</td>
+      <td>{{clean-on-empty job.phone}}</td>
+      <td>{{job.section}}</td>
+      <td>{{job.coverageType}}</td>
+      <td>{{job.publishDate}}</td>
+      <td>{{job.dueDate}}</td>
+      <td>
+        <a style="text-decoration:none" {{bind-attr href="job.edit"}}><span class="glyphicon glyphicon-pencil"></span></a>
+      </td>
+      <td>
+        <a style="text-decoration:none" {{action "setupDetailJob" job}}><span class="glyphicon glyphicon-list"></span> </a>
+      </td>
+      <td>
+        <a {{action "deleteJob" job}} style="text-decoration:none;"><span class="glyphicon glyphicon-remove"></span></a>
+      </td>
+    </tr>
+    {{else}}
+    <tbody><tr><td colspan=12><em>You need some jobs!</em></td></tr></tbody>
+    {{/each}}
+    </tbody>
+  </table>
+</div>
+
+{{#em-modal-form configName="bs" id="details" open-if=hasDetailJob}}
+{{#em-modal-title}}
+{{#em-modal-toggler class="close"}}<span aria-hidden="true">×</span><span class="sr-only">Close</span>{{/em-modal-toggler}}
+<h4 class="modal-title">Details</h4>
+{{/em-modal-title}}
+{{#em-modal-body}}
+<dl class="dl-horizontal">
+  <dt>Contact Information</dt>
+  <dd>{{detailJob.contact}}</dd>
+  <dt>Details</dt>
+  <dd>{{detailJob.details}}</dd>
+  {{#if detailJob.loc}}
+  <dt>Event Location</dt>
+  <dd>{{detailJob.loc}}</dd>
+  {{/if}}
+  {{#if detailJob.date}}
+  <dt>Date</dt>
+  <dd>{{detailJob.date}}</dd>
+  {{/if}}
+  {{#if detailJob.time}}
+  <dt>Time</dt>
+  <dd>{{detailJob.time}}<dd>
+  {{/if}}
+  {{#if detailJob.daily_member}}
+  <br>
+  <dt>Assignee</dt>
+  <dd>{{detailJob.daily_member.name}}</dd>
+  <dt>Contact Information</dt>
+  <dd>{{detailJob.daily_member.email}} | <em>{{detailJob.daily_member.phone}}</em></dd>
+  {{/if}}
+</dl>
+
+<em style="padding-left:30px;" class="text-muted">Requested on {{detailJob.createdAt}}</em>
+{{/em-modal-body}}
+{{#em-modal-footer}}
+<button type="submit" class="btn btn-brown" {{bind-attr disabled=async}}>Done</button>
+{{/em-modal-footer}}
+{{/em-modal-form}}

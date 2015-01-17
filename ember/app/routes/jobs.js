@@ -2,9 +2,7 @@ import Ember from 'ember';
 
 export default Ember.Route.extend({
   model: function() {
-    return this.store.filter('job', { not_equal_state: 6 }, function(job) {
-      return job.get('state') !== 6;
-    });
+    return this.store.find('job', { not_equal_state: 6 });
   },
   setupController: function(controller, model) {
     controller.set('model', model);
