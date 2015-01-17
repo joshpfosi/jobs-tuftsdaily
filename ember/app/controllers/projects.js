@@ -1,62 +1,55 @@
 import Ember from 'ember';
 
 export default Ember.ArrayController.extend({
-  newProjectModalButtons: [
-    Ember.Object.create({title: 'Create', clicked: 'createProject'}),
-    Ember.Object.create({title: 'Cancel', clicked: 'cancel', dismiss: 'modal'})
-  ],
+  editProject: null,
+  hasEditProjectObs: function() {
+    this.set('hasEditProject', this.get('editProject') !== null);
+  }.observes('editProject'),
+  hasEditProject: false,
+  success:  false,
+  //newProjectModalButtons: [
+  //  Ember.Object.create({title: 'Create', clicked: 'createProject'}),
+  //  Ember.Object.create({title: 'Cancel', clicked: 'cancel', dismiss: 'modal'})
+  //],
   actions: {
     deleteProject: function(project) {
       project.destroyRecord();
     },
-    showNewProject: function(project) {
-      if (project) {
-        this.set('editProject', project);
-        this.set('title',     project.get('title'));
-        this.set('author', project.get('author'));
-        this.set('startDate',      project.get('startDate'));
-        this.set('publishDate',  project.get('publishDate'));
-        this.set('notes',    project.get('notes'));
-      }
-      return Bootstrap.ModalManager.show('newProject');
+    editOldProject: function(project) {
+      this.set('editProject', project);
     },
-    cancel: function() {
-      this.set('title', '');
-      this.set('author', '');
-      this.set('startDate', '');
-      this.set('publishDate', '');
-      this.set('notes', '');
+    showNewProject: function() {
+      this.set('editProject', this.store.createRecord('project'));
     },
+    //setupEditProject: function(project) {
+    //  if (project) {
+    //    this.set('editProject', project);
+    //    this.set('title',     project.get('title'));
+    //    this.set('author', project.get('author'));
+    //    this.set('startDate',      project.get('startDate'));
+    //    this.set('publishDate',  project.get('publishDate'));
+    //    this.set('notes',    project.get('notes'));
+    //  }
+    //  return Bootstrap.ModalManager.show('newProject');
+    //},
+    //cancel: function() {
+    //  this.set('title', '');
+    //  this.set('author', '');
+    //  this.set('startDate', '');
+    //  this.set('publishDate', '');
+    //  this.set('notes', '');
+    //},
     createProject: function() {
-      var newProject = this.get('editProject');
-      this.set('errors', {}); // move validation into the controller
-      if (!newProject) { // if newProject is undefined
-        newProject = this.store.createRecord('project', {
-          title:       this.get('title'),
-          author:      this.get('author'),
-          startDate:   this.get('startDate'),
-          publishDate: this.get('publishDate'),
-          notes:       this.get('notes')
-        });
-      }
-      // if defined, then editing an existing member so update all fields
-      else { 
-        newProject.set('title', this.get('title'));
-        newProject.set('author', this.get('author'));
-        newProject.set('startDate', this.get('startDate'));
-        newProject.set('publishDate', this.get('publishDate'));
-        newProject.set('notes', this.get('notes'));
-      }
-
       var controller = this;
-      newProject.save().then(function() {
-        controller.send('cancel');
+      this.get('editProject').save().then(function() {
         controller.notify.success('Succesfully added ' + controller.get('title') + '.');
+        controller.set('editProject', null);
+        controller.set('hasEditProject', false);
+        controller.set('success', true);
       }, function() {
         controller.notify.alert('Failed to add ' + controller.get('title') + '.');
+        controller.set('hasEditProject', true);
       });
-
-      return Bootstrap.ModalManager.close('newProject');
     },
   },
   validations: {
