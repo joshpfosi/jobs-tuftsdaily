@@ -43,7 +43,7 @@ task :deploy do
     sh 'git commit -m "Asset compilation for deployment"'
   end
 
-  sh 'git subtree push -P rails heroku master'
+  sh 'git subtree push -P rails origin production'
 
   sh 'git checkout -'
 end
