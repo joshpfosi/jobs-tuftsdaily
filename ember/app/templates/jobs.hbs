@@ -9,12 +9,12 @@
     </span>
     <div class="col-md-4 col-sm-12 col-xs-12 col-padding">
       <div style="margin: auto; max-width: 260px;">
-        <button {{action "showMailModal" "assign"}} {{bind-attr class=":btn :btn-info isAssignable:disabled"}}><span class="glyphicon glyphicon-envelope"></span></button>
-        <button {{action "showMailModal" "reject"}} {{bind-attr class=":btn :btn-danger isSelectedJobs:disabled"}}><span class="glyphicon glyphicon-trash"></span></button>
-        <button {{action "changeState" 0}} {{bind-attr class=":btn :btn-default  isSelectedJobs:disabled"}}><span class="glyphicon glyphicon-eject"></span></button>
-        <button {{action "changeState" 4}} {{bind-attr class=":btn :btn-warning  isSelectedJobs:disabled"}}><span class="glyphicon glyphicon-exclamation-sign"></span></button>
-        <button {{action "changeState" 5}} {{bind-attr class=":btn :btn-primary  isSelectedJobs:disabled"}}><span class="glyphicon glyphicon-tasks"></span></button>
-        <button {{action "changeState" 3}} {{bind-attr class=":btn :btn-success  isSelectedJobs:disabled"}}><span class="glyphicon glyphicon-ok"></span></button>
+        {{#em-modal-toggler modal-id="assign" class="btn btn-info" disabled=isNotAssignable}}<span class="glyphicon glyphicon-envelope"></span>{{/em-modal-toggler}}
+        {{#em-modal-toggler modal-id="reject" class="btn btn-danger" disabled=isNotSelectedJobs}}<span class="glyphicon glyphicon-trash"></span>{{/em-modal-toggler}}
+        <button {{action "changeState" 0}} {{bind-attr class=":btn :btn-default  isNotSelectedJobs:disabled"}}><span class="glyphicon glyphicon-eject"></span></button>
+        <button {{action "changeState" 4}} {{bind-attr class=":btn :btn-warning  isNotSelectedJobs:disabled"}}><span class="glyphicon glyphicon-exclamation-sign"></span></button>
+        <button {{action "changeState" 5}} {{bind-attr class=":btn :btn-primary  isNotSelectedJobs:disabled"}}><span class="glyphicon glyphicon-tasks"></span></button>
+        <button {{action "changeState" 3}} {{bind-attr class=":btn :btn-success  isNotSelectedJobs:disabled"}}><span class="glyphicon glyphicon-ok"></span></button>
       </div>
     </div>
   </div>
@@ -44,3 +44,37 @@
   </table>
   </div>
 </div>
+
+{{#em-modal-form configName="bs" id="assign" on-submit="mailJobAssign" in-async=async on-show="setupMailAssign"}}
+    {{#em-modal-title}}
+        {{#em-modal-toggler class="close"}}<span aria-hidden="true">×</span><span class="sr-only">Close</span>{{/em-modal-toggler}}
+        <h4 class="modal-title">Assign Job</h4>
+    {{/em-modal-title}}
+    {{#em-modal-body}}
+        {{#if async}}
+            Submitting, please wait...
+        {{else}}
+          {{partial "mail-assign"}}
+        {{/if}}
+    {{/em-modal-body}}
+    {{#em-modal-footer}}
+        <button type="submit" class="btn btn-brown" {{bind-attr disabled=async}}>Submit</button>
+    {{/em-modal-footer}}
+{{/em-modal-form}}
+
+{{#em-modal-form configName="bs" id="reject" on-submit="mailJobReject" in-async=async on-show="setupMailReject"}}
+    {{#em-modal-title}}
+        {{#em-modal-toggler class="close"}}<span aria-hidden="true">×</span><span class="sr-only">Close</span>{{/em-modal-toggler}}
+        <h4 class="modal-title">Reject Job</h4>
+    {{/em-modal-title}}
+    {{#em-modal-body}}
+        {{#if async}}
+            Submitting, please wait...
+        {{else}}
+          {{partial "mail-reject"}}
+        {{/if}}
+    {{/em-modal-body}}
+    {{#em-modal-footer}}
+        <button type="submit" class="btn btn-brown" {{bind-attr disabled=async}}>Submit</button>
+    {{/em-modal-footer}}
+{{/em-modal-form}}
