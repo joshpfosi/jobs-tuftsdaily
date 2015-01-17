@@ -2,7 +2,7 @@ require 'rake'
 
 task :run do
   pids = [
-    spawn("cd rails && rails s --port=3200"),
+    spawn("cd rails && bundle exec rails s --port=3200"),
     spawn("cd ember && ember server --proxy http://localhost:3200"),
   ]
 
