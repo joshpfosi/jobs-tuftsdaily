@@ -6,7 +6,6 @@ gem 'rails', '4.2.0'
 gem 'rails_12factor'
 # Use postgresql as the database for Active Record
 gem 'pg'
-gem 'devise'
 # See https://github.com/sstephenson/execjs#readme for more supported runtimes
 # gem 'therubyracer', platforms: :ruby
 
