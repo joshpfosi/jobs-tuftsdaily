@@ -8,10 +8,6 @@ export default Ember.ArrayController.extend({
   }.observes('editMember'),
   hasEditMember: false,
   success:  false,
-  mailMembers: [
-    Ember.Object.create({title: 'Send Mail', clicked: 'sendMailToMembers'}),
-    Ember.Object.create({title: 'Cancel', clicked: 'cancel', dismiss: 'modal'})
-  ],
 
   days: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
   sportsAnswers: ['Yes', 'No'],

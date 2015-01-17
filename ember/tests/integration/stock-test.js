@@ -4,7 +4,7 @@ import exists from 'jobs-tuftsdaily/tests/helpers/start-app';
 
 var App;
 
-module('Integration - Landing Page', {
+module('Integration - Stock Page', {
   setup: function() {
     App = startApp();
   },
@@ -14,7 +14,7 @@ module('Integration - Landing Page', {
 });
 
 test('Should load content', function() {
-  visit('/').then(function() {
+  visit('/stock').then(function() {
     ok(exists("*"), "Found HTML!");
   });
 });

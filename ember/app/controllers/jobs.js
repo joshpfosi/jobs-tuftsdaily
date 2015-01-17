@@ -26,27 +26,20 @@ function generateSubjectAssign(coverageType, deadline) {
   return "Tufts Daily Photo Assignment: " + coverageType + " due on " + deadline;
 }
 
-function generateBodyAssign(title, name, coverageType, contact, deadline, loc, time, date, details) {
+export function generateBodyAssign(title, name, coverageType, contact, deadline, loc, time, date, details) {
   return "Dear " + name + ",\n\nPlease cover the following assignment and let me know if you are unable to.\n\nSlug: " + title + "\n\nEvent Details:\n\nCoverage type: <%= @coverage_type %>\nContact information for the subject: " + contact + "\nDue on the Photoshelter server by: " + deadline + "\n\nWhere: " + location + "\nWhen: " + date + " " + time + "\n\nDetails: " + details + "\nThank you for working on this assignment. If you have any questions please call Nick at 603-686-3733 or reply to this email. Please deliver all images onto the Photoshelter server via FTP by the specified deadline with captions, keywords, and proper toning. Full sized JPGs will suffice.\n\nThank you,\n\nThe Tufts Daily Photo Team\n\n";
 }
 
-function generateSubjectReject(coverageType) {
+export function generateSubjectReject(coverageType) {
   return "Your request for " + coverageType + " needs more detail";
 }
 
-function generateBodyReject(name, coverageType, title, details, deadline, timestamp, id) {
+export function generateBodyReject(name, coverageType, title, details, deadline, timestamp, id) {
   return "Dear " + name + ",\n\nYou have submitted a request:\n\nTitle: " + title + "\nCoverage Type: " + coverageType + "\nDescription: " + details + "\nDeadline: " + deadline + "\nSubmitted on: " + timestamp + "\n\nThank you for taking the time to do this. Unfortunately we are unable to cover your request.\n\n[Reason for rejection]\n\nPlease reply with any modification or additional ideas you may have, or edit the job request directly at:\n\n http://jobs-tuftsdaily.herokuapp.com/#/job/" + id + "\n\nThank you,\n\nThe Tufts Daily Photo Team\n\n";
 }
 
+
 export default Ember.ArrayController.extend({
-  //mailJobAssign: [
-  //    Ember.Object.create({title: 'Submit', clicked: "mailJobAssign"}),
-  //    Ember.Object.create({title: 'Cancel', clicked: 'closeMailModal', dismiss: 'modal'})
-  //],
-  //mailJobReject: [
-  //    Ember.Object.create({title: 'Submit', clicked: "mailJobReject"}),
-  //    Ember.Object.create({title: 'Cancel', clicked: 'closeMailModal', dismiss: 'modal'})
-  //],
   columns: [
      Ember.Object.create({value: '',             name: ''          }), 
      Ember.Object.create({value: 'id',           name: '#'         }),
@@ -174,7 +167,7 @@ export default Ember.ArrayController.extend({
         dataType: 'json'
       });
     },
-    mailJobReject: function() {
+    mailJobReject: function () {
       var controller = this,
       job        = this.get('selectedJobs')[0], 
       deadline   = job.get('dueDate'),
@@ -194,7 +187,7 @@ export default Ember.ArrayController.extend({
 
       Ember.$.ajax({
         type: "POST",
-        url: 'api/mail_job?type=reject',
+        url: '/mail_job?type=reject',
         data: data,
         success: function() {
           job.set('selected', false); // uncheck the check box
@@ -203,7 +196,7 @@ export default Ember.ArrayController.extend({
           // clear associations
           var member = job.get('daily_member');
           // if assigned, remove job from daily_member and daily_member from job
-          if (member !== undefined) { 
+          if (member !== null) { 
             member.get('jobs').removeObject(job);
             member.save();
             job.set('daily_member', null);
@@ -218,6 +211,5 @@ export default Ember.ArrayController.extend({
         dataType: 'json'
       });
     }
-
   },
 });
