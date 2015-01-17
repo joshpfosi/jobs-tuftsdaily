@@ -37,7 +37,7 @@ export default DS.Model.extend(EmberValidations.Mixin, {
   
   color: function() {
     var state = this.get('state');
-    return ['info', 'danger', 'success', 'warning', 'pending', 'archived'][state];
+    return ['default', 'info', 'danger', 'success', 'warning', 'pending', 'archived'][state];
   }.property('state'),
   edit: function() { return "#/job/" + this.get('id'); }.property()
 });
