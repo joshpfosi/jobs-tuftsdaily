@@ -4,17 +4,49 @@ A simple web application for managing job requests for photos for the Tufts Univ
 
 The site is live at [jobs-tuftsdaily.com](http://jobs-tuftsdaily.herokuapp.com/ "site-link") 
 
-Please report bugs to "joshpfosi@gmail.com"
+Please report bugs to joshpfosi@gmail.com
 
-# Todo
+## Todo
 
-* IMPROVEMENT: Refactor date strings into datetime
-* IMPROVEMENT: Why can’t there be separate lines in the description for an assignment? 
-* FEATURE: Add a "notes" option to jobs so when I mark them as "Investigated" (yellow) I can write down in what way I investigated them
-* IMPROVEMENT: Positions drop down, and inactive disables them
-* FEATURE: Investigating a job should open blank mail modal
-* IMPROVEMENT: Parametrize bulky ajax calls for mailing
-* BUG: `form-field-select` reports error on `view "select"` - hotfixed to `Em.Select`
-* IMPROVEMENT: Needs Karma for automated integration testing
-* IMPROVEMENT: Refactor past date check into `past?`
+#### Bugs
+* New lines aren't represented in job description
+* `form-field-select` reports error on `view "select"` - hotfixed to `Em.Select`
+
+#### Features
+* Add a "notes" option to jobs so when I mark them as "Investigated" (yellow) I can write down in what way I investigated them
+* Investigating a job should open blank mail modal
+
+#### Improvements
+* Positions drop down, and inactive disables them
+* Parametrize bulky ajax calls for mailing
+* Needs Karma for automated integration testing
+* Refactor past date check into `past?`
+
+## Administrative
+
+#### Ruby version
+
+    ruby 2.1.2
+
+#### System dependencies
+
+Run `npm install`, `bower install`, `bundle install` and `rake db:setup` in the appropriate directories and you should be all set.
+
+
+#### Testing information
+
+Run `rake test` to run all tests, `rspec` for backend tests, and `ember test` for the frontend.
+
+For testing individual delayed jobs:
+
+    worker = Delayed::Worker.new
+    worker.start
+
+#### Services
+
+This application uses `Delayed::Job` to archive old jobs. To set this up for development, start the server via `rake run` and run `rake recurring:init` to schedule the jobs, and `rake jobs:work` to spawn a worker.
+
+#### Deployment instructions
+
+Run `rake deploy` which runs all tests, builds the ember app and deploys it to branch `production`.
 
