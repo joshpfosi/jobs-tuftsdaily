@@ -111,7 +111,8 @@ export default Ember.ArrayController.extend({
           controller.notify.success('Successfully sent email to ' + email + ' regarding job ' + job.get('title') + '.');
         },
         error: function() {
-          controller.notify.alert('Failed to send email to ' + email + ' regarding job ' + job.get('title') + '.');
+          controller.notify.alert("Failed to ");
+          //send email to ' + email + ' regarding job ' + job.get('title') + '.');
         },
         dataType: 'json'
       });
@@ -136,7 +137,7 @@ export default Ember.ArrayController.extend({
 
       Ember.$.ajax({
         type: "POST",
-        url: '/mail_job?type=reject',
+        url: '/api/mail_job?type=reject',
         data: data,
         success: function() {
           job.set('selected', false); // uncheck the check box
@@ -155,7 +156,7 @@ export default Ember.ArrayController.extend({
           controller.notify.success('Successfully sent email to ' + job.get('email') + ' regarding job ' + job.get('title') + '.');
         },
         error: function() {
-          controller.notify.danger('Failed to send email to ' + email + ' regarding job ' + job.get('title') + '.');
+          controller.notify.alert('Failed to send email to ' + email + ' regarding job ' + job.get('title') + '.');
         },
         dataType: 'json'
       });
