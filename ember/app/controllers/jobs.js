@@ -146,7 +146,7 @@ export default Ember.ArrayController.extend({
           // clear associations
           var member = job.get('daily_member');
           // if assigned, remove job from daily_member and daily_member from job
-          if (member !== null) { 
+          if (member !== undefined) { 
             member.get('jobs').removeObject(job);
             member.save();
             job.set('daily_member', null);
