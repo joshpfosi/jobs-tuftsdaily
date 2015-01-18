@@ -71,5 +71,8 @@ export default Ember.Component.extend({
     setupDetailJob: function(job) {
       this.set('detailJob', job);
     },
+    clearDetailJob: function() {
+      this.set('detailJob', null);
+    }
   }
 });

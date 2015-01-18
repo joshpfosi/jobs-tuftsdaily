@@ -51,41 +51,29 @@
   </table>
 </div>
 
-{{#em-modal-form configName="bs" id="details" open-if=hasDetailJob}}
-{{#em-modal-title}}
-{{#em-modal-toggler class="close"}}<span aria-hidden="true">×</span><span class="sr-only">Close</span>{{/em-modal-toggler}}
-<h4 class="modal-title">Details</h4>
-{{/em-modal-title}}
-{{#em-modal-body}}
-<dl class="dl-horizontal">
-  <dt>Contact Information</dt>
-  <dd>{{detailJob.contact}}</dd>
-  <dt>Details</dt>
-  <dd>{{detailJob.details}}</dd>
-  {{#if detailJob.loc}}
-  <dt>Event Location</dt>
-  <dd>{{detailJob.loc}}</dd>
-  {{/if}}
-  {{#if detailJob.date}}
-  <dt>Date</dt>
-  <dd>{{detailJob.date}}</dd>
-  {{/if}}
-  {{#if detailJob.time}}
-  <dt>Time</dt>
-  <dd>{{detailJob.time}}<dd>
-  {{/if}}
-  {{#if detailJob.daily_member}}
-  <br>
-  <dt>Assignee</dt>
-  <dd>{{detailJob.daily_member.name}}</dd>
-  <dt>Contact Information</dt>
-  <dd>{{detailJob.daily_member.email}} | <em>{{detailJob.daily_member.phone}}</em></dd>
-  {{/if}}
-</dl>
+{{#em-modal-form configName="bs" id="details" open-if=hasDetailJob on-hide="clearDetailJob"}}
+  {{#em-modal-title}}
+    {{#em-modal-toggler class="close"}}<span aria-hidden="true">×</span><span class="sr-only">Close</span>{{/em-modal-toggler}}
+    <h4 class="modal-title">Details</h4>
+  {{/em-modal-title}}
+  {{#em-modal-body}}
+    <dl class="dl-horizontal">
+      <dt>Contact Information</dt> <dd>{{detailJob.contact}}</dd>
+      <dt>Details</dt> <dd>{{detailJob.details}}</dd>
+      {{#if detailJob.loc}} <dt>Event Location</dt> <dd>{{detailJob.loc}}</dd> {{/if}}
+      {{#if detailJob.date}} <dt>Date</dt> <dd>{{detailJob.date}}</dd> {{/if}}
+      {{#if detailJob.time}} <dt>Time</dt> <dd>{{detailJob.time}}<dd> {{/if}}
+      {{#if detailJob.daily_member}}
+        <br>
+        <dt>Assignee</dt> <dd>{{detailJob.daily_member.name}}</dd>
+        <dt>Contact Information</dt> <dd>{{detailJob.daily_member.email}} | <em>{{detailJob.daily_member.phone}}</em></dd>
+      {{/if}}
+    </dl>
 
-<em style="padding-left:30px;" class="text-muted">Requested on {{detailJob.createdAt}}</em>
-{{/em-modal-body}}
-{{#em-modal-footer}}
-<button type="submit" class="btn btn-brown" {{bind-attr disabled=async}}>Done</button>
-{{/em-modal-footer}}
+    <em style="padding-left:30px;" class="text-muted">Requested on {{detailJob.createdAt}}</em>
+  {{/em-modal-body}}
+
+  {{#em-modal-footer}}
+    <button type="submit" class="btn btn-brown" {{bind-attr disabled=async}}>Done</button>
+  {{/em-modal-footer}}
 {{/em-modal-form}}
