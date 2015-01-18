@@ -22,6 +22,11 @@ task :test do
 end
 
 task :deploy do
+  sh "cd rails && rspec && cd ../ember && ember test && rake push"
+
+end
+
+task :push do
   sh 'git checkout production'
   sh 'git merge master -m "Merging master for deployment"'
   sh 'sh build.sh'

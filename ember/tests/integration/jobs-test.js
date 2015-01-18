@@ -15,7 +15,6 @@ module('Integration - Jobs Page', {
 
 test('Should load content', function() {
   visit('/jobs').then(function() {
-    ok(true, "dummy test");
-    //ok(exists("*"), "Found HTML!");
+    ok(exists("*"), "Found HTML!");
   });
 });

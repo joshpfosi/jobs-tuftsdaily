@@ -53,7 +53,7 @@ export default Ember.Component.extend({
     
     // if descending, reverse array
     return (sortDirection) ? jobs : jobs.reverse();
-  }.property('content', 'sortProperty', 'sortDirection'),
+  }.property('content.@each', 'sortProperty', 'sortDirection'),
 
   actions: {
     toggleSort: function(column) {
@@ -65,6 +65,7 @@ export default Ember.Component.extend({
       }
     },
     deleteJob: function(job) {
+      this.get('content').removeObject(job);
       job.destroyRecord();
     },
     setupDetailJob: function(job) {

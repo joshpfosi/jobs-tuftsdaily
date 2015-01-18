@@ -5,7 +5,7 @@ RSpec.describe Api::JobsController, :type => :controller do
 
   context "GET #index" do
     context 'when user authenticated' do
-      before(:each) { sign_in }
+      #before(:each) { sign_in }
 
       context 'when filter by nothing' do
         before do
@@ -138,7 +138,7 @@ RSpec.describe Api::JobsController, :type => :controller do
   describe "DELETE #destroy" do
     before(:each) do
       @job = FactoryGirl.create :job
-      sign_in # only method that requires auth
+      #sign_in # only method that requires auth
       delete :destroy, id: @job.id
     end
 

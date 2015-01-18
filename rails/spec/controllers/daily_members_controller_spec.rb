@@ -2,7 +2,7 @@ require 'rails_helper'
 require 'support/controller_helper'
 
 RSpec.describe Api::DailyMembersController, :type => :controller do
-  before(:each) { sign_in }
+  #before(:each) { sign_in }
 
   context "GET #index" do
     before(:each) do

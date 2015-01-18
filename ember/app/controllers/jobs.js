@@ -31,7 +31,7 @@ export default Ember.ArrayController.extend({
     var jobs = this.get('content'), filter = this.get('filter');
 
     return (filter === null) ? jobs : jobs.filterBy('state', filter);
-  }.property('content', 'content.@each.state', 'filter'),
+  }.property('content.@each', 'content.@each.state', 'filter'),
 
   selectedJobs: Ember.computed.filterBy('content', 'selected'),
   selectedDailyMember: null,
