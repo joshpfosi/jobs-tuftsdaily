@@ -7,10 +7,6 @@ export default Ember.ArrayController.extend({
   }.observes('editProject'),
   hasEditProject: false,
   success:  false,
-  //newProjectModalButtons: [
-  //  Ember.Object.create({title: 'Create', clicked: 'createProject'}),
-  //  Ember.Object.create({title: 'Cancel', clicked: 'cancel', dismiss: 'modal'})
-  //],
   actions: {
     deleteProject: function(project) {
       project.destroyRecord();
@@ -21,24 +17,6 @@ export default Ember.ArrayController.extend({
     showNewProject: function() {
       this.set('editProject', this.store.createRecord('project'));
     },
-    //setupEditProject: function(project) {
-    //  if (project) {
-    //    this.set('editProject', project);
-    //    this.set('title',     project.get('title'));
-    //    this.set('author', project.get('author'));
-    //    this.set('startDate',      project.get('startDate'));
-    //    this.set('publishDate',  project.get('publishDate'));
-    //    this.set('notes',    project.get('notes'));
-    //  }
-    //  return Bootstrap.ModalManager.show('newProject');
-    //},
-    //cancel: function() {
-    //  this.set('title', '');
-    //  this.set('author', '');
-    //  this.set('startDate', '');
-    //  this.set('publishDate', '');
-    //  this.set('notes', '');
-    //},
     createProject: function() {
       var controller = this;
       this.get('editProject').save().then(function() {
