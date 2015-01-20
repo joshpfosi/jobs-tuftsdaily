@@ -39,6 +39,7 @@ group :development, :test do
   gem 'spring'
 end
 
+gem 'devise'
 gem 'active_model_serializers', '0.8.3'
 
 # for in_past validation
