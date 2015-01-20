@@ -9,7 +9,11 @@ export default Ember.Route.extend(ApplicationRouteMixin, {
   },
   actions: {
     sessionAuthenticationSucceeded: function() {
+      this.controllerFor('application').set('credErrors', false);
       this.transitionTo("jobs");
+    },
+    sessionAuthenticationFailed: function() {
+      this.controllerFor('application').set('credErrors', true);
     }
   }
 });
