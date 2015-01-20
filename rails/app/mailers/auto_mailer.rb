@@ -38,7 +38,7 @@ class AutoMailer < ActionMailer::Base
   end
 
   def mail_job(data, email)
-    job = data[:job]
+    job = data
 
     @title   = job[:title]
     @id      = job[:id]

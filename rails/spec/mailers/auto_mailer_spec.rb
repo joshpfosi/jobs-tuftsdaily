@@ -107,7 +107,7 @@ describe AutoMailer do
       @email = Faker::Internet.email
       @title = Faker::App.name
       @id    = 5
-      @data = { job: { title: @title, id: @id }, editor_email: "joshpfosi@gmail.com" }
+      @data = { title: @title, id: @id }
       @assignment_mailer = AutoMailer.mail_job(@data, @email)
     end
 
