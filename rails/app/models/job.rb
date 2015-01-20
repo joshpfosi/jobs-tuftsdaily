@@ -4,6 +4,11 @@ class Job < ActiveRecord::Base
   validates :state, inclusion: { in: 0..6 }
 
   validates_date :due_date, :publish_date, :on_or_after => lambda { Date.today }
+  after_validation :log_errors, :if => Proc.new {|m| m.errors}
+
+  def log_errors
+    Rails.logger.debug self.errors.full_messages.join("\n")
+  end
 
   belongs_to :daily_member
 
