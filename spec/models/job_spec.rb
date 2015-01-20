@@ -37,6 +37,20 @@ RSpec.describe Job, :type => :model do
   it { should allow_value('example@domain.com').for(:email) }
 
   it { should belong_to :daily_member }
+  
+  it 'should validate all these dates' do
+    for i in 0..23
+      subject.due_date = Date.today + i.hour
+      should be_valid
+    end
+  end
+
+  it 'should invalidate all these dates' do
+    for i in 1..24
+      subject.due_date = Date.today - i.hour
+      should_not be_valid
+    end
+  end
 
   it 'should invalidate past due_date' do
     @job.due_date = Faker::Time.backward(5)
