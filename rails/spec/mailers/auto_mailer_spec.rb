@@ -107,8 +107,8 @@ describe AutoMailer do
       @email = Faker::Internet.email
       @title = Faker::App.name
       @id    = 5
-      @data = { title: @title, id: @id }
-      @assignment_mailer = AutoMailer.mail_job(@data, @email)
+      @data = { job: { title: @title, id: @id }, editorEmail: @email }
+      @assignment_mailer = AutoMailer.mail_job(@data[:job], @data[:editorEmail])
     end
 
     it "should be set to be delivered to the user from the data passed in" do

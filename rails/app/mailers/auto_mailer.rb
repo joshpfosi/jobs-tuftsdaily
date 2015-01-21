@@ -37,9 +37,7 @@ class AutoMailer < ActionMailer::Base
     mail(to: @email, subject: @subject)
   end
 
-  def mail_job(data, email)
-    job = data
-
+  def mail_job(job, email)
     @title   = job[:title]
     @id      = job[:id]
     @subject = "New or updated job"

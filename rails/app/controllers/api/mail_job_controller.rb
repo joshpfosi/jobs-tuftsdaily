@@ -10,8 +10,8 @@ class Api::MailJobController < ApplicationController
     elsif params[:type] == 'members'
       AutoMailer.mail_job_members(data).deliver
     elsif params[:type] == ' job'
-      AutoMailer.mail_job(data, "npfosi@gmail.com").deliver
-      AutoMailer.mail_job(data, data[:editorEmail]).deliver
+      AutoMailer.mail_job(data[:job], "npfosi@gmail.com").deliver
+      AutoMailer.mail_job(data[:job], data[:editorEmail]).deliver
     else # type == update_job
       AutoMailer.mail_job(data, "npfosi@gmail.com").deliver
     end
