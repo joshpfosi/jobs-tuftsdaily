@@ -12,27 +12,10 @@ export default Ember.ObjectController.extend({
       var controller = this;
       model.set('state', 0); // make it unassigned
       model.save().then(function(job) {
-        var d = job.get('data');
         Ember.$.ajax({
           type: 'POST',
           url: 'api/mail_job?type=update_job',
-          data: {
-            timestamp:    d.timestamp,
-            title:        d.title,
-            fullName:     d.fullName,
-            email:        d.email,
-            phone:        d.phone,
-            contact:      d.contact,
-            section:      d.section,
-            coverageType: d.coverageType,
-            publishDate:  d.publishDate,
-            dueDate:      d.dueDate,
-            details:      d.details,
-            state:        d.state,
-            loc:          d.loc,
-            date:         d.date,
-            time:         d.time
-          },
+          data: { job: job },
           success: function() {
             controller.notify.success('Successfully notified administrator.');
             controller.transitionToRoute('jobs');
