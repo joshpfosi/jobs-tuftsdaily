@@ -49,6 +49,7 @@ gem 'jc-validates_timeliness'
 gem 'delayed_job_active_record'
 gem 'daemons'
 gem 'delayed_job_recurring'
+gem 'workless'
 
 gem 'ember-validations-rails'
 
