@@ -63,10 +63,10 @@
       {{#if detailJob.loc}} <dt>Event Location</dt> <dd>{{detailJob.loc}}</dd> {{/if}}
       {{#if detailJob.date}} <dt>Date</dt> <dd>{{detailJob.date}}</dd> {{/if}}
       {{#if detailJob.time}} <dt>Time</dt> <dd>{{detailJob.time}}<dd> {{/if}}
-      {{#if detailJob.daily_member}}
+      {{#if detailJob.dailyMember}}
         <br>
-        <dt>Assignee</dt> <dd>{{detailJob.daily_member.name}}</dd>
-        <dt>Contact Information</dt> <dd>{{detailJob.daily_member.email}} | <em>{{detailJob.daily_member.phone}}</em></dd>
+        <dt>Assignee</dt> <dd>{{detailJob.dailyMember.name}}</dd>
+        <dt>Contact Information</dt> <dd>{{detailJob.dailyMember.email}} | <em>{{detailJob.dailyMember.phone}}</em></dd>
       {{/if}}
     </dl>
 
