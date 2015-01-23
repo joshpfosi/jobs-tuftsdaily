@@ -8,13 +8,14 @@
       {{view "select" class="form-control" content=daily_members optionLabelPath="content.name" value=selectedDailyMember prompt="Select a Daily member to assign"}}
     </span>
     <div class="col-md-4 col-sm-12 col-xs-12 col-padding">
-      <div style="margin: auto; max-width: 260px;">
+      <div style="margin: auto; max-width: 360px;">
         {{#em-modal-toggler modal-id="assign" class="btn btn-info" disabled=isNotAssignable}}<span class="glyphicon glyphicon-envelope"></span>{{/em-modal-toggler}}
         {{#em-modal-toggler modal-id="reject" class="btn btn-danger" disabled=isNotSelectedJobs}}<span class="glyphicon glyphicon-trash"></span>{{/em-modal-toggler}}
         <button {{action "changeState" 0}} {{bind-attr class=":btn :btn-default  isNotSelectedJobs:disabled"}}><span class="glyphicon glyphicon-eject"></span></button>
         <button {{action "changeState" 4}} {{bind-attr class=":btn :btn-warning  isNotSelectedJobs:disabled"}}><span class="glyphicon glyphicon-exclamation-sign"></span></button>
         <button {{action "changeState" 5}} {{bind-attr class=":btn :btn-primary  isNotSelectedJobs:disabled"}}><span class="glyphicon glyphicon-tasks"></span></button>
         <button {{action "changeState" 3}} {{bind-attr class=":btn :btn-success  isNotSelectedJobs:disabled"}}><span class="glyphicon glyphicon-ok"></span></button>
+        <button {{action "archive"}} {{bind-attr class=":btn :btn-brown hasArchivables::disabled"}}>Archive</button>
       </div>
     </div>
   </div>

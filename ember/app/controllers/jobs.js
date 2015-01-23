@@ -33,15 +33,29 @@ export default Ember.ArrayController.extend({
     return (filter === null) ? jobs : jobs.filterBy('state', filter);
   }.property('content.@each', 'content.@each.state', 'filter'),
 
-  selectedJobs: Ember.computed.filterBy('content', 'selected'),
   selectedDailyMember: null,
-  isSelectedJobs: Ember.computed.notEmpty('selectedJobs'),
-  isNotSelectedJobs: Ember.computed.not('isSelectedJobs'),
+
+  selectedJobs:          Ember.computed.filterBy('content', 'selected'),
+  isNotSelectedJobs:     Ember.computed.not('isSelectedJobs'),
   isSelectedDailyMember: Ember.computed.notEmpty('selectedDailyMember'),
-  isAssignable: Ember.computed.and('isSelectedDailyMember', 'isSelectedJobs'),
-  isNotAssignable: Ember.computed.not('isAssignable'),
+  isAssignable:          Ember.computed.and('isSelectedDailyMember', 'isSelectedJobs'),
+  isNotAssignable:       Ember.computed.not('isAssignable'),
+  archivable:            Ember.computed.filter('content', function(job) {
+    return moment(new Date(job.get('publishDate'))).diff(moment(new Date())) < 0;
+  }),
+  hasArchivables:        Ember.computed.notEmpty('archivable'),
 
   actions: {
+    archive: function() {
+      var controller = this;
+      return Ember.$.ajax({
+        type: "POST",
+        url: '/api/jobs/archive',
+        success: function() { location.reload(); },
+        error: function() { controller.notify.alert("Failed to archive jobs. Notifier the administrator."); },
+        dataType: 'json'
+      });
+    },
     changeState: function(state) {
       this.get('selectedJobs').slice().map(function(job) {
         job.set('selected', false); // uncheck box
