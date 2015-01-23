@@ -1,93 +1,24 @@
 <div id="job-form" class="content">
-  <form role="form">
-    <div {{bind-attr class=":form-group errors.title:has-error"}}>
-      <label class="control-label" for="title">Slug*</label>
-      {{input classNames="form-control" name="title" value=title placeholder="Enter a slug for the job..."}}
-      {{#if errors.title}}
-        <span class="help-block">{{errors.title}}</span>
-      {{/if}}
-    </div>
-    <div {{bind-attr class=":form-group errors.fullName:has-error"}}>
-      <label class="control-label" for="fullName">Full Name</label>
-      {{input classNames="form-control" value=fullName placeholder="Enter your full name..."}}
-      {{#if errors.fullName}}
-        <span class="help-block">{{errors.fullName}}</span>
-      {{/if}}
-    </div>
-    <div {{bind-attr class=":form-group errors.email:has-error"}}>
-      <label class="control-label" for="email">Email*</label>
-      {{input classNames="form-control" value=email placeholder="Enter your email address..." type="email"}}
-      {{#if errors.email}}
-        <span class="help-block">{{errors.email}}</span>
-      {{/if}}
-    </div>
-    <div {{bind-attr class=":form-group errors.phone:has-error"}}>
-      <label class="control-label" for="phone">Phone Number</label>
-      {{input classNames="form-control" value=phone placeholder="### ### ####" type="tel"}}
-      {{#if errors.phone}}
-        <span class="help-block">{{errors.phone}}</span>
-      {{/if}}
-    </div>
-    <div {{bind-attr class=":form-group errors.section:has-error"}}>
-      <label class="control-label" for="section">Section*</label>
-      {{view "select" classNames="form-control" content=sections value=section prompt="Select a Daily section"}}
-      {{#if errors.section}}
-        <span class="help-block">{{errors.section}}</span>
-      {{/if}}
-    </div>
-    <div {{bind-attr class=":form-group errors.coverageType:has-error"}}>
-      <label class="control-label" for="coverageType">Coverage Type*</label>
-      {{#if isOther}}
-        {{input classNames="form-control" value=coverageTypeOther placeholder="Enter the kind of coverage..."}}
-      {{else}}
-        {{view "select" classNames="form-control" content=coverageTypes value=coverageType prompt="Select a coverage type"}}
-      {{/if}}
-      {{#if errors.coverageType}}
-        <span class="help-block">{{errors.coverageType}}</span>
-      {{/if}}
-    </div>
-    <div {{bind-attr class=":form-group errors.contact:has-error"}}>
-      <label class="control-label" for="contact">Contact Information for Subject / Event Coordinator</label>
-      {{view Ember.TextArea classNames="form-control" value=contact placeholder="Enter the subject's contact information..." rows="2"}}
-      {{#if errors.contact}}
-        <span class="help-block">{{errors.contact}}</span>
-      {{/if}}
-    </div>
-    <div {{bind-attr class=":form-group errors.publishDate:has-error"}}>
-      <label class="control-label" for="publishDate">Publish Date*</label>
-      {{input classNames="form-control" value=publishDate type="date"}}
-      {{#if errors.publishDate}}
-        <span class="help-block">{{errors.publishDate}}</span>
-      {{/if}}
-    </div>
-    <div {{bind-attr class=":form-group errors.dueDate:has-error"}}>
-      <label class="control-label" for="dueDate">Due Date*</label>
-      {{input classNames="form-control" value=dueDate type="date"}}
-      {{#if errors.dueDate}}
-        <span class="help-block">{{errors.dueDate}}</span>
-      {{/if}}
-    </div>
-    <div {{bind-attr class=":form-group errors.details:has-error"}}>
-      <label class="control-label" for="details">Details*</label>
-      {{view Ember.TextArea classNames="form-control" value=details placeholder="Enter any details..." rows="4"}}
-      {{#if errors.details}}
-        <span class="help-block">{{errors.details}}</span>
-      {{/if}}
-    </div>
+  {{#em-form model=model submit_button=false}}
+      {{em-input property="title" label="Slug" placeholder="Enter a slug for the job..."}}
+      {{em-input property="name" label="Full Name" placeholder="Enter your full name..."}}
+      {{em-input property="email" label="Email" placeholder="Enter your email address..."}}
+      {{em-input property="phone" label="Phone Number" placeholder="Enter your phone number..." type="tel"}}
 
-    <div class="form-group">
-      <label class="control-label" for="location">Event Location</label>
-      {{input classNames="form-control" value=loc placeholder="Enter the event location..."}}
-    </div>
-    <div class="form-group">
-      <label class="control-label" for="date">Event Date</label>
-      {{input classNames="form-control" value=date placeholder="Enter the event date..." type="date"}}
-    </div>
-    <div class="form-group">
-      <label class="control-label" for="time">Event Time</label>
-      {{input classNames="form-control" value=time placeholder="Enter the time of the event..." type="time"}}
-    </div>
-    <div style="padding-bottom: 15px;" class="text-muted">* indicates a required field</div>
-    <button {{action "save" this}} class="btn btn-primary btn-block">Add Job</button>
-  </form>
+      {{em-select property="section" label="Section" prompt="Select a Daily section" contentBinding="sections" optionValuePath="content" optionLabelPath="content"}}
+      {{em-select property="coverageType" label="Coverage Type" prompt="Pick the kind of coverage" contentBinding="coverageTypes" optionValuePath="content" optionLabelPath="content"}}
+
+      {{em-text property="contact" label="Contact Information for Subject / Event Coordinator" placeholder="Enter the subject's contact information..." rows=2}}
+
+      {{em-input property="publishDate" label="Publish Date" type="date"}}
+      {{em-input property="dueDate" label="Due Date" type="date"}}
+
+      {{em-text property="details" label="Details" placeholder="Enter any details..." rows=4}}
+
+      {{em-input property="loc" label="Event Location" placeholder="Enter the event location..."}}
+      {{em-input property="date" label="Event Date" placeholder="Enter the event date..." type="date"}}
+      {{em-input property="time" label="Event time" placeholder="Enter the event time..." type="time"}}
+
+      {{async-button action="save" default="Add Job" pending="Adding job..." classNames="btn btn-block btn-brown" disabled=isntValid reset=true}}
+  {{/em-form}}
 </div>

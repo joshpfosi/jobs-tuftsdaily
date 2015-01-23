@@ -1,6 +1,3 @@
-@import 'index.scss';
-@import 'settings.scss';
-
 $tufts-blue: #92ABCE;
 $tufts-brown: #867A6E;
 $tufts-brown-hover: #69625B;
@@ -128,3 +125,7 @@ body {
 .ember-list-item-view {
   position: absolute;
 }
+
+@import 'index.scss';
+@import 'settings.scss';
+

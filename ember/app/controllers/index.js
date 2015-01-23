@@ -21,19 +21,12 @@ function getEditorEmail(section) {
 export default Ember.ObjectController.extend({
   sections: ['News', 'Features', 'Sports', 'Arts', 'Multimedia', 'Op-Ed'],
   coverageTypes: ['Portrait/Headshot', 'Event', 'Lecture', 'Feature Story', 'File Photo', 'Stock', 'Other'],
-  isOther: Ember.computed.equal('coverageType', 'Other'),
+  isntValid: Ember.computed.not('model.isValid'),
   
   actions: {
-    save: function(model) {
-      // disable to prevent double clicking until ajax returns
-      Ember.$('.btn-block').addClass('disabled'); 
-
-      if (this.get('isOther')) {
-        this.set('coverageType', this.get('coverageTypeOther'));
-      }
-
+    save: function(callback) {
       var controller = this;
-      model.save().then(function(job) {
+      var promise = this.get('model').save().then(function(job) {
         controller.set('model', controller.store.createRecord('job'));
 
         var editorEmail = getEditorEmail(job.get('section'));
@@ -42,24 +35,25 @@ export default Ember.ObjectController.extend({
         }
 
         // send mail
-        Ember.$.ajax({
+        return Ember.$.ajax({
           type: 'POST', url: 'api/mail_job?type=job',
           data: { job: job.get('data'), editorEmail: editorEmail },
           success: function() {
             Ember.$('.btn-block').removeClass('disabled'); 
+            controller.notify.success('Successfully submitted a job request.');
             controller.notify.success('Successfully notified the administrator.');
+            location.reload();
           },
           error: function() {
-            Ember.$('.btn-block').removeClass('disabled'); 
             controller.notify.alert('Failed to notify the administrator - please contact him.');
           },
           dataType: 'json'
         });
-        controller.notify.success('Successfully submitted a job request.');
       }, function() { // failed to save job record
-        Ember.$('.btn-block').removeClass('disabled'); 
         controller.notify.alert('Failed to submit a job request.');
       });
+
+      callback(promise);
     }
   },
 });

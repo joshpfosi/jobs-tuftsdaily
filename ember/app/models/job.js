@@ -29,8 +29,8 @@ export default DS.Model.extend(EmberValidations.Mixin, {
     title:        { presence: { message: "Enter a title for the job" } },
     section:      { presence: { message: "Choose a section from the list" } },
     coverageType: { presence: { message: "Enter the kind of coverage" } },
-    publishDate:  { presence: { message: "Enter a valid date" } },
-    dueDate:      { presence: { message: "Enter a valid date" } },
+    publishDate:  { isFuture: true },
+    dueDate:      { isFuture: true },
     details:      { presence: { message: "You must submit details" } }
   },
 // NOTE state: 0 => unassigned, 1 => assigned, 2 => rejected 3 => completed, 4 => investigated, 5 => pending, 6 => archived
