@@ -36,6 +36,7 @@ export default Ember.ArrayController.extend({
   selectedDailyMember: null,
 
   selectedJobs:          Ember.computed.filterBy('content', 'selected'),
+  isSelectedJobs:        Ember.computed.notEmpty('selectedJobs'),
   isNotSelectedJobs:     Ember.computed.not('isSelectedJobs'),
   isSelectedDailyMember: Ember.computed.notEmpty('selectedDailyMember'),
   isAssignable:          Ember.computed.and('isSelectedDailyMember', 'isSelectedJobs'),
