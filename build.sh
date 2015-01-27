@@ -23,6 +23,10 @@ function boldMessage {
 boldMessage 4 "Building Ember app"
 cd ember
 ember build --environment production
+if [$? -ne 0 ]
+then
+  exit 1
+fi
 cd ../rails
  
 rm -rf public/assets
