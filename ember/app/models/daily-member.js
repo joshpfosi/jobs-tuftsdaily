@@ -26,12 +26,7 @@ export default DS.Model.extend(EmberValidations.Mixin, {
         message: "Enter a valid email"
       }
     },
-    phone: {
-      format: {
-        with: /\d\d\d \d\d\d \d\d\d\d/,
-        message: "Follow the placeholder exactly!"
-      }
-    },
+    phone: { presence: true },
     position: { presence: { message: "Enter a position for this person" } }
   }
 });

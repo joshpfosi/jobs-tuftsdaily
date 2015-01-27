@@ -90,18 +90,20 @@
         {{#if async}}
             Submitting, please wait...
         {{else}}
-          <form role="form">
-            {{form-field-text value=editMember.name error=editMember.errors.name placeholder="Enter his / her name..." label="Name"}}
-            {{form-field-select value=editMember.position error=editMember.errors.position content=positions prompt="Select his / her position on the Daily..." label="Position"}}
-            {{form-field-text value=editMember.email error=editMember.errors.email placeholder="Enter his / her email..." label="Email"}}
-            {{form-field-text value=editMember.phone error=editMember.errors.phone placeholder="### ### ####" label="Phone"}}
+          {{#em-form model=editMember submit_button=false}}
+            {{em-input property="name" label="Name" placeholder="Enter his / her name..."}}
 
-            {{form-field-select value=editMember.sports content=sportsAnswers prompt="Can this member shoot sports?" label="Sports"}}
-            {{form-field-select value=editMember.day content=days prompt="Choose the day this member is on call" label="On Call Day"}}
-            {{form-field-select value=editMember.backDay content=days prompt="Choose the day this member is on call" label="Back Up On Call Day"}}
+            {{em-select property="position" label="Position" prompt="Select his / her position on the Daily..." contentBinding="positions" optionValuePath="content" optionLabelPath="content"}}
 
-            {{form-field-text value=editMember.notes error=editMember.errors.notes placeholder="Enter any notes..." label="Notes"}}
-          </form>
+            {{em-input property="email" label="Email" placeholder="Enter his / her email..."}}
+            {{em-input property="phone" label="Phone" placeholder="Enter phone number..."}}
+
+            {{em-select property="sports" label="Sports" prompt="Can this member shoot sports" contentBinding="sportsAnswers" optionValuePath="content" optionLabelPath="content"}}
+            {{em-select property="day" label="On Call Day" prompt="Choose the day this member is on call..." contentBinding="days" optionValuePath="content" optionLabelPath="content"}}
+            {{em-select property="backDay" label="Back Up On Call Day" prompt="Choose the day this member is on call (backup)..." contentBinding="days" optionValuePath="content" optionLabelPath="content"}}
+
+            {{em-input property="notes" label="Notes" placeholder="Enter any notes..."}}
+          {{/em-form}}
         {{/if}}
     {{/em-modal-body}}
 
@@ -121,11 +123,11 @@
         {{#if async}}
             Submitting, please wait...
         {{else}}
-          <form role="form">
-            {{form-field-text value=email placeholder="Enter an email..." readonly=true error=errors.toEmail label="To:"}}
-            {{form-field-text value=subject placeholder="Enter an a subject line..." label="Subject:"}}
-            {{form-field-text value=body placeholder="Enter an a body message..." label="Body:" rows=8}}
-          </form>
+          {{#em-form submit_button=false}}
+            {{em-input property="email" label="To:" readonly=true}}
+            {{em-input property="subject" label="Subject:" placeholder="Enter a subject line..."}}
+            {{em-text property="body" label="Body" placeholder="Enter a body message..." rows=8}}
+          {{/em-form}}
         {{/if}}
     {{/em-modal-body}}
 
