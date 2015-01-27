@@ -39,6 +39,16 @@ export default Ember.ArrayController.extend({
     editOldDailyMember: function(member) {
       this.set('editMember', member);
     },
+    deleteBlankMember: function() {
+      var editMember = this.get('editMember');
+
+      // if id === null then its not a save member so delete
+      if (editMember.get('id') === null) {
+        editMember.deleteRecord();
+      }
+      // done editing, so set up for new member
+      this.set('editMember', null);
+    },
     createDailyMember: function() {
       var controller = this;
       return this.get('editMember').save().then(function(member) {
