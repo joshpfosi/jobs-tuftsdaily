@@ -17,10 +17,20 @@ export default Ember.ArrayController.extend({
     showNewProject: function() {
       this.set('editProject', this.store.createRecord('project'));
     },
+    deleteBlankProject: function() {
+      var editProject = this.get('editProject');
+
+      // if id === null then its not a saved project so delete
+      if (editProject.get('id') === null) {
+        editProject.deleteRecord();
+      }
+      // done editing, so set up for new project
+      this.set('editProject', null);
+    },
     createProject: function() {
       var controller = this;
-      this.get('editProject').save().then(function() {
-        controller.notify.success('Succesfully added ' + controller.get('title') + '.');
+      this.get('editProject').save().then(function(project) {
+        controller.notify.success('Succesfully added ' + project.get('title') + '.');
         controller.set('editProject', null);
         controller.set('hasEditProject', false);
         controller.set('success', true);
