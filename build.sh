@@ -7,23 +7,22 @@ function printMessage {
   color=$(tput setaf $1)
   message=$2
   reset=$(tput sgr0)
-  echo -e "${color}${message}${reset}"
+  echo "${color}${message}${reset}"
 }
  
 function boldMessage {
   color=$(tput setaf $1)
   message=$2
   reset=$(tput sgr0)
-  echo -e "${color}*************************************${reset}"
-  echo -e "${color}${message}${reset}"
-  echo -e "${color}*************************************${reset}"
+  echo "${color}*************************************${reset}"
+  echo "${color}${message}${reset}"
+  echo "${color}*************************************${reset}"
 }
  
-#echo -e "${color}Building Ember app${reset}"
 boldMessage 4 "Building Ember app"
 cd ember
 ember build --environment production
-if [$? -ne 0 ]
+if [ $? -ne 0 ]
 then
   exit 1
 fi
