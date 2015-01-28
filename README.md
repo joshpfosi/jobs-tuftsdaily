@@ -10,7 +10,6 @@ Please report bugs to joshpfosi@gmail.com
 
 #### Bugs
 * New lines aren't represented in job description
-* `form-field-select` reports error on `view "select"` - hotfixed to `Em.Select`
 
 #### Features
 * Add a "notes" option to jobs so when I mark them as "Investigated" (yellow) I can write down in what way I investigated them
@@ -19,8 +18,7 @@ Please report bugs to joshpfosi@gmail.com
 #### Improvements
 * Positions drop down, and inactive disables them
 * Parametrize bulky ajax calls for mailing
-* Needs Karma for automated integration testing
-* Refactor past date check into `past?`
+* Needs integration and unit testing on front end
 
 ## Administrative
 
@@ -36,15 +34,6 @@ Run `npm install`, `bower install`, `bundle install` and `rake db:setup` in the 
 #### Testing information
 
 Run `rake test` to run all tests, `rspec` for backend tests, and `ember test` for the frontend.
-
-For testing individual delayed jobs:
-
-    worker = Delayed::Worker.new
-    worker.start
-
-#### Services
-
-This application uses `Delayed::Job` to archive old jobs. To set this up for development, start the server via `rake run` and run `rake recurring:init` to schedule the jobs, and `rake jobs:work` to spawn a worker.
 
 #### Deployment instructions
 
