@@ -39,7 +39,6 @@ export default Ember.ObjectController.extend({
           type: 'POST', url: 'api/mail_job?type=job',
           data: { job: job.get('data'), editorEmail: editorEmail },
           success: function() {
-            Ember.$('.btn-block').removeClass('disabled'); 
             controller.notify.success('Successfully submitted a job request.');
             controller.notify.success('Successfully notified the administrator.');
             location.reload();
