@@ -66,22 +66,16 @@ RSpec.describe Job, :type => :model do
     before(:each) do
       Job.delete_all # needs to be cear for some reason
       @job1 = FactoryGirl.create(:job, state: 6)
-      @job2 = FactoryGirl.create(:job, state: 2, coverage_type: "Stock")
-      @job3 = FactoryGirl.create(:job, state: 3, coverage_type: "File Photo")
-      @job4 = FactoryGirl.create(:job, state: 4)
-      @job5 = FactoryGirl.create(:job, state: 6)
+      @job2 = FactoryGirl.create(:job, state: 4)
+      @job3 = FactoryGirl.create(:job, state: 6)
     end
 
     it '.equal_state' do
-      expect(Job.equal_state(6).sort).to match_array([@job1, @job5])
+      expect(Job.equal_state(6).sort).to match_array([@job1, @job3])
     end
 
     it '.not_equal_state' do
-      expect(Job.not_equal_state(6).sort).to match_array([@job2, @job3, @job4])
-    end
-
-    it '.is_stock' do
-      expect(Job.is_stock(true).sort).to match_array([@job2, @job3])
+      expect(Job.not_equal_state(6).sort).to match_array([@job2])
     end
   end
 end

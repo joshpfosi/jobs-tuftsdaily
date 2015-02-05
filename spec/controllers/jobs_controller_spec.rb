@@ -28,26 +28,16 @@ RSpec.describe Api::JobsController, :type => :controller do
       context 'when filtering' do
         before(:each) do
           @job1 = FactoryGirl.create(:job, state: 6)
-          @job2 = FactoryGirl.create(:job, state: 2, coverage_type: "Stock")
-          @job3 = FactoryGirl.create(:job, state: 3, coverage_type: "File Photo")
-          @job4 = FactoryGirl.create(:job, state: 4)
-          @job5 = FactoryGirl.create(:job, state: 6)
+          @job2 = FactoryGirl.create(:job, state: 4)
+          @job3 = FactoryGirl.create(:job, state: 6)
         end
 
         it 'returns archived if state == 6' do
-          expect(Job.search({equal_state: 6})).to match_array([@job1, @job5])
+          expect(Job.search({equal_state: 6})).to match_array([@job1, @job3])
         end
 
         it 'returns unarchived if state != 6' do
-          expect(Job.search({not_equal_state: 6})).to match_array([@job2, @job3, @job4])
-        end
-
-        it 'returns file photo and stock if coverageType == Stock' do
-          expect(Job.search({is_stock: true})).to match_array([@job2, @job3])
-        end
-
-        it 'returns empty when stock and archived' do
-          expect(Job.search({equal_state: 6, is_stock: true})).to be_empty
+          expect(Job.search({not_equal_state: 6})).to match_array([@job2])
         end
       end
     end
