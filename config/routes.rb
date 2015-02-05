@@ -1,7 +1,6 @@
 Rails.application.routes.draw do
   devise_for :users, controllers: { sessions: 'sessions' }
   namespace :api do
-    resources :projects
     resources :jobs
     resources :daily_members
     get :csrf, to: 'csrf#index'

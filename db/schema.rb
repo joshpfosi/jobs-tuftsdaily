@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150120140331) do
+ActiveRecord::Schema.define(version: 20150205002715) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -72,16 +72,6 @@ ActiveRecord::Schema.define(version: 20150120140331) do
   end
 
   add_index "jobs", ["daily_member_id"], name: "index_jobs_on_daily_member_id", using: :btree
-
-  create_table "projects", force: :cascade do |t|
-    t.string   "title"
-    t.string   "author"
-    t.datetime "publish_date"
-    t.datetime "start_date"
-    t.text     "notes"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "", null: false
