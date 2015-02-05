@@ -17,7 +17,6 @@
       <div class="navbar-collapse collapse" id="tufts-nav" style="height: 1px;">
         {{#if session.isAuthenticated}}
           <button {{action "invalidateSession"}} class="btn btn-brown navbar-btn navbar-right">Sign Out</button>
-          {{#link-to "projects" class="navbar-link navbar-right"}}<button class="btn btn-brown navbar-btn">Projects</button>{{/link-to}}
           {{#link-to "settings" class="navbar-link navbar-right"}}<button class="btn btn-brown navbar-btn">Members</button>{{/link-to}}
           {{#link-to "jobs" class="navbar-link navbar-right"}}    <button class="btn btn-brown navbar-btn">Jobs</button>{{/link-to}}
           {{#link-to "archive" class="navbar-link navbar-right"}} <button class="btn btn-brown navbar-btn">Archive</button>{{/link-to}}
