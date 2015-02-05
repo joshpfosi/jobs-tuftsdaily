@@ -1,7 +1,7 @@
 class Job < ActiveRecord::Base
   validates :email, format: { with: /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i, multiline: true  }
   validates :title, :section, :coverage_type, :publish_date, :due_date, :details, presence: true
-  validates :state, inclusion: { in: 0..6 }
+  validates :state, inclusion: { in: 0..7 }
 
   validates_date :due_date, :publish_date, :on_or_after => lambda { Date.today }
   after_validation :log_errors, :if => Proc.new {|m| m.errors}
