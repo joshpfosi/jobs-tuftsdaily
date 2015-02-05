@@ -33,11 +33,11 @@ export default DS.Model.extend(EmberValidations.Mixin, {
     dueDate:      { isFuture: true },
     details:      { presence: { message: "You must submit details" } }
   },
-// NOTE state: 0 => unassigned, 1 => assigned, 2 => rejected 3 => completed, 4 => investigated, 5 => pending, 6 => archived
+// NOTE state: 0 => unassigned, 1 => assigned, 2 => rejected 3 => completed, 4 => investigated, 5 => pending, 6 => archived, 7 => graphics
   
   color: function() {
     var state = this.get('state');
-    return ['default', 'info', 'danger', 'success', 'warning', 'pending', 'archived'][state];
+    return ['default', 'info', 'danger', 'success', 'warning', 'pending', 'archived', 'graphics'][state];
   }.property('state'),
   edit: function() { return "#/job/" + this.get('id'); }.property()
 });
