@@ -20,7 +20,7 @@ function getEditorEmail(section) {
 
 export default Ember.ObjectController.extend({
   sections: ['News', 'Features', 'Sports', 'Arts', 'Multimedia', 'Op-Ed'],
-  coverageTypes: ['Portrait/Headshot', 'Event', 'Lecture', 'Feature Story', 'File Photo', 'Stock', 'Other'],
+  coverageTypes: ['Portrait/Headshot', 'Event', 'Lecture', 'Infographic', 'File Photo', 'Stock', 'Other'],
   isntValid: Ember.computed.not('model.isValid'),
   
   actions: {
