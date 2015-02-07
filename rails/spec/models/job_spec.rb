@@ -33,7 +33,7 @@ RSpec.describe Job, :type => :model do
   it { should validate_not_in_past(:due_date) }
   it { should validate_not_in_past(:publish_date) }
 
-  it { should validate_inclusion_of(:state).in_range(0..6) }
+  it { should validate_inclusion_of(:state).in_range(0..7) }
   it { should allow_value('example@domain.com').for(:email) }
 
   it { should belong_to :daily_member }
