@@ -45,12 +45,6 @@ gem 'active_model_serializers', '0.8.3'
 # for in_past validation
 gem 'jc-validates_timeliness'
 
-# for archiving
-gem 'delayed_job_active_record'
-gem 'daemons'
-gem 'delayed_job_recurring'
-gem 'workless'
-
 gem 'ember-validations-rails'
 
 gem 'momentjs-rails'
