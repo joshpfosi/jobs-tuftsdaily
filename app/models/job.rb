@@ -3,7 +3,6 @@ class Job < ActiveRecord::Base
   validates :title, :section, :coverage_type, :publish_date, :due_date, :details, presence: true
   validates :state, inclusion: { in: 0..7 }
 
-  validates_date :due_date, :publish_date, :on_or_after => lambda { Date.today }
   after_validation :log_errors, :if => Proc.new {|m| m.errors}
 
   def log_errors
