@@ -4,10 +4,10 @@
     <span class="col-md-2 col-sm-12 col-xs-12 col-padding">
       {{view "select" class="form-control" content=filters optionLabelPath="content.name" optionValuePath="content.state" value=filter}}
     </span>
-    <span id="daily-select" class="col-md-4 col-sm-12 col-xs-12 col-padding">
+    <span id="daily-select" class="col-md-3 col-sm-12 col-xs-12 col-padding">
       {{view "select" class="form-control" content=daily_members optionLabelPath="content.name" value=selectedDailyMember prompt="Select a Daily member to assign"}}
     </span>
-    <div class="col-md-4 col-sm-12 col-xs-12 col-padding">
+    <div class="col-md-5 col-sm-12 col-xs-12 col-padding">
       <div style="margin: auto; max-width: 380px;">
         {{#em-modal-toggler modal-id="assign" class="btn btn-info" disabled=isNotAssignable}}<span class="glyphicon glyphicon-envelope"></span>{{/em-modal-toggler}}
         {{#em-modal-toggler modal-id="reject" class="btn btn-danger" disabled=isNotSelectedJobs}}<span class="glyphicon glyphicon-trash"></span>{{/em-modal-toggler}}
@@ -16,7 +16,7 @@
         <button {{action "changeState" 5}} {{bind-attr class=":btn :btn-primary  isNotSelectedJobs:disabled"}}><span class="glyphicon glyphicon-tasks"></span></button>
         <button {{action "changeState" 3}} {{bind-attr class=":btn :btn-success  isNotSelectedJobs:disabled"}}><span class="glyphicon glyphicon-ok"></span></button>
         <button {{action "changeState" 7}} {{bind-attr class=":btn :btn-graphics isNotSelectedJobs:disabled"}}><span class="glyphicon glyphicon-film"></span></button>
-        <button {{action "archive"}} {{bind-attr class=":btn :btn-brown hasArchivables::disabled"}}>Archive</button>
+        <button {{action "changeState" 6}} {{bind-attr class=":btn :btn-brown    isNotSelectedJobs:disabled"}}><span class="glyphicon glyphicon-save"></span></button>
       </div>
     </div>
   </div>
