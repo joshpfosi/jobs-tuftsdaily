@@ -30,38 +30,11 @@ RSpec.describe Job, :type => :model do
   it { should validate_presence_of(:due_date) }
   it { should validate_presence_of(:details) }
 
-  it { should validate_not_in_past(:due_date) }
-  it { should validate_not_in_past(:publish_date) }
-
   it { should validate_inclusion_of(:state).in_range(0..7) }
   it { should allow_value('example@domain.com').for(:email) }
 
   it { should belong_to :daily_member }
   
-  it 'should validate all these dates' do
-    for i in 0..23
-      subject.due_date = Date.today + i.hour
-      should be_valid
-    end
-  end
-
-  it 'should invalidate all these dates' do
-    for i in 1..24
-      subject.due_date = Date.today - i.hour
-      should_not be_valid
-    end
-  end
-
-  it 'should invalidate past due_date' do
-    @job.due_date = Faker::Time.backward(5)
-    expect(@job).not_to be_valid
-  end
-
-  it 'should invalidate past publish_date' do
-    @job.publish_date = Faker::Time.backward(5)
-    expect(@job).not_to be_valid
-  end
-
   context 'scoping' do
     before(:each) do
       Job.delete_all # needs to be cear for some reason
