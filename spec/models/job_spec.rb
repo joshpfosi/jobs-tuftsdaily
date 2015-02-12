@@ -20,6 +20,7 @@ RSpec.describe Job, :type => :model do
   it { should respond_to(:loc) }
   it { should respond_to(:date) }
   it { should respond_to(:time) }
+  it { should respond_to(:reason) }
   
   it { should be_valid }
 
@@ -34,7 +35,7 @@ RSpec.describe Job, :type => :model do
   it { should allow_value('example@domain.com').for(:email) }
 
   it { should belong_to :daily_member }
-  
+
   context 'scoping' do
     before(:each) do
       Job.delete_all # needs to be cear for some reason
@@ -49,6 +50,25 @@ RSpec.describe Job, :type => :model do
 
     it '.not_equal_state' do
       expect(Job.not_equal_state(6).sort).to match_array([@job2])
+    end
+  end
+
+  context 'with reason set' do
+    before(:each) { subject.reason = "my reason" }
+
+    it { should_not be_valid }
+
+    it 'should be valid with state == 2' do
+      subject.state = 2
+      should be_valid
+    end
+  end
+
+  context 'with reason nil' do
+    it 'should not be valid with state == 2' do
+      subject.reason = nil
+      subject.state = 2
+      should_not be_valid
     end
   end
 end

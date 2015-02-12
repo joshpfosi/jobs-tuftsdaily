@@ -10,6 +10,6 @@ FactoryGirl.define do
     publish_date { Faker::Time.forward(30) }
     due_date { Faker::Time.forward(25) }
     details { Faker::Lorem.paragraph(3) }
-    state { rand(0..5) }
+    state 0
   end
 end
