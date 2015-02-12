@@ -123,6 +123,7 @@ export default Ember.ArrayController.extend({
       job        = this.get('selectedJobs')[0], 
       deadline   = job.get('dueDate'),
       email      = job.get('email'),
+      reason     = this.get('reason'),
       data = {
         email:        email,
         subject:      this.get('subject'),
@@ -132,9 +133,13 @@ export default Ember.ArrayController.extend({
         deadline:     deadline,
         timestamp:    job.get('createdAt'),
         details:      job.get('details'),
-        reason:       this.get('reason'),
+        reason:       reason,
         id:           job.get('id')
       };
+
+      // NEEDSWORK: This could be refactored but not worth the time
+      // reason isn't set in form as form doesn't know which job is selected
+      job.set('reason', reason);
 
       Ember.$.ajax({
         type: "POST",

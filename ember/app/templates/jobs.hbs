@@ -48,11 +48,7 @@
         <h4 class="modal-title">Reject Job</h4>
     {{/em-modal-title}}
     {{#em-modal-body}}
-        {{#if async}}
-            Submitting, please wait...
-        {{else}}
-          {{partial "mail-reject"}}
-        {{/if}}
+        {{partial "mail-reject"}}
     {{/em-modal-body}}
     {{#em-modal-footer}}
         <button type="submit" class="btn btn-brown" {{bind-attr disabled=async}}>Submit</button>
