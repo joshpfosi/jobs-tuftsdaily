@@ -1,6 +1,8 @@
+require 'capybara/rspec'
 require 'email_spec'
 require 'support/request_helpers'
 require 'simplecov'
+
 SimpleCov.start 'rails' do
   add_group "Models", "app/models"
   add_group "Controllers", "app/controllers"
