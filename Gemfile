@@ -23,6 +23,8 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 # gem 'capistrano-rails', group: :development
 
 group :development, :test do
+  gem 'capybara'
+  gem 'selenium-webdriver'
   gem 'byebug'
   gem 'rspec-rails'
   gem "factory_girl_rails"
