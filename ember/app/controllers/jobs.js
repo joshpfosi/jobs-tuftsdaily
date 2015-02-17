@@ -1,7 +1,12 @@
 import Ember from 'ember';
 
-function generateSubjectAssign(coverageType, deadline) {
-  return "Tufts Daily Photo Assignment: " + coverageType + " due on " + deadline;
+function generateSubjectAssign(coverageType, date, time) {
+  if (date != null && time != null) {
+
+  return "Tufts Daily Photo Assignment: " + coverageType + " on " + date + " @ " + time;
+  }
+  
+  return "Tufts Daily Photo Assignment: " + coverageType;
 }
 
 export function generateBodyAssign(title, name, coverageType, contact, deadline, loc, time, date, details) {
@@ -58,7 +63,7 @@ export default Ember.ArrayController.extend({
           name = member.name;
       this.set('email', member.email);
 
-      this.set('subject', generateSubjectAssign(job.coverageType, deadline));
+      this.set('subject', generateSubjectAssign(job.coverageType, job.date, job.time));
       this.set('body', generateBodyAssign(job.title, name, job.coverageType, job.contact, 
             deadline, job.loc, job.time, job.date, job.details));
     },
@@ -77,17 +82,17 @@ export default Ember.ArrayController.extend({
           email = this.get('email'), 
           deadline = job.get('dueDate'),
           data = { 
-            title:        job.get('title'),
-            email:        email,
-            subject:      this.get('subject'),
-            name:         member.get('name'),
-            coverageType: job.get('coverageType'),
-            contact:      job.get('contact'),
-            deadline:     deadline,
-            loc:          job.get('loc'),
-            time:         job.get('time'),
-            date:         job.get('date'),
-            details:      job.get('details')
+            title:         job.get('title'),
+            email:         email,
+            subject:       this.get('subject'),
+            name:          member.get('name'),
+            coverage_type: job.get('coverageType'),
+            contact:       job.get('contact'),
+            deadline:      deadline,
+            loc:           job.get('loc'),
+            time:          job.get('time'),
+            date:          job.get('date'),
+            details:       job.get('details')
           };
 
       Ember.$.ajax({
