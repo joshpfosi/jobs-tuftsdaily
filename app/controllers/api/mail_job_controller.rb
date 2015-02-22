@@ -1,20 +1,26 @@
 class Api::MailJobController < ApplicationController
   respond_to :json
   
+  # Arguments: type of mail and data
   def create
-    data = params
-    if params[:type] == 'assign'
-      AutoMailer.mail_job_assign(data).deliver_now
-    elsif params[:type] == 'reject'
-      AutoMailer.mail_job_reject(data).deliver_now
-    elsif params[:type] == 'members'
-      AutoMailer.mail_job_members(data).deliver_now
-    elsif params[:type] == 'job'
-      AutoMailer.mail_job(data[:job], "npfosi@gmail.com").deliver_now
-      AutoMailer.mail_job(data[:job], data[:editorEmail]).deliver_now
-    elsif params[:type] == 'update_job'
-      AutoMailer.mail_job(data, "npfosi@gmail.com").deliver_now
+    job_type = params[:type]
+    email    = params[:email]
+    subject  = params[:subject]
+    job      = Job.find(params[:id]) unless params[:id].nil?
+
+    if job_type == 'assign'
+      AutoMailer.job_assign(email, subject, job).deliver_later
+    elsif job_type == 'reject'
+      AutoMailer.job_reject(email, subject, job).deliver_later
+    elsif job_type == 'members'
+      AutoMailer.mail_members(email, subject, params[:body]).deliver_later
+    elsif job_type == 'job'
+      AutoMailer.mail_job("npfosi@gmail.com", job).deliver_later
+      AutoMailer.mail_job(params[:editorEmail], job).deliver_later
+    elsif job_type == 'update_job'
+      AutoMailer.mail_job("npfosi@gmail.com", job).deliver_later
     end
+
     render json: "ok", status: 204
   end
 end

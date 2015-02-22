@@ -11,5 +11,10 @@ FactoryGirl.define do
     due_date { Faker::Time.forward(25) }
     details { Faker::Lorem.paragraph(3) }
     state 0
+
+    factory :rejected_job do
+      state 2
+      reason "Test Reason is ..."
+    end
   end
 end

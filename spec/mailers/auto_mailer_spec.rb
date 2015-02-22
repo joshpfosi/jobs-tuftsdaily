@@ -1,26 +1,14 @@
 require "rails_helper"
 
 describe AutoMailer do
-   include Rails.application.routes.url_helpers
+  include Rails.application.routes.url_helpers
 
-  context ".mail_job_assign" do
+  context ".job_assign" do
     before(:all) do
-      @job = FactoryGirl.create :job
-      @email = Faker::Internet.email
-      @name  = Faker::Name.first_name
-      @assignment = { title: @job[:title],
-                      email: @email,
-                      name: @name,
-                      coverage_type: @job[:coverage_type],
-                      contact: @job[:contact],
-                      deadline: @job[:due_date],
-                      location: @job[:loc],
-                      time: @job[:time],
-                      date: @job[:date],
-                      details: @job[:details],
-                      subject: "Tufts Daily Photo Assignment: #{@job.coverage_type} due on #{@job.due_date}"
-      }
-      @assignment_mailer = AutoMailer.mail_job_assign(@assignment)
+      @job     = FactoryGirl.create :job
+      @email   = Faker::Internet.email
+      @subject = "Tufts Daily Photo Assignment: #{@job.coverage_type} on #{@job.due_date} @ #{@job.time}"
+      @assignment_mailer = AutoMailer.job_assign(@email, @subject, @job)
     end
 
     it "should be set to be delivered to the user from the assignment passed in" do
@@ -32,30 +20,21 @@ describe AutoMailer do
     end
 
     it "should contain the message in the mail body" do
-      expect(@assignment_mailer).to have_body_text(/Dear #{@name},/)
+      expect(@assignment_mailer).to have_body_text(/Dear #{@job.full_name},/)
     end
 
     it "should have the correct subject" do
-      expect(@assignment_mailer).to have_subject("Tufts Daily Photo Assignment: #{@job.coverage_type} due on #{@job.due_date}")
+      expect(@assignment_mailer).to have_subject(@subject)
     end
   end
 
-  context ".mail_job_reject" do
+  context ".job_reject" do
     before(:all) do
-      @job = FactoryGirl.create :job
-      @email = Faker::Internet.email
-      @name  = Faker::Name.first_name
-      @assignment = { title: @job[:title],
-                      email: @email,
-                      name: @name,
-                      coverage_type: @job[:coverage_type],
-                      deadline: @job[:due_date],
-                      details: @job[:details],
-                      reason: "Test Reason is ...",
-                      id: @job.id,
-                      subject: "Your request for #{@job[:coverage_type]} needs more detail"
-      }
-      @assignment_mailer = AutoMailer.mail_job_reject(@assignment)
+      @job     = FactoryGirl.create :rejected_job
+      @email   = Faker::Internet.email
+      @name    = Faker::Name.first_name
+      @subject = "Your request for #{@job[:coverage_type]} needs more detail"
+      @assignment_mailer = AutoMailer.job_reject(@email, @subject, @job)
     end
 
     it "should be set to be delivered to the user from the assignment passed in" do
@@ -67,7 +46,7 @@ describe AutoMailer do
     end
 
     it "should contain the message in the mail body" do
-      expect(@assignment_mailer).to have_body_text(/#{@assignment[:reason]}/)
+      expect(@assignment_mailer).to have_body_text(/#{@job[:reason]}/)
     end
 
     it "should have the correct subject" do
@@ -75,18 +54,16 @@ describe AutoMailer do
     end
   end
 
-  context ".mail_job_members" do
+  context ".mail_members" do
     before(:all) do
-      @data = {
-        email: Faker::Internet.email,
-        subject: "Test Subject",
-        body: "Test Body"
-      }
-      @assignment_mailer = AutoMailer.mail_job_members(@data)
+      @email   = Faker::Internet.email
+      @subject = "Test Subject"
+      @body    = "Test Body"
+      @assignment_mailer = AutoMailer.mail_members(@email, @subject, @body)
     end
 
     it "should be set to be delivered to the user from the data passed in" do
-      expect(@assignment_mailer).to deliver_to(@data[:email])
+      expect(@assignment_mailer).to deliver_to(@email)
     end
 
     it "should be set to be send from dailyphoto@gmail.com" do
@@ -94,7 +71,7 @@ describe AutoMailer do
     end
 
     it "should contain the message in the mail body" do
-      expect(@assignment_mailer).to have_body_text("Test Body")
+      expect(@assignment_mailer).to have_body_text(/Test Body/)
     end
 
     it "should have the correct subject" do
@@ -104,11 +81,9 @@ describe AutoMailer do
 
   context ".mail_job" do
     before(:all) do
-      @email = Faker::Internet.email
-      @title = Faker::App.name
-      @id    = 5
-      @data = { job: { title: @title, id: @id }, editorEmail: @email }
-      @assignment_mailer = AutoMailer.mail_job(@data[:job], @data[:editorEmail])
+      @email             = Faker::Internet.email
+      @job               = FactoryGirl.create :job
+      @assignment_mailer = AutoMailer.mail_job(@email, @job)
     end
 
     it "should be set to be delivered to the user from the data passed in" do
@@ -120,7 +95,7 @@ describe AutoMailer do
     end
 
     it "should contain the message in the mail body" do
-      expect(@assignment_mailer).to have_body_text("Successfully added or updated job: #{@title} (##{@id}). Check the jobs to see the new information.")
+      expect(@assignment_mailer).to have_body_text(/Successfully added or updated job: #{@job.title}/)
     end
 
     it "should have the correct subject" do
