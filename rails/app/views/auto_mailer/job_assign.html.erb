@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+  <h2> Tufts Daily Job Assignment </h2>
+  <p>Dear <%= @job.full_name %>,</p>
+  <p>Please cover the following assignment and let me know if you are unable.</p>
+  <p><strong>Assignment:</strong> <%= @job.title %></p>
+  <h3>Event Details:</h3>
+  <ul style="list-style-type:none">
+    <li><strong>Coverage type:                      </strong> <%= @job.coverage_type %></li>
+    <li><strong>Contact information for the subject:</strong> <%= @job.contact %></li>
+    <li><strong>Due on the Photoshelter server by:  </strong> <%= @job.due_date %></li>
+    <li><br></li>
+    <% if @job.loc %>
+      <li><strong>Where: </strong> <%= @job.loc %></li>
+    <% end %>
+    <% if @job.date %>
+      <li><strong>When: </strong> <%= @job.date %> <%= @job.time %></li>
+    <% end %>
+    <li><br></li>
+    <li><strong>Writer: </strong><%= @job.full_name %> <%= @job.section %> <em>(<%= @job.phone %>)</em>
+    <li><strong>Specifics: </strong><%= @job.details %></li>
+  </ul>
+  <br>
+  <p>Thank you for working on this assignment. If you have any questions please call Nick at 603-686-3733 or reply to this email. Please deliver all images onto the Photoshelter server via FTP by the specified deadline with captions, keywords, and proper toning. Full sized JPGs will suffice.</p>
+  <p>Have fun :)</p>
+  <p>Thank you,</p>
+  <p><em>The Tufts Daily Photo Team</em></p>
+  </body>
+  </html>

@@ -20,6 +20,12 @@ export default DS.Model.extend(EmberValidations.Mixin, {
   reason: DS.attr('string'),
   dailyMember: DS.belongsTo('daily-member', { async: true }),
 
+  // watch for state change, clearing reason if necessary
+  reasonObserver: function() {
+    var state = this.get('state');
+    if (state !== 2) { this.set('reason', null); }
+  }.observes('state'),
+
   validations: {
     email: {
       format: { 
@@ -27,11 +33,10 @@ export default DS.Model.extend(EmberValidations.Mixin, {
         message: "Enter a valid email"
       }
     },
+    fullName:     { presence: { message: "Enter the writer for this job" } },
     title:        { presence: { message: "Enter a title for the job" } },
     section:      { presence: { message: "Choose a section from the list" } },
     coverageType: { presence: { message: "Enter the kind of coverage" } },
-    publishDate:  { isFuture: true },
-    dueDate:      { isFuture: true },
     details:      { presence: { message: "You must submit details" } }
   },
 // NOTE state: 0 => unassigned, 1 => assigned, 2 => rejected 3 => completed, 4 => investigated, 5 => pending, 6 => archived, 7 => graphics

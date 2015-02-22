@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+  <h2> Tufts Daily Job Rejection </h2>
+  <p>Dear <%= @job.full_name %>,</p>
+  <p>You have submitted a request:</p>
+  <ul style="list-style-type:none">
+    <li><strong>Title:        </strong> <%= @job.title %></li>
+    <li><strong>Coverage type:</strong> <%= @job.coverage_type %></li>
+    <li><strong>Description:  </strong> <%= @job.details %></li>
+    <li><strong>Deadline:     </strong> <%= @job.due_date %></li>
+    <li><strong>Submitted on: </strong> <%= @job.created_at %></li>
+  </ul>
+  <p>Thank you for taking the time to do this.</p>
+  <p><%= @job.reason %></p>
+  <p>Please reply with any modification or additional ideas you may have, or edit the job request directly at:</p>
+  <p style="width:100%;text-align:center">http://jobs-tuftsdaily.herokuapp.com/#/job/<%= @job.id %></p>
+  <p>Thank you,</p>
+  <p><em>The Tufts Daily Photo Team</em></p>
+  </body>
+  </html>

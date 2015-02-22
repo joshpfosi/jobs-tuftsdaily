@@ -68,36 +68,27 @@ export default Ember.ArrayController.extend({
             deadline, job.loc, job.time, job.date, job.details));
     },
     setupMailReject: function() {
-      var job = this.get('selectedJobs')[0].get('data'), 
-      deadline = job.dueDate;
+      var job = this.get('selectedJobs')[0].get('data');
       this.set('email', job.email);
       this.set('subject', generateSubjectReject(job.coverageType));
       this.set('body', generateBodyReject(job.fullName, job.coverageType, 
-            job.title, job.details, deadline, job.createdAt, job.id));
+            job.title, job.details, job.dueDate, job.createdAt, job.id));
     },
     mailJobAssign: function() {
       var controller = this,
           job = this.get('selectedJobs')[0],
           member = this.get('selectedDailyMember'),
           email = this.get('email'), 
-          deadline = job.get('dueDate'),
           data = { 
-            title:         job.get('title'),
-            email:         email,
-            subject:       this.get('subject'),
-            name:          member.get('name'),
-            coverage_type: job.get('coverageType'),
-            contact:       job.get('contact'),
-            deadline:      deadline,
-            loc:           job.get('loc'),
-            time:          job.get('time'),
-            date:          job.get('date'),
-            details:       job.get('details')
+            type:    'assign',
+            email:   email,
+            subject: this.get('subject'),
+            id:     job.id
           };
 
       Ember.$.ajax({
         type: "POST",
-        url: 'api/mail_job?type=assign',
+        url: 'api/mail_job',
         data: data,
         success: function() {
           job.set('selected', false); // uncheck the check box
@@ -117,8 +108,7 @@ export default Ember.ArrayController.extend({
           controller.notify.success('Successfully sent email to ' + email + ' regarding job ' + job.get('title') + '.');
         },
         error: function() {
-          controller.notify.alert("Failed to ");
-          //send email to ' + email + ' regarding job ' + job.get('title') + '.');
+          controller.notify.alert("Failed to send email to " + email + ' regarding job ' + job.get('title') + '.');
         },
         dataType: 'json'
       });
@@ -126,51 +116,45 @@ export default Ember.ArrayController.extend({
     mailJobReject: function () {
       var controller = this,
       job        = this.get('selectedJobs')[0], 
-      deadline   = job.get('dueDate'),
       email      = job.get('email'),
       reason     = this.get('reason'),
       data = {
-        email:        email,
-        subject:      this.get('subject'),
-        name:         job.get('fullName'),
-        coverage_type: job.get('coverageType'),
-        title:        job.get('title'),
-        deadline:     deadline,
-        timestamp:    job.get('createdAt'),
-        details:      job.get('details'),
-        reason:       reason,
-        id:           job.get('id')
+        type:    'reject',
+        email:   email,
+        subject: this.get('subject'),
+        id:      job.get('id')
       };
 
       // NEEDSWORK: This could be refactored but not worth the time
       // reason isn't set in form as form doesn't know which job is selected
       job.set('reason', reason);
+      job.set('selected', false); // uncheck the check box
+      job.set('state', 2); // reject it
 
-      Ember.$.ajax({
-        type: "POST",
-        url: '/api/mail_job?type=reject',
-        data: data,
-        success: function() {
-          job.set('selected', false); // uncheck the check box
-          job.set('state', 2); // reject it
-
-          // clear associations
-          var member = job.get('daily_member');
-          // if assigned, remove job from daily_member and daily_member from job
-          if (member !== undefined) { 
-            member.get('jobs').removeObject(job);
-            member.save();
-            job.set('daily_member', null);
-          }
-          job.save();
-
-          controller.notify.success('Successfully sent email to ' + job.get('email') + ' regarding job ' + job.get('title') + '.');
-        },
-        error: function() {
-          controller.notify.alert('Failed to send email to ' + email + ' regarding job ' + job.get('title') + '.');
-        },
-        dataType: 'json'
+      // clear associations
+      var member = job.get('daily_member');
+      // if assigned, remove job from daily_member and daily_member from job
+      if (member !== undefined) { 
+        member.get('jobs').removeObject(job);
+        member.save();
+        job.set('daily_member', null);
+      }
+      job.save().then(function() {
+        Ember.$.ajax({
+          type: "POST",
+          url: '/api/mail_job',
+          data: data,
+          success: function() {
+            controller.notify.success('Successfully sent email to ' + job.get('email') + ' regarding job ' + job.get('title') + '.');
+          },
+          error: function() {
+            controller.notify.alert('Failed to send email to ' + email + ' regarding job ' + job.get('title') + '.');
+          },
+          dataType: 'json'
+        });
+      }, function() {
+        controller.notify.alert("Failed to save " + job.title + ".");
       });
     }
-  },
+  }
 });

@@ -1,34 +1,22 @@
 Dear <%= @name %>,
-<br>
-<br>
+
 You have submitted a request:
-<br>
-<br>
+
 Title: <%= @title %>
-<br>
 Coverage Type: <%= @coverage_type %>
-<br>
 Description: <%= @details %>
-<br>
 Deadline: <%= @deadline %>
-<br>
-<br>
+
 Submitted on: <%= @timestamp %>
-<br>
-<br>
+
 Thank you for taking the time to do this.
-<br>
-<br>
-<%= @reason %>
-<br>
-<br>
+
+<%= @job.reason %>
+
 Please reply with any modification or additional ideas you may have, or edit the job request directly at:
-<br>
-<br>
+
  http://jobs-tuftsdaily.herokuapp.com/#/job/<%= @id %>
-<br>
-<br>
+
 Thank you,
-<br>
-<br>
+
 The Tufts Daily Photo Team
