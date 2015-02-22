@@ -1,0 +1,27 @@
+Dear <%= @job.full_name %>,
+
+Please cover the following assignment and let me know if you are unable.
+
+Assignment: <%= @job.title %>
+
+Event Details:
+
+Coverage type: <%= @job.coverage_type %>
+Contact information for the subject: <%= @job.contact %>
+Due on the Photoshelter server by: <%= @job.due_date %>
+
+<% if @job.loc %>
+Where: <%= @job.loc %>
+<% end %>
+<% if @job.date %>
+When: <%= @job.date %> <%= @job.time %>
+<% end %>
+
+Writer: <%= @job.full_name %> <%= @job.section %> (<%= @job.phone %>)
+Specifics: <%= @job.details %>
+
+Thank you for working on this assignment. If you have any questions please call Nick at 603-686-3733 or reply to this email. Please deliver all images onto the Photoshelter server via FTP by the specified deadline with captions, keywords, and proper toning. Full sized JPGs will suffice.
+
+Thank you,
+
+The Tufts Daily Photo Team

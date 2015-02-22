@@ -25,6 +25,7 @@ RSpec.describe Job, :type => :model do
   it { should be_valid }
 
   it { should validate_presence_of(:title) }
+  it { should validate_presence_of(:full_name) }
   it { should validate_presence_of(:section) }
   it { should validate_presence_of(:coverage_type) }
   it { should validate_presence_of(:publish_date) }
