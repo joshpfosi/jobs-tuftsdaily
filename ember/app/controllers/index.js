@@ -27,6 +27,7 @@ export default Ember.ObjectController.extend({
     save: function(callback) {
       var controller = this;
       var promise = this.get('model').save().then(function(job) {
+        controller.notify.success('Successfully submitted a job request.');
         controller.set('model', controller.store.createRecord('job'));
 
         var editorEmail = getEditorEmail(job.get('section'));
@@ -37,14 +38,14 @@ export default Ember.ObjectController.extend({
         // send mail
         return Ember.$.ajax({
           type: 'POST', url: 'api/mail_job?type=job',
-          data: { job: job.get('data'), editorEmail: editorEmail },
+          data: { id: job.get('id'), email: editorEmail },
           success: function() {
-            controller.notify.success('Successfully submitted a job request.');
             controller.notify.success('Successfully notified the administrator.');
             location.reload();
           },
           error: function() {
             controller.notify.alert('Failed to notify the administrator - please contact him.');
+            location.reload();
           },
           dataType: 'json'
         });

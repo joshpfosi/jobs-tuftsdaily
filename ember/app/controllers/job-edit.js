@@ -18,10 +18,7 @@ export default Ember.ObjectController.extend({
         controller.notify.success('Successfully saved the job.');
         return Ember.$.ajax({
           type: 'POST', url: 'api/mail_job?type=update_job',
-          data: { 
-            title: model.get('title'),
-            id:    model.get('id')
-          },
+          data: { id: model.get('id') },
           success: function() {
             controller.notify.success('Successfully notified administrator.');
             controller.transitionToRoute('jobs');
