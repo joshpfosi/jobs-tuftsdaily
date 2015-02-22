@@ -16,7 +16,7 @@ class Api::MailJobController < ApplicationController
       AutoMailer.mail_members(email, subject, params[:body]).deliver_later
     elsif job_type == 'job'
       AutoMailer.mail_job("npfosi@gmail.com", job).deliver_later
-      AutoMailer.mail_job(params[:editorEmail], job).deliver_later
+      AutoMailer.mail_job(email, job).deliver_later
     elsif job_type == 'update_job'
       AutoMailer.mail_job("npfosi@gmail.com", job).deliver_later
     end
