@@ -86,31 +86,36 @@ export default Ember.ArrayController.extend({
             id:     job.id
           };
 
-      Ember.$.ajax({
-        type: "POST",
-        url: 'api/mail_job',
-        data: data,
-        success: function() {
-          job.set('selected', false); // uncheck the check box
-          job.set('state', 1); // assign it
+      job.set('selected', false); // uncheck the check box
+      job.set('state', 1); // assign it
 
-          // establish associations
-          var currentMem = job.get('daily_member'); // unassign old member
-          if (currentMem !== undefined) {
-            currentMem.get('jobs').removeObject(job); 
-          }
-          job.set('daily_member', member);                // assign new one
-          job.save();
-
-          member.get('jobs').pushObject(job);
-          member.save();
-
-          controller.notify.success('Successfully sent email to ' + email + ' regarding job ' + job.get('title') + '.');
-        },
-        error: function() {
-          controller.notify.alert("Failed to send email to " + email + ' regarding job ' + job.get('title') + '.');
-        },
-        dataType: 'json'
+      // establish associations
+      var currentMem = job.get('daily_member'); // unassign old member
+      if (currentMem !== undefined) {
+        currentMem.get('jobs').removeObject(job); 
+      }
+      job.set('daily_member', member);                // assign new one
+      job.save().then(function(job) {
+        member.get('jobs').pushObject(job);
+        member.save().then(function() {
+          // success -> mail
+          Ember.$.ajax({
+            type: "POST",
+            url: 'api/mail_job',
+            data: data,
+            success: function() {
+              controller.notify.success('Successfully sent email to ' + email + ' regarding job ' + job.get('title') + '.');
+            },
+            error: function() {
+                     controller.notify.alert("Failed to send email to " + email + ' regarding job ' + job.get('title') + '.');
+                   },
+            dataType: 'json'
+          });
+        }, function() {
+          controller.notify.alert("Failed to update member. Contact admin.");
+        });
+      }, function() {
+        controller.notify.alert("Failed to update job. Contact admin.");
       });
     },
     mailJobReject: function () {
