@@ -1,13 +1,13 @@
-Dear <%= @name %>,
+Dear <%= @job.full_name %>,
 
 You have submitted a request:
 
-Title: <%= @title %>
-Coverage Type: <%= @coverage_type %>
-Description: <%= @details %>
-Deadline: <%= @deadline %>
+Title: <%= @job.title %>
+Coverage Type: <%= @job.coverage_type %>
+Description: <%= @job.details %>
+Deadline: <%= @job.due_date %>
 
-Submitted on: <%= @timestamp %>
+Submitted on: <%= @job.timestamp %>
 
 Thank you for taking the time to do this.
 
@@ -15,7 +15,7 @@ Thank you for taking the time to do this.
 
 Please reply with any modification or additional ideas you may have, or edit the job request directly at:
 
- http://jobs-tuftsdaily.herokuapp.com/#/job/<%= @id %>
+ http://jobs-tuftsdaily.herokuapp.com/#/job/<%= @job.id %>
 
 Thank you,
 

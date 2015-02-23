@@ -12,6 +12,10 @@ FactoryGirl.define do
     details { Faker::Lorem.paragraph(3) }
     state 0
 
+    factory :assigned_job do
+      daily_member
+    end
+
     factory :rejected_job do
       state 2
       reason "Test Reason is ..."
