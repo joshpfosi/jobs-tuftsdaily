@@ -5,7 +5,8 @@ class AutoMailer < ActionMailer::Base
   # data : ids of relevant records
 
   def job_assign(email, subject, job)
-    @job = job
+    @job    = job
+    @member = DailyMember.find(job.daily_member) # cannot be null if assigned
     mail(to: email, subject: subject)
   end
 
