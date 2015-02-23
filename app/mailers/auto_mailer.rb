@@ -6,7 +6,7 @@ class AutoMailer < ActionMailer::Base
 
   def job_assign(email, subject, job)
     @job    = job
-    @member = DailyMember.find(job.daily_member_id) # cannot be null if assigned
+    @member = DailyMember.find(job.daily_member_id) unless job.daily_member_id.nil?
     mail(to: email, subject: subject)
   end
 
