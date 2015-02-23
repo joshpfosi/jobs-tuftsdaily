@@ -5,7 +5,7 @@ describe AutoMailer do
 
   context ".job_assign" do
     before(:all) do
-      @job     = FactoryGirl.create :job
+      @job     = FactoryGirl.create :assigned_job
       @email   = Faker::Internet.email
       @subject = "Tufts Daily Photo Assignment: #{@job.coverage_type} on #{@job.due_date} @ #{@job.time}"
       @assignment_mailer = AutoMailer.job_assign(@email, @subject, @job)
@@ -20,7 +20,7 @@ describe AutoMailer do
     end
 
     it "should contain the message in the mail body" do
-      expect(@assignment_mailer).to have_body_text(/Dear #{@job.full_name},/)
+      expect(@assignment_mailer).to have_body_text(/Dear #{DailyMember.first.name},/)
     end
 
     it "should have the correct subject" do

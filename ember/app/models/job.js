@@ -33,7 +33,6 @@ export default DS.Model.extend(EmberValidations.Mixin, {
         message: "Enter a valid email"
       }
     },
-    fullName:     { presence: { message: "Enter the writer for this job" } },
     title:        { presence: { message: "Enter a title for the job" } },
     section:      { presence: { message: "Choose a section from the list" } },
     coverageType: { presence: { message: "Enter the kind of coverage" } },
