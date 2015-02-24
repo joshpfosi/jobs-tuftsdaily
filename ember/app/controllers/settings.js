@@ -28,13 +28,13 @@ export default Ember.ArrayController.extend({
     deleteDailyMember: function(member) {
       // clear relationships
       member.get('jobs').forEach(function(job) {
-        job.set('daily_member', null); job.save();
+        job.set('dailyMember', null); job.save();
       });
 
       member.destroyRecord();
     },
     showNewDailyMember: function() {
-      this.set('editMember', this.store.createRecord('daily_member'));
+      this.set('editMember', this.store.createRecord('dailyMember'));
     },
     editOldDailyMember: function(member) {
       this.set('editMember', member);

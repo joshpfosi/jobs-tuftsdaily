@@ -7,8 +7,8 @@ export default Ember.Route.extend(AuthenticatedRouteMixin, {
   },
   setupController: function(controller, model) {
     controller.set('model', model);
-    this.store.find('daily_member').then(function(members) {
-      controller.set('daily_members', members); // for use in drop down 
+    this.store.find('dailyMember').then(function(members) {
+      controller.set('dailyMembers', members); // for use in drop down 
     });
   }
 });

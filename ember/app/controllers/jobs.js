@@ -90,11 +90,12 @@ export default Ember.ArrayController.extend({
       job.set('state', 1); // assign it
 
       // establish associations
-      var currentMem = job.get('daily_member'); // unassign old member
-      if (currentMem !== undefined) {
-        currentMem.get('jobs').removeObject(job); 
+      var jobs = job.get('dailyMember').get('jobs'); // unassign old member
+      if (jobs !== undefined) {
+        jobs.removeObject(job); 
       }
-      job.set('daily_member', member);                // assign new one
+
+      job.set('dailyMember', member);                // assign new one
       job.save().then(function(job) {
         member.get('jobs').pushObject(job);
         member.save().then(function() {
@@ -137,12 +138,12 @@ export default Ember.ArrayController.extend({
       job.set('state', 2); // reject it
 
       // clear associations
-      var member = job.get('daily_member');
-      // if assigned, remove job from daily_member and daily_member from job
+      var member = job.get('dailyMember');
+      // if assigned, remove job from dailyMember and dailyMember from job
       if (member !== undefined) { 
         member.get('jobs').removeObject(job);
         member.save();
-        job.set('daily_member', null);
+        job.set('dailyMember', null);
       }
       job.save().then(function() {
         Ember.$.ajax({
