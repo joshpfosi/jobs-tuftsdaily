@@ -18,7 +18,7 @@ export default DS.Model.extend(EmberValidations.Mixin, {
   date: DS.attr('string'),
   time: DS.attr('string'),
   reason: DS.attr('string'),
-  dailyMember: DS.belongsTo('daily-member', { async: true }),
+  dailyMember: DS.belongsTo('dailyMember'),
 
   // watch for state change, clearing reason if necessary
   reasonObserver: function() {

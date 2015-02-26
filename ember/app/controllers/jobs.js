@@ -86,16 +86,16 @@ export default Ember.ArrayController.extend({
             id:     job.id
           };
 
+      // establish associations
+      var oldMember = job.get('dailyMember');
+      if (oldMember !== null) { 
+        oldMember.get('jobs').removeObject(job); // remove old member
+      }
+      job.set('dailyMember', member);            // assign new
+
       job.set('selected', false); // uncheck the check box
       job.set('state', 1); // assign it
 
-      // establish associations
-      var jobs = job.get('dailyMember').get('jobs'); // unassign old member
-      if (jobs !== undefined) {
-        jobs.removeObject(job); 
-      }
-
-      job.set('dailyMember', member);                // assign new one
       job.save().then(function(job) {
         member.get('jobs').pushObject(job);
         member.save().then(function() {
@@ -131,26 +131,28 @@ export default Ember.ArrayController.extend({
         id:      job.get('id')
       };
 
+      // clear associations
+      var member = job.get('dailyMember');
+      // if assigned, remove job from dailyMember and dailyMember from job
+      if (member !== null) { 
+        member.get('jobs').removeObject(job);
+        member.save();
+        job.set('dailyMember', null);
+      }
+
       // NEEDSWORK: This could be refactored but not worth the time
       // reason isn't set in form as form doesn't know which job is selected
       job.set('reason', reason);
       job.set('selected', false); // uncheck the check box
       job.set('state', 2); // reject it
 
-      // clear associations
-      var member = job.get('dailyMember');
-      // if assigned, remove job from dailyMember and dailyMember from job
-      if (member !== undefined) { 
-        member.get('jobs').removeObject(job);
-        member.save();
-        job.set('dailyMember', null);
-      }
       job.save().then(function() {
         Ember.$.ajax({
           type: "POST",
           url: '/api/mail_job',
           data: data,
           success: function() {
+            controller.set('reason', null);
             controller.notify.success('Successfully sent email to ' + job.get('email') + ' regarding job ' + job.get('title') + '.');
           },
           error: function() {
